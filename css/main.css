@@ -44,3 +44,14 @@ section legend {
 .nova-pessoa section {
     padding: 15px;
 }
+
+
+
+
+.fixed-action-btn {
+    bottom: 90px;
+}
+
+.page-footer {
+    padding-top: 0;
+}

@@ -10,6 +10,7 @@
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta charset="utf-8"/>
     </head>
 
     <body>
@@ -18,13 +19,6 @@
         <script type="text/javascript" src="js/materialize.min.js"></script>
 
         <script type="text/javascript" src="js/init.js"></script>
-
-        <script>
-            $(document).ready(function() {
-                $(".button-collapse").sideNav();
-            });
-        </script>
-
 
         <ul id="slide-out" class="side-nav">
             <li>
@@ -35,24 +29,18 @@
                     <div class="logo">
                         <img src="images/logo.png">
                     </div>
-
-                    <!--<a href="#!user"><img class="circle" src="images/yuna.jpg"></a>-->
                     <a href="#!name"><span class="black-text name">Rodrigo Baroni</span></a>
-                    <!--<a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>-->
                 </div>
             </li>
             <li><div class="divider"></div></li>
-            <!--<li><a href="#!"><i class="material-icons">cloud</i>First Link With Icon</a></li>-->
-            <li><a href="index.html">Home</a></li>
-            <li><a href="add-pessoa.html">Pessoas</a></li>
-            <li><a href="#!">Clientes</a></li>
-            <li><a href="#!">Parceiros</a></li>
-            <!--<li><a href="#!">Pessoas</a></li>-->
-            <!--<li><a class="subheader">Subheader</a></li>
-            <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>-->
+            <li><a href="pessoas.html">Pessoas</a></li>
+            <li><a href="#!" class="subheader">Parceiros</a></li>
+            <li><a href="#!" class="subheader">Clientes</a></li>
         </ul>
         
         <a href="#" data-activates="slide-out" class="show-side-nav button-collapse"><i class="small icon-black material-icons">menu</i></a>        
+        
+
         <main>
         <div class="container">
             
@@ -178,6 +166,21 @@
 
         </div>
         </main>
+
+
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">more_vert</i>
+    </a>
+    <ul>
+      <li><a href="add-pessoa.html" class="btn-floating red"><i class="material-icons">perm_identity</i></a></li>
+      <li><a class="btn-floating blue darken-1"><i class="material-icons">store</i></a></li>
+      <li><a class="btn-floating green"><i class="material-icons">call_merge</i></a></li>
+    </ul>
+  </div>
+
+
+
         <footer class="page-footer orange">
             <div class="footer-copyright">
                 <div class="container">
