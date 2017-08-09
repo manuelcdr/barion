@@ -1,0 +1,9 @@
+
+
+
+<div class="input-field col s{{col}}">
+  <i *ngIf="icon" class="material-icons prefix">{{icon}}</i>
+  <input *ngIf="ehModel" ngModel [id]="id"  [name]="nome" [attr.placeholder]="placeholder ? placeholder : null" [type]="tipo" class="{{validar ? 'validate' : ''}} {{classes}}">
+  <input *ngIf="!ehModel" [id]="id" [name]="nome" [attr.placeholder]="placeholder ? placeholder : null" [type]="tipo" class="{{validar ? 'validate' : ''}} {{classes}}">
+  <label [for]="id" [attr.data-error]="mensagemDeErro ? mensagemDeErro : null" [attr.data-success]="mensagemDeSucesso ? mensagemDeSucesso : null">{{label}}</label>
+</div>    
