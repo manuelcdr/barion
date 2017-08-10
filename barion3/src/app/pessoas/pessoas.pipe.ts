@@ -1,18 +1,14 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe } from '@angular/core';
 import { Pessoa } from "./pessoa/pessoa.component";
+import { FiltroSimplesPipe } from "../global/filtroSimples.pipe";
 
 @Pipe({
   name: 'filtroPessoas'
 })
-export class PessoasPipe implements PipeTransform {
-
-  transform(pessoas : Pessoa[], filtro : string) {
-        filtro = filtro.toLowerCase().trim();
-        
-        if (filtro == '') 
-            return pessoas;
-
-        return pessoas.filter(pessoa => pessoa.nome.toLowerCase().includes(filtro));
+export class PessoasPipe extends FiltroSimplesPipe<Pessoa> {
+    
+    retornaTextoDeComparacaoDoObjeto(obj: Pessoa): string {
+        throw new Error("Method not implemented.");
     }
 
 }

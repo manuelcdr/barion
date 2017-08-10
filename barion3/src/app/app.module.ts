@@ -7,18 +7,14 @@ import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
 import { routing } from './app.routes';
 import { AppComponent } from './app.component';
-import { PessoasComponent } from './pessoas/pessoas.component';
 import { PessoasModule } from "./pessoas/pessoas.module";
-import { ColigadosComponent } from './coligados/coligados.component';
-import { ParceirosComponent } from './parceiros/parceiros.component';
-import { ColigadoComponent } from './coligados/coligado/coligado.component';
 import { GlobalModule } from "./global/global.module";
 import { ColigadosModule } from "./coligados/coligados.module";
+import { ParceirosModule } from "./parceiros/parceiros.module";
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ParceirosComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +24,8 @@ import { ColigadosModule } from "./coligados/coligados.module";
     ReactiveFormsModule,
     PessoasModule,
     GlobalModule,
-    ColigadosModule
+    ColigadosModule,
+    ParceirosModule
   ],
   providers: [],
   bootstrap: [AppComponent]

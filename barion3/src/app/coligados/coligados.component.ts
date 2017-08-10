@@ -19,7 +19,7 @@ export class ColigadosComponent implements OnInit {
     this.service = service;
     this.router = router;
 
-    service.lista().subscribe(
+    service.todos().subscribe(
       lista => {
         this.coligados = lista;
         console.log(this.coligados);

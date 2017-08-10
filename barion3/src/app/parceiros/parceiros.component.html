@@ -1,3 +1,47 @@
-<p>
-  parceiros works!
-</p>
+<nav class="segundo-navegador light-blue darken-2">
+    <div class="nav-wrapper">
+        <div class="col s12">
+            <a routerLink="" class="breadcrumb">Home</a>
+            <a routerLink="/parceiros" class="breadcrumb">Parceiros</a>
+        </div>
+    </div>
+</nav>
+<br><br>
+<div class="container">
+    <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input #filtro (keyup)="0" id="pesquisar" name="pesquisar" class="validate" type="text">
+            <label for="pesquisar">Pesquisar</label>
+        </div>
+    </div>
+
+    <div *ngIf="parceiros.length > 0" class="row">
+
+        <table class="parceiros bordered highlight">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>Cidade</th>
+                </tr>
+            </thead>
+
+            <tbody *ngFor="let parceiro of parceiros | filtroParceiros : filtro.value">
+                <tr class="hoverable" (click)="editar(parceiro)">
+                    <td>{{parceiro.nome}}</td>
+                    <td>{{parceiro.cnpj}}</td>
+                    <td>{{parceiro.cidade}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div *ngIf="parceiros.length == 0" class="row">
+        <p>
+            Não há parceiros cadastrados ou a busca não retornou resultado.
+        </p>
+    </div>
+
+</div>

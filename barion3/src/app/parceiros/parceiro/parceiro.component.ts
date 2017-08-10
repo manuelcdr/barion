@@ -1,25 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Pessoa } from "../pessoa";
-import { PessoasService } from "../pessoas.service";
+import { Parceiro } from "../parceiro";
+import { ParceirosService } from "../parceiros.service";
 import { ActivatedRoute, Router } from "@angular/router";
 
-declare var Materialize: any;
-declare var $: any;
+declare var Materialize : any;
+declare var $ : any;
 
 @Component({
-  selector: 'app-pessoa',
-  templateUrl: './pessoa.component.html',
-  styleUrls: ['./pessoa.component.css']
+  selector: 'app-parceiro',
+  templateUrl: './parceiro.component.html',
+  styleUrls: ['./parceiro.component.css']
 })
-export class PessoaComponent implements OnInit {
+export class ParceiroComponent implements OnInit {
 
-  pessoa: Pessoa = new Pessoa();
+  parceiro: Parceiro = new Parceiro();
 
-  service: PessoasService;
+  service: ParceirosService;
   route: ActivatedRoute;
   router: Router;
 
-  constructor(service: PessoasService, route: ActivatedRoute, router: Router) {
+  constructor(service: ParceirosService, route: ActivatedRoute, router: Router) {
     this.service = service;
     this.route = route;
     this.router = router;
@@ -31,10 +31,10 @@ export class PessoaComponent implements OnInit {
         if (id) {
           this.service.buscaPorId(id)
             .subscribe(
-            pessoa => {
-              this.pessoa = pessoa;
+            parceiro => {
+              this.parceiro = parceiro;
               console.log('recuperou o coligado');
-              console.log(pessoa);
+              console.log(parceiro);
             },
             erro => {
               console.log(erro);
@@ -44,30 +44,26 @@ export class PessoaComponent implements OnInit {
     );
   }
 
+  ngOnInit() {
+    //console.log(Materialize);
+  }
+
   ngAfterContentChecked() {
     console.log('passei');
-
+    Materialize.updateTextFields();
   }
 
-  ngAfterViewInit() {
-    $(document).ready(function () {
-
-      Materialize.updateTextFields();
-      $('.collapsible').collapsible();
-
-    });
-  }
 
   onSubmit(form) {
     console.log('onSubmit');
 
     this.service
-      .atualizaCadastra(this.pessoa)
+      .atualizaCadastra(this.parceiro)
       .subscribe(
       retorno => {
         console.log('tostei');
         Materialize.toast(retorno.msg, 5000);
-        this.router.navigate(['/pessoas'])
+        this.router.navigate(['/parceiros'])
         console.log(retorno.msg);
       },
       erro => {
@@ -76,10 +72,6 @@ export class PessoaComponent implements OnInit {
       );
 
     console.log('cadastrei');
-  }
-
-
-  ngOnInit() {
   }
 
 }

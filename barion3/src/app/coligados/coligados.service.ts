@@ -1,44 +1,13 @@
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Coligado } from "./coligado/coligado.component";
+import { HttpService } from "../global/http.service";
 
 @Injectable()
-export class ColigadosService {
-
-  http: Http;
-  headers: Headers;
-  url: string;
+export class ColigadosService extends HttpService<Coligado> {
 
   constructor(http: Http) {
-    this.http = http;
-    this.headers = new Headers();
-    this.headers.append('Content-type', 'application/json');
-    this.url = 'http://localhost:4500/api/coligados';
-  }
-
-  lista(): Observable<Coligado[]> {
-    return this.http
-      .get(this.url)
-      .map(res => res.json());
-  }
-
-  cadastra(coligado: Coligado): Observable<any> {
-    if (coligado.id > 0) {
-      return this.http
-        .put(`${this.url}/${coligado.id}`, JSON.stringify(coligado), { headers: this.headers })
-        .map(() => ({msg : 'Coligado atualizado com sucesso', alterado : true}));
-    }
-    return this.http
-      .post(this.url, JSON.stringify(coligado), { headers: this.headers })
-      .map(() => ({ msg : 'Coligado cadastrado com sucesso', alterado : false }));
-  }
-
-  buscaPorId(id: string): Observable<Coligado> {
-    let url = `${this.url}/${id}`;
-    return this.http
-      .get(`${this.url}/${id}`)
-      .map(res => res.json());
+    super(http, '/coligados');
   }
 
 }

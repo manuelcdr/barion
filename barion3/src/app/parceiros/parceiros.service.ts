@@ -1,14 +1,14 @@
 import { Http } from '@angular/http';
-import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { Pessoa } from "./pessoa/pessoa.component";
 import { HttpService } from "../global/http.service";
+import { Parceiro } from "./parceiro";
 
 @Injectable()
-export class PessoasService extends HttpService<Pessoa> {
+export class ParceirosService extends HttpService<Parceiro> {
 
   constructor(http: Http) {
-    super(http, '/pessoas');
+    super(http, '/parceiros');
   }
 
 }
+

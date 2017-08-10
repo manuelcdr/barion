@@ -1,11 +1,14 @@
+<nav class="segundo-navegador light-blue darken-2">
+  <div class="nav-wrapper">
+    <div class="col s12">
+      <a routerLink="" class="breadcrumb">Home</a>
+      <a routerLink="/pessoas" class="breadcrumb">Pessoas</a>
+    </div>
+  </div>
+</nav>
+<br>
 <div class="container">
   <div class="row">
-    <div class="input-field col s12">
-      <input #textoBusca (keyup.enter)="buscar(textoBusca.value)" id="pesquisar" type="text">
-      <label for="pesquisar">Pesquisar</label>
-    </div>
-    <div class="row col s12">
-      {{pessoas}}
-    </div>
+    <div class="chips chips-autocomplete s12"></div>
   </div>
 </div>

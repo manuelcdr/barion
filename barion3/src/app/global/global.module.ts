@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { InputComponent } from './input/input.component';
 import { FormsModule } from "@angular/forms";
 import { ButtonComponent } from './button/button.component';
+import { ContainerInputComponent } from './container-input/container-input.component';
+import { CaminhoLinksComponent } from './caminho-links/caminho-links.component';
 
 @NgModule({
   imports: [
@@ -11,13 +13,16 @@ import { ButtonComponent } from './button/button.component';
   ],
   declarations: [
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    ContainerInputComponent,
+    CaminhoLinksComponent,
   ],
   exports: [
     InputComponent,
-    ButtonComponent
+    ButtonComponent,
+    CaminhoLinksComponent,
+    ContainerInputComponent
   ],
-  providers : [
-  ]
+  providers : []
 })
 export class GlobalModule { }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoasService } from "./pessoas.service";
-import { Pessoa } from "./pessoa/pessoa.component";
+import { Pessoa } from "./pessoa";
+
+declare var Materialize: any;
+declare var $: any;
 
 @Component({
   selector: 'app-pessoas',
@@ -9,7 +12,7 @@ import { Pessoa } from "./pessoa/pessoa.component";
 })
 export class PessoasComponent implements OnInit {
 
-  pessoas : Pessoa[] = [];
+  pessoas: Pessoa[] = [];
 
   service: PessoasService;
   mensagem: string = '';
@@ -17,7 +20,7 @@ export class PessoasComponent implements OnInit {
   constructor(service: PessoasService) {
     console.log('construi');
     this.service = service;
-    this.service.lista()
+    this.service.todos()
       .subscribe(
       retorno => {
         console.log(retorno);
@@ -25,6 +28,33 @@ export class PessoasComponent implements OnInit {
       },
       error => console.log(error)
       );
+  }
+
+  ngAfterViewInit() {
+    $(document).ready(function () {
+
+      console.log('chips1');
+
+      $('.chips-autocomplete').material_chip({
+        autocompleteOptions: {
+          data: {
+            'Apple': null,
+            'Microsoft': null,
+            'Google': null
+          },
+          limit: Infinity,
+          minLength: 1
+        },
+        placeholder: 'Digite algo para pesquisar',
+        secondaryPlaceholder: '+Tag'
+      });
+
+      console.log('chips2');
+    });
+  }
+
+  ngAfterViewChecked() {
+
   }
 
   buscar(busca: string) {

@@ -58,7 +58,7 @@ export class ColigadoComponent implements OnInit {
     console.log('onSubmit');
 
     this.service
-      .cadastra(this.coligado)
+      .atualizaCadastra(this.coligado)
       .subscribe(
       retorno => {
         console.log('tostei');
