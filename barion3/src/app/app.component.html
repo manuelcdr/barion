@@ -1,36 +1,38 @@
 <body>
 
-  <nav>
-    <div class="navbar-fixed light-blue darken-4">
-      <a href="#!" class="brand-logo center"><img src="assets/images/logo-main.png"></a>
-      <ul class="left hide-on-med-and-down">
-        <li><a routerLink="/pessoas">Pessoas</a></li>
-        <li><a routerLink="/coligados">Coligados</a></li>
-        <li><a routerLink="/parceiros">Parceiros</a></li>
-      </ul>
-    </div>
-  </nav>
+  <header>
+  </header>
+    <a href="#" data-activates="slide-out" class="botao-abrir-menu button-collapse left"><i class="material-icons">menu</i></a>
+
+    <ul id="slide-out" class="side-nav fixed blue-grey darken-3 blue-grey-text text-lighten-5 ">
+      <li class="logo-container">
+        <a routerLink="" class="brand-logo center">
+        <img src="assets/images/logo-main.png">
+      </a>
+      </li>
+      <li><a class="blue-grey-text text-lighten-3 waves-effect waves-orange" routerLink="/pessoas"><i class="material-icons left blue-grey-text text-lighten-3">perm_identity</i>Pessoas</a></li>
+      <li><a class="blue-grey-text text-lighten-3 waves-effect waves-teal" routerLink="/parceiros"><i class="material-icons left blue-grey-text text-lighten-3">store</i>Parceiros</a></li>
+      <li><a class="blue-grey-text text-lighten-3 waves-effect waves-green" routerLink="/coligados"><i class="material-icons left blue-grey-text text-lighten-3">call_merge</i>Coligados</a></li>
+    </ul>
 
   <main>
 
     <router-outlet></router-outlet>
+  </main>
 
     <div class="fixed-action-btn botao-principal-add">
       <a class="btn-floating btn-large red">
         <i class="large material-icons">add</i>
       </a>
       <ul>
-        <li><a href="add-pessoa.html" class="btn-floating red"><i class="material-icons">perm_identity</i></a></li>
+        <li><a routerLink="/pessoa" class="btn-floating orange"><i class="material-icons">perm_identity</i></a></li>
         <li><a routerLink="/parceiro" class="btn-floating blue darken-1"><i class="material-icons">store</i></a></li>
         <li><a routerLink="/coligado" class="btn-floating green"><i class="material-icons">call_merge</i></a></li>
       </ul>
     </div>
 
-  </main>
 
-
-
-  <footer class="page-footer light-blue darken-4">
+  <footer class="page-footer blue-grey darken-4">
     <div class="footer-copyright">
       <div class="container">
         Feito por <a class="orange-text text-lighten-3" href="#!">Manuel Cordeiro Neto</a>
@@ -39,41 +41,3 @@
   </footer>
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- The content below is only a placeholder and can be replaced.
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxOS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAyNTAgMjUwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyNTAgMjUwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojREQwMDMxO30NCgkuc3Qxe2ZpbGw6I0MzMDAyRjt9DQoJLnN0MntmaWxsOiNGRkZGRkY7fQ0KPC9zdHlsZT4NCjxnPg0KCTxwb2x5Z29uIGNsYXNzPSJzdDAiIHBvaW50cz0iMTI1LDMwIDEyNSwzMCAxMjUsMzAgMzEuOSw2My4yIDQ2LjEsMTg2LjMgMTI1LDIzMCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAJIi8+DQoJPHBvbHlnb24gY2xhc3M9InN0MSIgcG9pbnRzPSIxMjUsMzAgMTI1LDUyLjIgMTI1LDUyLjEgMTI1LDE1My40IDEyNSwxNTMuNCAxMjUsMjMwIDEyNSwyMzAgMjAzLjksMTg2LjMgMjE4LjEsNjMuMiAxMjUsMzAgCSIvPg0KCTxwYXRoIGNsYXNzPSJzdDIiIGQ9Ik0xMjUsNTIuMUw2Ni44LDE4Mi42aDBoMjEuN2gwbDExLjctMjkuMmg0OS40bDExLjcsMjkuMmgwaDIxLjdoMEwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMUwxMjUsNTIuMQ0KCQlMMTI1LDUyLjF6IE0xNDIsMTM1LjRIMTA4bDE3LTQwLjlMMTQyLDEzNS40eiIvPg0KPC9nPg0KPC9zdmc+DQo=">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="http://angularjs.blogspot.com/">Angular blog</a></h2>
-  </li>
-</ul>
- -->

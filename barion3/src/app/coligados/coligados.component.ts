@@ -10,12 +10,13 @@ import { Router } from "@angular/router";
 })
 export class ColigadosComponent implements OnInit {
 
-  service : ColigadosService;
+  service: ColigadosService;
   router: Router;
 
-  coligados : Coligado[] = [];
+  coligados: Coligado[] = [];
+  propriedades: string[] = [];
 
-  constructor(service : ColigadosService, router: Router) { 
+  constructor(service: ColigadosService, router: Router) {
     this.service = service;
     this.router = router;
 
@@ -29,15 +30,24 @@ export class ColigadosComponent implements OnInit {
       }
     );
 
+    this.service.buscaPropriedades()
+      .subscribe(
+      retorno => {
+        console.log(retorno);
+        this.propriedades = retorno;
+      },
+      erro => console.log(erro)
+      );
+
   }
 
   ngOnInit() {
   }
 
-  editar(coligado : Coligado) {
+  editar(coligado: Coligado) {
     console.log('editar');
     console.log(coligado);
-    
+
     this.router.navigate(['/coligados/' + coligado.id])
   }
 

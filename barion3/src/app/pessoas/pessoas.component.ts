@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PessoasService } from "./pessoas.service";
 import { Pessoa } from "./pessoa";
+import { ColigadosService } from "../coligados/coligados.service";
 
 declare var Materialize: any;
 declare var $: any;
@@ -13,6 +14,7 @@ declare var $: any;
 export class PessoasComponent implements OnInit {
 
   pessoas: Pessoa[] = [];
+  propriedades: string[];
 
   service: PessoasService;
   mensagem: string = '';
@@ -31,31 +33,67 @@ export class PessoasComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    $(document).ready(function () {
 
-      console.log('chips1');
+    new ColigadosService(this.service.http).buscaPropriedades()
+      .subscribe(
+      retorno => {
+        console.log(retorno);
 
-      $('.chips-autocomplete').material_chip({
-        autocompleteOptions: {
-          data: {
-            'Apple': null,
-            'Microsoft': null,
-            'Google': null
-          },
-          limit: Infinity,
-          minLength: 1
-        },
-        placeholder: 'Digite algo para pesquisar',
-        secondaryPlaceholder: '+Tag'
-      });
+        let propriedadesModificadas = {};
 
-      console.log('chips2');
-    });
+        for(let prop of retorno){
+          propriedadesModificadas[prop] = null;
+        }
+
+        $(document).ready(function () {
+
+          console.log('chips1');
+
+          $('.chips-autocomplete').material_chip({
+            autocompleteOptions: {
+              data: propriedadesModificadas,
+              limit: Infinity,
+              minLength: 1
+            },
+            placeholder: 'Digite algo para pesquisar',
+            secondaryPlaceholder: '+Tag'
+          });
+
+          console.log('chips2');
+        });
+
+
+
+
+
+
+
+        //this.propriedades = retorno;
+      },
+      erro => console.log(erro)
+      );
+    // var props = this.propriedades.slice(0, this.propriedades.length);
+
+    // console.log(props);
+
+    // var myConvertedData = {};
+
+
+    // for(var i = 0; i < props.length; ++i ) {
+    //   myConvertedData[this.propriedades[i]] = null;
+    // }
+
+    // $.each(props,  function (index, value) {
+    //   myConvertedData[value] = null;
+    // });
+
+    // console.log('propriedades: ');
+    // console.log(myConvertedData);
+
+
+
   }
 
-  ngAfterViewChecked() {
-
-  }
 
   buscar(busca: string) {
     console.log('busca:' + busca);

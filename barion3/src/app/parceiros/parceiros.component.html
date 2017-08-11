@@ -28,7 +28,7 @@
             </thead>
 
             <tbody *ngFor="let parceiro of parceiros | filtroParceiros : filtro.value">
-                <tr class="hoverable" (click)="editar(parceiro)">
+                <tr class="" (click)="editar(parceiro)">
                     <td>{{parceiro.nome}}</td>
                     <td>{{parceiro.cnpj}}</td>
                     <td>{{parceiro.cidade}}</td>

@@ -19,7 +19,7 @@ export class HttpService<T> implements IHttpService<T> {
   buscaPorId(id: string): Observable<T> {
     let url = `${this.url}/${id}`;
     return this.http
-      .get(`${this.url}/${id}`)
+      .get(url)
       .map(res => res.json());
   }
 
@@ -47,6 +47,12 @@ export class HttpService<T> implements IHttpService<T> {
     return this.http
       .delete(`${this.url}/${id}`)
       .map(res => new HttpResponseMessage('objeto deletado', true, 'DELETE'));
+  }
+
+  buscaPropriedades() : Observable<string[]> {
+    return this.http
+      .get(this.url + "/propriedades")
+      .map(res => res.json());
   }
 
 }
