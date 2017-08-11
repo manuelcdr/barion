@@ -17,15 +17,15 @@
 
         <div class="col s12">
           <ul class="tabs">
-            <li class="tab col s3"><a href="#test1">Dados pessoais</a></li>
-            <li class="tab col s3"><a class="active" href="#test2">Endereço</a></li>
-            <li class="tab col s3 disabled"><a href="#test3">Características</a></li>
-            <li class="tab col s3"><a href="#test4">Outros</a></li>
+            <li class="tab col s3"><a class="active" href="#tab-dados-pessoais">Dados pessoais</a></li>
+            <li class="tab col s3"><a href="#tab-endereco">Endereço</a></li>
+            <li class="tab col s3"><a href="#tab-caracteristicas">Características</a></li>
+            <li class="tab col s3"><a href="#tab-outros">Outros</a></li>
           </ul>
         </div>
-        <div id="test1" class="col s12">
+        <div id="tab-dados-pessoais" class="col s12">
           <div class="input-field col">
-            <input [(ngModel)]="pessoa.nomeCompleto" id="nome" name="nome" class="validate" type="text">
+            <input [(ngModel)]="pessoa.nome" id="nome" name="nome" class="validate" type="text">
             <label for="nome">Nome</label>
           </div>
 
@@ -70,7 +70,7 @@
           </div>
 
         </div>
-        <div id="test2" class="col s12">
+        <div id="tab-endereco" class="col s12">
           <div class="row">
 
             <div class="input-field col s4">
@@ -93,27 +93,127 @@
               <label for="bairro">Bairro</label>
             </div>
 
+            <div class="input-field col s3">
+              <input [(ngModel)]="pessoa.cep" id="cep" name="cep" class="validate" type="text">
+              <label for="cep">CEP</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input [(ngModel)]="pessoa.cidade" id="cidade" name="cidade" class="validate" type="text">
+              <label for="cidade">Cidade</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input [(ngModel)]="pessoa.estado" id="estado" name="estado" class="validate" type="text">
+              <label for="estado">Estado</label>
+            </div>
+
           </div>
 
         </div>
-        <div id="test3" class="col s12">
-          <div class="input-field col s4">
-            <input [(ngModel)]="pessoa.cidade" id="cidade" name="cidade" class="validate" type="text">
-            <label for="cidade">Cidade</label>
-          </div>
+        <div id="tab-caracteristicas" class="col s12">
+          <div class="row">
+            <div class="input-field col s3">
+              <input [(ngModel)]="pessoa.sexo" id="sexo" name="sexo" class="validate" type="text">
+              <label for="sexo">Sexo</label>
+            </div>
 
-          <div class="input-field col s4">
-            <input [(ngModel)]="pessoa.estado" id="estado" name="estado" class="validate" type="text">
-            <label for="estado">Estado</label>
-          </div>
+            <div class="input-field col s3">
+              <input [(ngModel)]="pessoa.altura" id="altura" name="altura" class="validate" type="text">
+              <label for="altura">Altura</label>
+            </div>
 
-          <div class="input-field col s4">
-            <input [(ngModel)]="pessoa.endereco" id="endereco" name="endereco" class="validate" type="text">
-            <label for="endereco">Endereço</label>
-          </div>
+            <div class="input-field col s3">
+              <input [(ngModel)]="pessoa.manequim" id="manequim" name="manequim" class="validate" type="text">
+              <label for="manequim">Manequim</label>
+            </div>
 
+            <div class="input-field col s3">
+              <input [(ngModel)]="pessoa.manequim" id="manequim" name="manequim" class="validate" type="text">
+              <label for="manequim">Manequim</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.etnia' id='etnia' name='etnia' class='validate' type='text'>
+              <label for='etnia'>Etnia</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.olhos' id='olhos' name='olhos' class='validate' type='text'>
+              <label for='olhos'>Olhos</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.cabelo' id='cabelo' name='cabelo' class='validate' type='text'>
+              <label for='cabelo'>Cabelo</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.cintura' id='cintura' name='cintura' class='validate' type='text'>
+              <label for='cintura'>Cintura</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.quadril' id='quadril' name='quadril' class='validate' type='text'>
+              <label for='quadril'>Quadril</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.busto' id='busto' name='busto' class='validate' type='text'>
+              <label for='busto'>Busto</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.sapato' id='sapato' name='sapato' class='validate' type='text'>
+              <label for='sapato'>Sapato</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.idioma' id='idioma' name='idioma' class='validate' type='text'>
+              <label for='idioma'>Idioma</label>
+            </div>
+
+          </div>
         </div>
-        <div id="test4" class="col s12">
+        <div id="tab-outros" class="col s12">
+          <div class="row">
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.habilitacao' id='habilitacao' name='habilitação' class='validate' type='text'>
+              <label for='habilitacao'>Habilitação</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.temCarro' id='temCarro' name='temCarro' class='validate' type='text'>
+              <label for='temCarro'>Tem carro?</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.horariosDisponiveis' id='horariosDisponiveis' name='horariosDisponiveis' class='validate' type='text'>
+              <label for='horariosDisponiveis'>Horários disponíveis</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.classificacao' id='classificacao' name='classificacao' class='validate' type='text'>
+              <label for='classificacao'>Classificação</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.banco' id='banco' name='banco' class='validate' type='text'>
+              <label for='banco'>Banco</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.agencia' id='agencia' name='agencia' class='validate' type='text'>
+              <label for='agencia'>Agência</label>
+            </div>
+
+            <div class='input-field col s3'>
+              <input [(ngModel)]='pessoa.conta' id='conta' name='conta' class='validate' type='text'>
+              <label for='conta'>Conta</label>
+            </div>
+
+          </div>
         </div>
       </div>
 

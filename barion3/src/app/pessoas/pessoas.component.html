@@ -9,6 +9,20 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="chips chips-autocomplete s12"></div>
+    <div class="input-field">
+      <i class="material-icons prefix">search</i>
+      <!-- <i class="material-icons left blue-grey-text text-lighten-3">search</i> -->
+      <div class="chips chips-autocomplete s12"></div>
+    </div>
+
+     <input (change)="0" value="{{filtroTags}}" type="text"> 
+  </div>
+
+  <div class="row">
+    <ul *ngFor="let pessoa of pessoas | filtroPessoas : filtro">
+      <li>
+        {{pessoa.nome}}
+      </li>
+    </ul>
   </div>
 </div>

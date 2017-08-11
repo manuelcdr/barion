@@ -3,7 +3,7 @@ export class Pessoa {
     id: number;
     
     //dados pessoais
-    nomeCompleto: string;
+    nome: string;
     dataNascimento: string;
     nacionalidade: string;
     estadoCivil: string;
@@ -39,10 +39,10 @@ export class Pessoa {
     idioma: string;
     
     // outros
-    habilitação: string;
+    habilitacao: string;
     temCarro: boolean;
     horariosDisponiveis: string;
-    classificação: string;
+    classificacao: string;
     banco: string;
     agencia: string;
     conta: string;

@@ -53,7 +53,8 @@ export class PessoaComponent implements OnInit {
     $(document).ready(function () {
 
       Materialize.updateTextFields();
-      $('.collapsible').collapsible();
+
+      $('ul.tabs').tabs();
 
     });
   }

@@ -14,7 +14,8 @@ declare var $: any;
 export class PessoasComponent implements OnInit {
 
   pessoas: Pessoa[] = [];
-  propriedades: string[];
+  filtro: PessoaFiltro = new PessoaFiltro();
+  filtroTags : string = '';
 
   service: PessoasService;
   mensagem: string = '';
@@ -22,103 +23,137 @@ export class PessoasComponent implements OnInit {
   constructor(service: PessoasService) {
     console.log('construi');
     this.service = service;
+  }
+
+  ngAfterViewInit() {
+
     this.service.todos()
       .subscribe(
       retorno => {
         console.log(retorno);
         this.pessoas = retorno;
+        this.filtro.pessoasPropriedades = this.pegaPropsPessoas(retorno);
       },
       error => console.log(error)
       );
-  }
 
-  ngAfterViewInit() {
-
-    new ColigadosService(this.service.http).buscaPropriedades()
+    this.service.buscaPropriedades()
       .subscribe(
       retorno => {
         console.log(retorno);
-
-        let propriedadesModificadas = {};
-
-        for(let prop of retorno){
-          propriedadesModificadas[prop] = null;
-        }
-
-        $(document).ready(function () {
-
-          console.log('chips1');
-
-          $('.chips-autocomplete').material_chip({
-            autocompleteOptions: {
-              data: propriedadesModificadas,
-              limit: Infinity,
-              minLength: 1
-            },
-            placeholder: 'Digite algo para pesquisar',
-            secondaryPlaceholder: '+Tag'
-          });
-
-          console.log('chips2');
-        });
-
-
-
-
-
-
-
-        //this.propriedades = retorno;
+        this.preparaChip(retorno);
       },
       erro => console.log(erro)
       );
-    // var props = this.propriedades.slice(0, this.propriedades.length);
-
-    // console.log(props);
-
-    // var myConvertedData = {};
-
-
-    // for(var i = 0; i < props.length; ++i ) {
-    //   myConvertedData[this.propriedades[i]] = null;
-    // }
-
-    // $.each(props,  function (index, value) {
-    //   myConvertedData[value] = null;
-    // });
-
-    // console.log('propriedades: ');
-    // console.log(myConvertedData);
-
-
-
   }
 
+  private preparaChip(props: string[]) {
 
-  buscar(busca: string) {
-    console.log('busca:' + busca);
-    busca.split(",").forEach(busca => {
-      busca = busca.trim();
-      console.log(busca);
-      let retornoBusca = new Array<string>();
+    let chipData = this.preparaPropriedades(props);
 
-      this.service.buscaPorId(busca).subscribe(
-        pessoa => {
-          console.log(pessoa);
-          //retornoBusca.push(pessoa);
-          //this.pessoas = retornoBusca;
-          console.log(this.pessoas);
+    $(document).ready(() => {
+
+      $('.chips-autocomplete').material_chip({
+        autocompleteOptions: {
+          data: chipData,
+          limit: Infinity,
+          minLength: 1
         },
-        erro => {
-          console.log(erro);
-        });
+        placeholder: 'Pesquisar pessoas',
+        secondaryPlaceholder: '+Tag'
+      });
+
+      this.onChipAdd();
+      this.onChipDelete();
+
     });
   }
 
+  private onChipAdd() {
+    $('.chips-autocomplete').on('chip.add',
+      (e, chip) => {
+        let tag = chip.tag;
+        let filtroAtualizado = new PessoaFiltro();
+        filtroAtualizado.filtros = this.filtro.filtros;
+        filtroAtualizado.pessoasPropriedades = this.filtro.pessoasPropriedades;
+        
+        filtroAtualizado.filtros.push(tag);
+        
+        
+        this.filtro = filtroAtualizado;
 
+        this.filtroTags += `(((${tag})))`;
 
+        console.log('tag added: ' + chip.tag);
+      }
+    );
+  }
+
+  private onChipDelete() {
+    $('.chips-autocomplete').on('chip.delete',
+      (e, chip) => {
+        let tag = chip.tag;
+        
+        let filtroAtualizado = new PessoaFiltro();
+        filtroAtualizado.filtros = this.filtro.filtros;
+        filtroAtualizado.pessoasPropriedades = this.filtro.pessoasPropriedades;
+
+        let i = filtroAtualizado.filtros.indexOf(tag, 0);
+        if (i > -1) {
+          filtroAtualizado.filtros.splice(i, 1);
+        }
+        this.filtro = filtroAtualizado;
+
+        this.filtroTags = this.filtroTags.replace(`(((${tag})))`, "");
+        
+        console.log('tag removed: ' + chip.tag);
+      }
+    );
+  }
+
+  private pegaPropsPessoas(pessoas: Pessoa[]): PessoasPropriedades[] {
+
+    var pessoasPropriedades = new Array<PessoasPropriedades>();
+
+    pessoas.forEach(pessoa => {
+      pessoasPropriedades.push(this.pegaPropsPessoa(pessoa))
+    })
+
+    return pessoasPropriedades;
+  }
+
+  private pegaPropsPessoa(pessoa: Pessoa): PessoasPropriedades {
+    var props = new PessoasPropriedades();
+    props.id = pessoa.id;
+
+    for (let key of Object.keys(pessoa)) {
+      props.propriedades.push(pessoa[key]);
+    }
+
+    return props;
+  }
+
+  private preparaPropriedades(props: string[]) {
+    let propriedadesModificadas = {};
+
+    for (let prop of props) {
+      propriedadesModificadas[prop] = null;
+    }
+
+    return propriedadesModificadas;
+  }
 
   ngOnInit() {
   }
 
+}
+
+export class PessoasPropriedades {
+  id: number;
+  propriedades: string[] = [];
+}
+
+export class PessoaFiltro {
+  pessoasPropriedades: PessoasPropriedades[] = []
+  filtros: string[] = []
 }
