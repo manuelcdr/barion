@@ -29,12 +29,12 @@ export class HttpService<T> implements IHttpService<T> {
     if (obj2.id > 0) {
       return this.http
         .put(`${this.url}/${obj2.id}`, JSON.stringify(obj2), { headers: this.headers })
-        .map(() => new HttpResponseMessage('Coligado atualizado com sucesso', true, 'PUT'));
+        .map(() => new HttpResponseMessage('Coligado atualizado com sucesso', true, 'PUT', obj2.id));
     }
 
     return this.http
       .post(this.url, JSON.stringify(obj2), { headers: this.headers })
-      .map(() => new HttpResponseMessage('Coligado cadastrado com sucesso', true, 'POST'));
+      .map(retorno => new HttpResponseMessage('Coligado cadastrado com sucesso', true, 'POST', retorno));
   }
 
   todos(): Observable<T[]> {
@@ -47,12 +47,6 @@ export class HttpService<T> implements IHttpService<T> {
     return this.http
       .delete(`${this.url}/${id}`)
       .map(res => new HttpResponseMessage('objeto deletado', true, 'DELETE'));
-  }
-
-  buscaPropriedades() : Observable<string[]> {
-    return this.http
-      .get(this.url + "/propriedades")
-      .map(res => res.json());
   }
 
 }
@@ -71,10 +65,12 @@ export class HttpResponseMessage {
   msg: string;
   success: boolean;
   method: string;
+  retornoObj : any;
 
-  constructor(msg: string, success: boolean, method: string) {
+  constructor(msg: string, success: boolean, method: string, retornoObj : any = null) {
     this.msg = msg;
     this.success = success;
     this.method = method;
+    this.retornoObj = retornoObj;
   }
 }

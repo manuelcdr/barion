@@ -25,3 +25,11 @@ nav.segundo-navegador a::before {
     margin: 2px 10px 0 8px !important;
     font-size: 10px !important;
 }
+
+ .autocomplete-content {
+    position: absolute !important;
+} 
+
+.breadcrumb:hover {
+    color: #fff;
+}

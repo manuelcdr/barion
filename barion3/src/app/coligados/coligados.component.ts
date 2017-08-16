@@ -30,15 +30,6 @@ export class ColigadosComponent implements OnInit {
       }
     );
 
-    this.service.buscaPropriedades()
-      .subscribe(
-      retorno => {
-        console.log(retorno);
-        this.propriedades = retorno;
-      },
-      erro => console.log(erro)
-      );
-
   }
 
   ngOnInit() {

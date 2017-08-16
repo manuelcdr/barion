@@ -1,0 +1,18 @@
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.deps.json
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.runtimeconfig.json
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.runtimeconfig.dev.json
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.dll
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.pdb
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.csprojResolveAssemblyReference.cache
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.AssemblyInfo.cs
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.dll
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.pdb
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.deps.json
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.runtimeconfig.json
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.runtimeconfig.dev.json
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.csprojResolveAssemblyReference.cache
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.AssemblyInfo.cs
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.dll
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\obj\Debug\netcoreapp1.1\BarionAPI.pdb
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.dll
+C:\Users\manue\Documents\Git\barion\BarionAPI\BarionAPI\bin\Debug\netcoreapp1.1\BarionAPI.pdb

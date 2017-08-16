@@ -6,13 +6,15 @@ import { GlobalModule } from "../global/global.module";
 import { ColigadosService } from "./coligados.service";
 import { FormsModule } from "@angular/forms";
 import { ColigadosPipe } from "./coligados.pipe";
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
   imports: [
     CommonModule,
     GlobalModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   declarations: [ 
     ColigadosComponent, 

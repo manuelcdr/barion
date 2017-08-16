@@ -6,17 +6,20 @@ import { PessoaComponent } from './pessoa/pessoa.component';
 import { PessoasService } from "./pessoas.service";
 import { GlobalModule } from "../global/global.module";
 import { FormsModule } from "@angular/forms";
+import { PessoaCardComponent } from './pessoa-card/pessoa-card.component';
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   imports: [
     CommonModule,
     GlobalModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   declarations: [
     PessoasComponent, 
     PessoasPipe, 
-    PessoaComponent],
+    PessoaComponent, PessoaCardComponent],
   exports: [
     PessoasComponent,
     PessoaComponent

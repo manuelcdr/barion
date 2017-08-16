@@ -6,12 +6,14 @@ import { FormsModule } from "@angular/forms";
 import { ParceiroComponent } from "./parceiro/parceiro.component";
 import { ParceirosComponent } from "./parceiros.component";
 import { ParceirosService } from "./parceiros.service";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   imports: [
     CommonModule,
     GlobalModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   declarations: [
     ParceirosPipe,

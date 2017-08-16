@@ -1,0 +1,16 @@
+<div class="card hoverable" routerLink="/pessoas/{{pessoaRef.id}}">
+  <div class="card-header card-image waves-effect waves-block waves-light">
+    <img class="img-rounded activator resizeimg" *ngIf="pessoaRef && pessoaRef.fotoRosto" class="activator" src="http://localhost:4500/api/pessoas/image/{{pessoaRef.fotoRosto}}">
+    <img class="img-rounded activator resizeimg" *ngIf="!(pessoaRef && pessoaRef.fotoRosto)" class="activator" src="assets/images/fotoRosto.jpg">
+    <!-- <span class="card-title">{{pessoaRef.nome}}</span> -->
+  </div>
+  <div class="card-content">
+    <p class='text-center truncate'>{{pessoaRef.nome}}</p>
+    <!-- <span class="card-title activator grey-text text-darken-4 truncate"></span> -->
+    <!-- <p><a routerLink="/pessoas/{{pessoaRef.id}}" >mais detalhes</a></p> -->
+  </div>
+  <!-- <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">{{pessoaRef.nome}}<i class="material-icons right">close</i></span>
+      <p>Here is some more information about this product that is only revealed once clicked on.</p>
+    </div> -->
+</div>

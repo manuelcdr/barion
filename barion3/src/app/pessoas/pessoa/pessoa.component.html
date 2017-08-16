@@ -1,226 +1,319 @@
 <nav class="segundo-navegador light-blue darken-2">
   <div class="nav-wrapper">
     <div class="col s12">
-      <a routerLink="">Home</a>
+      <a routerLink="" class="breadcrumb">Home</a>
       <a routerLink="/pessoas" class="breadcrumb">Pessoas</a>
       <a class="breadcrumb">{{pessoa.nome}}</a>
     </div>
   </div>
 </nav>
 <br>
-<div class="container">
-  <div class="row">
+<!-- <div class="container"> -->
+<div class="row">
+  <div class="col s3">
+    <div class="row">
+      <div *ngIf="pessoa && pessoa.fotoRosto" class="col s12">
+        <img class="foto materialboxed" data-caption="foto de rosto" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoRosto}}">        
+      </div>
+      <div *ngIf="!(pessoa && pessoa.fotoRosto)" class="col s12">
+        <img class="foto" data-caption="foto de rosto" src="assets/images/no-image.jpg">        
+      </div>
+    </div>
 
-    <form #f="ngForm" class="col s12" (ngSubmit)="onSubmit(f)">
+    <div class="row">
+      <div *ngIf="pessoa && pessoa.fotoCorpo1" class="col s12">
+        <img class="foto materialboxed" data-caption="foto de corpo" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoCorpo1}}">        
+      </div>
+      <!-- <div *ngIf="!(pessoa && pessoa.fotoCorpo1)" class="col s12">
+        <img class="foto" data-caption="foto de corpo" src="assets/images/no-image.jpg">        
+      </div> -->
+    </div>
 
-      <div class="row">
+    <div class="row">
+      <div *ngIf="pessoa && pessoa.fotoCorpo2" class="col s12">
+        <img class="foto materialboxed" data-caption="foto de rosto" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoCorpo2}}">        
+      </div>
+      <!-- <div *ngIf="!(pessoa && pessoa.fotoCorpo2)" class="col s12">
+        <img class="foto" data-caption="foto de corpo" src="assets/images/no-image.jpg">        
+      </div> -->
+    </div>
+  </div>
+  <form #f="ngForm" class="col s9" (ngSubmit)="onSubmit($event)" enctype="multipart/form-data">
 
-        <div class="col s12">
-          <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#tab-dados-pessoais">Dados pessoais</a></li>
-            <li class="tab col s3"><a href="#tab-endereco">Endereço</a></li>
-            <li class="tab col s3"><a href="#tab-caracteristicas">Características</a></li>
-            <li class="tab col s3"><a href="#tab-outros">Outros</a></li>
-          </ul>
+    <div class="row">
+
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col"><a class="active" href="#tab-dados-pessoais">Dados pessoais</a></li>
+          <li class="tab col"><a href="#tab-endereco">Endereço</a></li>
+          <li class="tab col"><a href="#tab-caracteristicas">Características</a></li>
+          <li class="tab col"><a href="#tab-imagens">Imagens</a></li>
+          <li class="tab col"><a href="#tab-outros">Outros</a></li>
+        </ul>
+      </div>
+      <div id="tab-dados-pessoais" class="col s12">
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.nome" id="nome" name="nome" class="validate" type="text">
+          <label for="nome">Nome</label>
         </div>
-        <div id="tab-dados-pessoais" class="col s12">
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.nome" id="nome" name="nome" class="validate" type="text">
-            <label for="nome">Nome</label>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.dataNascimento" id="dataNascimento" name="dataNascimento" class="validate" type="text">
+          <label for="dataNascimento">Data de nascimento</label>
+        </div>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.nacionalidade" id="nacionalidade" name="nacionalidade" class="validate autocomplete" type="text">
+          <label for="nacionalidade">Nascionalidade</label>
+        </div>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.estadoCivil" id="estadoCivil" name="estadoCivil" class="validate autocomplete" type="text">
+          <label for="estadoCivil">Estado civil</label>
+        </div>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.cpf" id="cpf" name="cpf" class="validate" type="text">
+          <label for="cpf">CPF</label>
+        </div>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.rg" id="rg" name="rg" class="validate" type="text">
+          <label for="rg">RG</label>
+        </div>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.email" id="email" name="email" class="validate" type="email">
+          <label for="email">E-mail</label>
+        </div>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.telefone" id="telefone" name="telefone" class="validate" type="text">
+          <label for="telefone">Telefone</label>
+        </div>
+
+        <div class="input-field col">
+          <input [(ngModel)]="pessoa.celular" id="celular" name="celular" class="validate" type="text">
+          <label for="celular">Celular</label>
+        </div>
+
+      </div>
+      <div id="tab-endereco" class="col s12">
+        <div class="row">
+
+          <div class="input-field col s4">
+            <input [(ngModel)]="pessoa.endereco" id="endereco" name="endereco" class="validate" type="text">
+            <label for="endereco">Endereço</label>
           </div>
 
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.dataNascimento" id="dataNascimento" name="dataNascimento" class="validate" type="text">
-            <label for="dataNascimento">Data de nascimento</label>
+          <div class="input-field col s1">
+            <input [(ngModel)]="pessoa.numero" id="numero" name="numero" class="validate" type="text">
+            <label for="numero">Número</label>
           </div>
 
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.nacionalidade" id="nacionalidade" name="nacionalidade" class="validate" type="text">
-            <label for="nacionalidade">Nascionalidade</label>
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.complemento" id="complemento" name="complemento" class="validate autocomplete" type="text">
+            <label for="complemento">Complemento</label>
           </div>
 
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.estadoCivil" id="estadoCivil" name="estadoCivil" class="validate" type="text">
-            <label for="estadoCivil">Estado civil</label>
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.bairro" id="bairro" name="bairro" class="validate autocomplete" type="text">
+            <label for="bairro">Bairro</label>
           </div>
 
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.cpf" id="cpf" name="cpf" class="validate" type="text">
-            <label for="cpf">CPF</label>
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.cep" id="cep" name="cep" class="validate autocomplete" type="text">
+            <label for="cep">CEP</label>
           </div>
 
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.rg" id="rg" name="rg" class="validate" type="text">
-            <label for="rg">RG</label>
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.cidade" id="cidade" name="cidade" class="validate autocomplete" type="text">
+            <label for="cidade">Cidade</label>
           </div>
 
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.email" id="email" name="email" class="validate" type="email">
-            <label for="email">E-mail</label>
-          </div>
-
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.telefone" id="telefone" name="telefone" class="validate" type="text">
-            <label for="telefone">Telefone</label>
-          </div>
-
-          <div class="input-field col">
-            <input [(ngModel)]="pessoa.celular" id="celular" name="celular" class="validate" type="text">
-            <label for="celular">Celular</label>
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.estado" id="estado" name="estado" class="validate autocomplete" type="text">
+            <label for="estado">Estado</label>
           </div>
 
         </div>
-        <div id="tab-endereco" class="col s12">
-          <div class="row">
 
-            <div class="input-field col s4">
-              <input [(ngModel)]="pessoa.endereco" id="endereco" name="endereco" class="validate" type="text">
-              <label for="endereco">Endereço</label>
-            </div>
+      </div>
+      <div id="tab-caracteristicas" class="col s12">
+        <div class="row">
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.sexo" id="sexo" name="sexo" class="validate autocomplete" type="text">
+            <label for="sexo">Sexo</label>
+          </div>
 
-            <div class="input-field col s1">
-              <input [(ngModel)]="pessoa.numero" id="numero" name="numero" class="validate" type="text">
-              <label for="numero">Número</label>
-            </div>
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.altura" id="altura" name="altura" class="validate autocomplete" type="text">
+            <label for="altura">Altura</label>
+          </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.complemento" id="complemento" name="complemento" class="validate" type="text">
-              <label for="complemento">Complemento</label>
-            </div>
+          <div class="input-field col s3">
+            <input [(ngModel)]="pessoa.manequim" id="manequim" name="manequim" class="validate autocomplete" type="text">
+            <label for="manequim">Manequim</label>
+          </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.bairro" id="bairro" name="bairro" class="validate" type="text">
-              <label for="bairro">Bairro</label>
-            </div>
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.etnia' id='etnia' name='etnia' class='validate autocomplete' type='text'>
+            <label for='etnia'>Etnia</label>
+          </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.cep" id="cep" name="cep" class="validate" type="text">
-              <label for="cep">CEP</label>
-            </div>
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.olhos' id='olhos' name='olhos' class='validate autocomplete' type='text'>
+            <label for='olhos'>Olhos</label>
+          </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.cidade" id="cidade" name="cidade" class="validate" type="text">
-              <label for="cidade">Cidade</label>
-            </div>
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.cabelo' id='cabelo' name='cabelo' class='validate autocomplete' type='text'>
+            <label for='cabelo'>Cabelo</label>
+          </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.estado" id="estado" name="estado" class="validate" type="text">
-              <label for="estado">Estado</label>
-            </div>
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.cintura' id='cintura' name='cintura' class='validate autocomplete' type='text'>
+            <label for='cintura'>Cintura</label>
+          </div>
 
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.quadril' id='quadril' name='quadril' class='validate autocomplete' type='text'>
+            <label for='quadril'>Quadril</label>
+          </div>
+
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.busto' id='busto' name='busto' class='validate autocomplete' type='text'>
+            <label for='busto'>Busto</label>
+          </div>
+
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.sapato' id='sapato' name='sapato' class='validate autocomplete' type='text'>
+            <label for='sapato'>Sapato</label>
+          </div>
+
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.idioma' id='idioma' name='idioma' class='validate autocomplete' type='text'>
+            <label for='idioma'>Idioma</label>
           </div>
 
         </div>
-        <div id="tab-caracteristicas" class="col s12">
-          <div class="row">
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.sexo" id="sexo" name="sexo" class="validate" type="text">
-              <label for="sexo">Sexo</label>
+      </div>
+      <div id="tab-outros" class="col s12">
+        <div class="row">
+          <div class="col s3">
+
+            <div class="switch">
+              <label>
+                  <input [(ngModel)]='pessoa.temCarro' name="temCarro" type="checkbox">
+                  <span class="lever"></span>
+                  Tem Carro
+                </label>
             </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.altura" id="altura" name="altura" class="validate" type="text">
-              <label for="altura">Altura</label>
+            <div class="switch">
+              <label>
+                <input [(ngModel)]='pessoa.temHabilitacao' name="temHabilitacao" type="checkbox" >
+                <span class="lever"></span>
+                Tem habilitação
+              </label>
             </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.manequim" id="manequim" name="manequim" class="validate" type="text">
-              <label for="manequim">Manequim</label>
-            </div>
 
-            <div class="input-field col s3">
-              <input [(ngModel)]="pessoa.manequim" id="manequim" name="manequim" class="validate" type="text">
-              <label for="manequim">Manequim</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.etnia' id='etnia' name='etnia' class='validate' type='text'>
-              <label for='etnia'>Etnia</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.olhos' id='olhos' name='olhos' class='validate' type='text'>
-              <label for='olhos'>Olhos</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.cabelo' id='cabelo' name='cabelo' class='validate' type='text'>
-              <label for='cabelo'>Cabelo</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.cintura' id='cintura' name='cintura' class='validate' type='text'>
-              <label for='cintura'>Cintura</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.quadril' id='quadril' name='quadril' class='validate' type='text'>
-              <label for='quadril'>Quadril</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.busto' id='busto' name='busto' class='validate' type='text'>
-              <label for='busto'>Busto</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.sapato' id='sapato' name='sapato' class='validate' type='text'>
-              <label for='sapato'>Sapato</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.idioma' id='idioma' name='idioma' class='validate' type='text'>
-              <label for='idioma'>Idioma</label>
-            </div>
+            <p>
+              <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.habilitacao_A" id="habilitacao_A" name="habilitacao_A" />
+              <label for="habilitacao_A">A</label>
+            </p>
+            <p>
+              <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.habilitacao_B" id="habilitacao_B" name="habilitacao_B" />
+              <label for="habilitacao_B">B</label>
+            </p>
+            <p>
+              <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.habilitacao_C" id="habilitacao_C" name="habilitacao_C" />
+              <label for="habilitacao_C">C</label>
+            </p>
+            <p>
+              <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.habilitacao_D" id="habilitacao_D" name="habilitacao_D" />
+              <label for="habilitacao_D">D</label>
+            </p>
 
           </div>
+
+          <div class="col s3">
+            <label>Horários disposíveis</label>
+            <p>
+              <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.horariosDisponiveis_Manha" id="horariosDisponiveis_Manha" name="horariosDisponiveis_Manha"
+              />
+              <label for="horariosDisponiveis_Manha">Manhã</label>
+            </p>
+            <p>
+              <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.horariosDisponiveis_Tarde" id="horariosDisponiveis_Tarde" name="horariosDisponiveis_Tarde"
+              />
+              <label for="horariosDisponiveis_Tarde">Tarde</label>
+            </p>
+            <p>
+              <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.horariosDisponiveis_Noite" id="horariosDisponiveis_Noite" name="horariosDisponiveis_Noite"
+              />
+              <label for="horariosDisponiveis_Noite">Noite</label>
+            </p>
+          </div>
+
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.banco' id='banco' name='banco' class='validate' type='text'>
+            <label for='banco'>Banco</label>
+          </div>
+
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.agencia' id='agencia' name='agencia' class='validate' type='text'>
+            <label for='agencia'>Agência</label>
+          </div>
+
+          <div class='input-field col s3'>
+            <input [(ngModel)]='pessoa.conta' id='conta' name='conta' class='validate' type='text'>
+            <label for='conta'>Conta</label>
+          </div>
+
         </div>
-        <div id="tab-outros" class="col s12">
-          <div class="row">
+      </div>
+      <div id="tab-imagens" class="col s12">
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>Foto de rosto</span>
+            <input #fotoRosto type="file" [(ngModel)]="pessoa.fileRosto" name="fileRosto" (change)="changeFotoRosto(fotoRosto)">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
 
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.habilitacao' id='habilitacao' name='habilitação' class='validate' type='text'>
-              <label for='habilitacao'>Habilitação</label>
-            </div>
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>corpo frente</span>
+            <input #fotoCorpo1 type="file" [(ngModel)]="pessoa.fileCorpo1" name="fileCorpo1">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
 
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.temCarro' id='temCarro' name='temCarro' class='validate' type='text'>
-              <label for='temCarro'>Tem carro?</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.horariosDisponiveis' id='horariosDisponiveis' name='horariosDisponiveis' class='validate' type='text'>
-              <label for='horariosDisponiveis'>Horários disponíveis</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.classificacao' id='classificacao' name='classificacao' class='validate' type='text'>
-              <label for='classificacao'>Classificação</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.banco' id='banco' name='banco' class='validate' type='text'>
-              <label for='banco'>Banco</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.agencia' id='agencia' name='agencia' class='validate' type='text'>
-              <label for='agencia'>Agência</label>
-            </div>
-
-            <div class='input-field col s3'>
-              <input [(ngModel)]='pessoa.conta' id='conta' name='conta' class='validate' type='text'>
-              <label for='conta'>Conta</label>
-            </div>
-
+        <div class="file-field input-field col s12">
+          <div class="btn">
+            <span>corpo frente</span>
+            <input #fotoCorpo2 type="file" [(ngModel)]="pessoa.fileCorpo2" name="fileCorpo2">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
           </div>
         </div>
       </div>
+    </div>
 
-      <app-button nome="send" icon="send" texto="{{pessoa.id > 0 ? 'Atualizar' : 'Cadastrar'}}" tipo="submit"></app-button>
+    <app-button nome="send" icon="send" texto="{{pessoa.id > 0 ? 'Atualizar' : 'Cadastrar'}}" tipo="submit"></app-button>
 
 
-    </form>
-  </div>
+  </form>
+
+
 
 </div>
+
+<!-- </div> -->

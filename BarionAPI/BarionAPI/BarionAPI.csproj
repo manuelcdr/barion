@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Uploads\Images\Pessoas\fieldNameHere-1-.png" />
+    <None Remove="Uploads\Images\Pessoas\fieldNameHere1" />
+    <None Remove="Uploads\Images\Pessoas\file0-1.png" />
+    <None Remove="Uploads\Images\Pessoas\file1-1.png" />
+    <None Remove="Uploads\Images\Pessoas\file2-1.png" />
+    <None Remove="Uploads\Images\Pessoas\fotoCorpo1-1.png" />
+    <None Remove="Uploads\Images\Pessoas\fotoCorpo2-1.png" />
+    <None Remove="Uploads\Images\Pessoas\fotoRosto-1.png" />
+    <None Remove="Uploads\Images\Pessoas\upload[]-1-.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Uploads\Images\Pessoas\" />
+    <Folder Include="Uploads\Images\Pessoas\" />
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
+  </ItemGroup>
+
+</Project>

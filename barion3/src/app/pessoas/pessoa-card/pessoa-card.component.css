@@ -1,0 +1,25 @@
+.card {
+  text-align: center;
+  height: 150px;
+}
+
+.card .card-content {
+    padding: .3rem;
+}
+
+.card .card-content p {
+    font-size: .7rem;
+}
+
+@media (max-width: 990px) {
+  .resizeimg {
+    height: auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  .resizeimg {
+    width: auto;
+    height: 350px;
+  }
+}

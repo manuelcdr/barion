@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Pessoa } from "./pessoa";
-import { PessoaFiltro, PessoasPropriedades } from "./pessoas.component";
+import { Pessoa, PessoasPropriedades } from "./pessoa";
+import { PessoaFiltro } from "./pessoas.component";
 
 @Pipe({
     name: 'filtroPessoas'
