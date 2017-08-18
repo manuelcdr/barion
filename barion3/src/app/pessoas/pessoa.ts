@@ -1,3 +1,5 @@
+import { TagsAdicionais, TagsPadroesOlhos, TagsPadroes } from "./tags";
+
 export class Pessoa {
 
     id: number;
@@ -64,6 +66,8 @@ export class Pessoa {
     fotoCorpo1: string;
     fotoCorpo2: string;
 
+    tagsAdicionais: string;
+
     static pegaPropsPessoas(pessoas: Pessoa[]): PessoasPropriedades[] {
 
         var pessoasPropriedades = new Array<PessoasPropriedades>();
@@ -80,12 +84,19 @@ export class Pessoa {
         props.id = pessoa.id;
 
         for (let key of Object.keys(pessoa)) {
-            props.propriedades.push(pessoa[key]);
+            let valor = pessoa[key];
+            props.propriedades.push(valor);
+
+            let tagAdicional = new TagsAdicionais().dicionario.filter(t => t.value.indexOf(valor) >= 0)[0];
+            if (tagAdicional)
+                props.propriedades.push(tagAdicional.key);
         }
 
         return props;
     }
 
+    // precisa colocar um valor null para cada propriedade para funcinar o auto-complete.
+    // este método recebe uma lista de propriedades e adiciona este valor null para cada uma.
     static preparaPropriedades(props: string[]) {
         let propriedadesModificadas = {};
 
@@ -96,12 +107,23 @@ export class Pessoa {
         return propriedadesModificadas;
     }
 
-    static preparaPropriedadesComNome(nome: string, props: PropriedadeComNome[]) {
-        let propriedadesModificadas = {};
+    static preparaPropriedadesComNome(nome: string, propsComNome: PropriedadeComNome[]) {
+        let props: string[] = new TagsPadroes().tagsPadroesPorNome(nome.toLowerCase());
 
-        let prop: PropriedadeComNome = props.filter(prop => prop.key.toLowerCase() == nome.toLowerCase())[0];
+        if (!props)
+            props = new Array<string>();
 
-        return this.preparaPropriedades(prop.value);
+        let filterProps = propsComNome
+            .filter(prop => prop.key.toLowerCase() == nome.toLowerCase())[0]
+            .value;
+
+        filterProps
+            .forEach(tag => {
+                if (props.indexOf(tag) < 0)
+                    props.push(tag);
+            });
+
+        return this.preparaPropriedades(props);
     }
 
 }

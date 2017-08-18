@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PessoasService } from "./pessoas.service";
 import { Pessoa, PessoasPropriedades } from "./pessoa";
 import { ColigadosService } from "../coligados/coligados.service";
+import { TagsAdicionais } from "./tags";
 
 declare var Materialize: any;
 declare var $: any;
@@ -41,7 +42,8 @@ export class PessoasComponent implements OnInit {
       .subscribe(
       retorno => {
         console.log(retorno);
-        this.preparaChip(retorno.todasPropriedades);
+        let props = new Array<string>().concat(retorno.todasPropriedades, new TagsAdicionais().todas);
+        this.preparaChip(props);
       },
       erro => console.log(erro)
       );
@@ -69,16 +71,24 @@ export class PessoasComponent implements OnInit {
     });
   }
 
+  mudaValoresExatos(valor: boolean) {
+    let filtro = new PessoaFiltro(this.filtro, null, null, null, valor);
+    this.filtro = filtro;;
+  }
+
+  mudaValidarTodos(valor: boolean) {
+    let filtro = new PessoaFiltro(this.filtro, null, null, valor);
+    this.filtro = filtro;
+  }
+
   private onChipAdd() {
     $('.chips-autocomplete').on('chip.add',
       (e, chip) => {
         let tag = chip.tag;
-        let filtroAtualizado = new PessoaFiltro();
-        filtroAtualizado.filtros = this.filtro.filtros;
-        filtroAtualizado.pessoasPropriedades = this.filtro.pessoasPropriedades;
+
+        let filtroAtualizado = new PessoaFiltro(this.filtro);
 
         filtroAtualizado.filtros.push(tag);
-
 
         this.filtro = filtroAtualizado;
 
@@ -94,9 +104,7 @@ export class PessoasComponent implements OnInit {
       (e, chip) => {
         let tag = chip.tag;
 
-        let filtroAtualizado = new PessoaFiltro();
-        filtroAtualizado.filtros = this.filtro.filtros;
-        filtroAtualizado.pessoasPropriedades = this.filtro.pessoasPropriedades;
+        let filtroAtualizado = new PessoaFiltro(this.filtro);
 
         let i = filtroAtualizado.filtros.indexOf(tag, 0);
         if (i > -1) {
@@ -117,6 +125,29 @@ export class PessoasComponent implements OnInit {
 }
 
 export class PessoaFiltro {
-  pessoasPropriedades: PessoasPropriedades[] = []
-  filtros: string[] = []
+  pessoasPropriedades: PessoasPropriedades[] = [];
+  filtros: string[] = [];
+  validarTodos: boolean = false;
+  valoresExatos: boolean = false;
+
+  constructor(pf: PessoaFiltro = null, pp: PessoasPropriedades[] = null, fs: string[] = null, vt: boolean = null, ve: boolean = null) {
+    if (pf != null) {
+      this.filtros = pf.filtros;
+      this.pessoasPropriedades = pf.pessoasPropriedades;
+      this.validarTodos = pf.validarTodos;
+      this.valoresExatos = pf.valoresExatos;
+    }
+
+    if (pp != null)
+      this.pessoasPropriedades = pp;
+
+    if (fs != null)
+      this.filtros = fs;
+
+    if (vt != null)
+      this.validarTodos = vt;
+
+    if (ve != null)
+      this.valoresExatos = ve;
+  }
 }

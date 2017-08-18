@@ -79,7 +79,8 @@ export class PessoaComponent implements OnInit {
   onSubmit(event: any) {
     console.log('onSubmit');
 
-    console.log(event);
+    console.log(event.value);
+    console.log(this.pessoa);
 
     this.service
       .atualizaCadastra(this.pessoa)
@@ -152,12 +153,22 @@ export class PessoaComponent implements OnInit {
         for (var i = 0; i < autoCompletes.length; i++) {
           let ac = autoCompletes[i];
           var props = Pessoa.preparaPropriedadesComNome(ac.name, propriedades);
+          $(ac).attr('autocomplete', 'off');
           $(ac).autocomplete({
             data: props,
             limit: Infinity,
-            minLength: 1
+            minLength: 1,
+            onAutocomplete: val => {
+              let novaPessoa = new Pessoa();
+              for (let key of Object.keys(this.pessoa)) {
+                if (ac.name == key)
+                  novaPessoa[key] = val;
+                else
+                  novaPessoa[key] = this.pessoa[key];
+              }
+              this.pessoa = novaPessoa;
+            }
           });
-          $(ac).attr('autocomplete', 'off');
         }
 
       },

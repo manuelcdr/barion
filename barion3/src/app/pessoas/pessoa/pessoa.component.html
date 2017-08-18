@@ -11,18 +11,21 @@
 <!-- <div class="container"> -->
 <div class="row">
   <div class="col s3">
+    <!-- <div class="row">
+      {{pessoa.nome}}
+    </div> -->
     <div class="row">
       <div *ngIf="pessoa && pessoa.fotoRosto" class="col s12">
-        <img class="foto materialboxed" data-caption="foto de rosto" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoRosto}}">        
+        <img class="foto materialboxed" data-caption="foto de rosto" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoRosto}}">
       </div>
       <div *ngIf="!(pessoa && pessoa.fotoRosto)" class="col s12">
-        <img class="foto" data-caption="foto de rosto" src="assets/images/no-image.jpg">        
+        <img class="foto" data-caption="foto de rosto" src="assets/images/no-image.jpg">
       </div>
     </div>
 
     <div class="row">
       <div *ngIf="pessoa && pessoa.fotoCorpo1" class="col s12">
-        <img class="foto materialboxed" data-caption="foto de corpo" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoCorpo1}}">        
+        <img class="foto materialboxed" data-caption="foto de corpo" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoCorpo1}}">
       </div>
       <!-- <div *ngIf="!(pessoa && pessoa.fotoCorpo1)" class="col s12">
         <img class="foto" data-caption="foto de corpo" src="assets/images/no-image.jpg">        
@@ -31,14 +34,14 @@
 
     <div class="row">
       <div *ngIf="pessoa && pessoa.fotoCorpo2" class="col s12">
-        <img class="foto materialboxed" data-caption="foto de rosto" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoCorpo2}}">        
+        <img class="foto materialboxed" data-caption="foto de rosto" src="http://localhost:4500/api/pessoas/image/{{pessoa.fotoCorpo2}}">
       </div>
       <!-- <div *ngIf="!(pessoa && pessoa.fotoCorpo2)" class="col s12">
         <img class="foto" data-caption="foto de corpo" src="assets/images/no-image.jpg">        
       </div> -->
     </div>
   </div>
-  <form #f="ngForm" class="col s9" (ngSubmit)="onSubmit($event)" enctype="multipart/form-data">
+  <form #f="ngForm" class="col s9" (ngSubmit)="onSubmit(f)" enctype="multipart/form-data">
 
     <div class="row">
 
