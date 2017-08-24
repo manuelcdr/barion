@@ -10,6 +10,7 @@ using System.IO;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
 using BarionAPI.Helpers;
+using System;
 
 namespace BarionAPI.Controllers
 {
@@ -49,17 +50,11 @@ namespace BarionAPI.Controllers
                         {
                             if (file.Length > 0)
                             {
-                                var filePath = _imagesPath;
-                                var fileName = $"{file.Name}";
+                                string fileName = DateTime.Now.ToString("ddMMyyyy") + id.ToString() + file.Name;
 
-                                if (fileName.ToLower().Contains("rosto"))
-                                    pessoa.FotoRosto = fileName;
-
-                                if (fileName.ToLower().Contains("corpo1"))
-                                    pessoa.FotoCorpo1 = fileName;
-
-                                if (fileName.ToLower().Contains("corpo2"))
-                                    pessoa.FotoCorpo2 = fileName;
+                                new VerificaFotoRosto(pessoa).Run(fileName, _imagesPath);
+                                new VerificaFotoCorpo1(pessoa).Run(fileName, _imagesPath);
+                                new VerificacFotoCorpo2(pessoa).Run(fileName, _imagesPath);
 
                                 using (var fileStream = new FileStream(Path.Combine(_imagesPath, fileName), FileMode.Create))
                                 {
@@ -75,11 +70,89 @@ namespace BarionAPI.Controllers
             return NoContent();
         }
 
+
+
         [HttpGet("image/{fileName}")]
         public ActionResult GetImage(string fileName)
         {
             var image = System.IO.File.OpenRead(Path.Combine(_imagesPath, fileName));
             return File(image, MimeTypeHelper.GetMimeTypeFromFileName(fileName));
+        }
+    }
+
+
+    public abstract class VerificaFoto
+    {
+        public string search { get; set; }
+        public string currentFileName { get; set; }
+        public Pessoa pessoa { get; set; }
+
+        public VerificaFoto(Pessoa pessoa)
+        {
+            this.pessoa = pessoa;
+        }
+
+        public void Run(string fileName, string filePath)
+        {
+            if (fileName.ToLower().Contains(search))
+            {
+                if (!string.IsNullOrEmpty(currentFileName))
+                {
+                    string filePathFull = Path.Combine(filePath, currentFileName);
+                    if (System.IO.File.Exists(filePathFull))
+                        System.IO.File.Delete(filePathFull);
+                }
+
+                AtualizaCampo(fileName);
+
+            }
+        }
+
+        public abstract void AtualizaCampo(string fileName);
+    }
+
+    public class VerificaFotoRosto : VerificaFoto
+    {
+        public VerificaFotoRosto(Pessoa pessoa)
+            : base(pessoa)
+        {
+            this.search = "rosto";
+            currentFileName = this.pessoa.FotoRosto;
+        }
+
+        public override void AtualizaCampo(string fileName)
+        {
+            pessoa.FotoRosto = fileName;
+        }
+    }
+
+    public class VerificaFotoCorpo1 : VerificaFoto
+    {
+        public VerificaFotoCorpo1(Pessoa pessoa)
+            : base(pessoa)
+        {
+            this.search = "corpo1";
+            currentFileName = this.pessoa.FotoCorpo1;
+        }
+
+        public override void AtualizaCampo(string fileName)
+        {
+            pessoa.FotoCorpo1 = fileName;
+        }
+    }
+
+    public class VerificacFotoCorpo2 : VerificaFoto
+    {
+        public VerificacFotoCorpo2(Pessoa pessoa)
+            : base(pessoa)
+        {
+            this.search = "corpo2";
+            this.currentFileName = this.pessoa.FotoCorpo2;
+        }
+
+        public override void AtualizaCampo(string fileName)
+        {
+            pessoa.FotoCorpo2 = fileName;
         }
     }
 }

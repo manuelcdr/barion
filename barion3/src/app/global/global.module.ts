@@ -5,6 +5,7 @@ import { FormsModule } from "@angular/forms";
 import { ButtonComponent } from './button/button.component';
 import { ContainerInputComponent } from './container-input/container-input.component';
 import { CaminhoLinksComponent } from './caminho-links/caminho-links.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
   imports: [
@@ -16,12 +17,14 @@ import { CaminhoLinksComponent } from './caminho-links/caminho-links.component';
     ButtonComponent,
     ContainerInputComponent,
     CaminhoLinksComponent,
+    LoaderComponent,
   ],
   exports: [
     InputComponent,
     ButtonComponent,
     CaminhoLinksComponent,
-    ContainerInputComponent
+    ContainerInputComponent,
+    LoaderComponent
   ],
   providers : []
 })

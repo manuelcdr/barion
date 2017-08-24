@@ -28,7 +28,7 @@
         <label>
           <input #vt (change)="mudaValidarTodos(vt.checked)" name="validar-todos" type="checkbox">
           <span class="lever"></span>
-          validar todos
+          combinar tags
         </label>
       </div>
       <div class="switch">
@@ -47,7 +47,9 @@
 
 <div class="row">
   <div class="col s12 m2" *ngFor="let pessoa of pessoas | filtroPessoas : filtro">
-    <app-pessoa-card [pessoaRef]="pessoa"></app-pessoa-card>
+    <app-pessoa-card [pessoaRef]="pessoa">
+      
+    </app-pessoa-card>
   </div>
 </div>
 

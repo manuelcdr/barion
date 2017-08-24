@@ -11,6 +11,30 @@
     font-size: .7rem;
 }
 
+.card .card-image {
+  max-height: 84%;
+}
+
+/* .pessoa-status-ativo {
+  border-bottom: 2.5px solid #6f6;
+} */
+
+.pessoa-status-inativo {
+  border-bottom: 2.5px solid #f66;
+}
+
+.pessoa-status-suspenso {
+  border-bottom: 2.5px solid #ff0;
+}
+
+.pessoa-status-inativo img {
+  filter: grayscale(100%) opacity(50%);
+}
+
+.pessoa-status-suspenso img {
+  filter: grayscale(100%) opacity(50%);
+}
+
 @media (max-width: 990px) {
   .resizeimg {
     height: auto;

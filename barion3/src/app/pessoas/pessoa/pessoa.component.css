@@ -1,3 +1,34 @@
  .foto {
     width: 100%;
 } 
+
+[type="radio"][value="Inativo"]:checked + label:after,
+[type="radio"][value="Inativo"].with-gap:checked + label:after {
+    background-color: #f00 !important;
+}
+
+[type="radio"][value="Inativo"]:checked + label::after, 
+.with-gap[type="radio"][value="Inativo"]:checked + label::before, 
+.with-gap[type="radio"][value="Inativo"]:checked + label::after {
+    border: 2px solid #f00;
+}
+
+[type="radio"][value="Suspenso"]:checked + label:after,
+[type="radio"][value="Suspenso"].with-gap:checked + label:after {
+    background-color: #FF0 !important;
+}
+
+[type="radio"][value="Suspenso"]:checked + label::after, 
+.with-gap[type="radio"][value="Suspenso"]:checked + label::before, 
+.with-gap[type="radio"][value="Suspenso"]:checked + label::after {
+    border: 1px solid #666;
+}
+
+.btn-foto {
+    width: 100%;
+    font-size: 0.7rem;
+}
+
+/* [type="radio"][value="Inativo"][name="status"]:checked + label::after,  {
+    
+} */

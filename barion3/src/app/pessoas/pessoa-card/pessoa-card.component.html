@@ -1,13 +1,21 @@
-<div class="card hoverable" routerLink="/pessoas/{{pessoaRef.id}}">
-  <div class="card-header card-image waves-effect waves-block waves-light">
+<div 
+  [class.pessoa-status-inativo]="pessoaRef.status == 'Inativo'" 
+  [class.pessoa-status-suspenso]="pessoaRef.status == 'Suspenso'"
+  [class.pessoa-status-ativo]="pessoaRef.status == 'Ativo'"
+  class="card hoverable" routerLink="/pessoas/{{pessoaRef.id}}">
+  <div class="card-header card-image waves-effect waves-block waves-light valign-wrapper">
     <img class="img-rounded activator resizeimg" *ngIf="pessoaRef && pessoaRef.fotoRosto" class="activator" src="http://localhost:4500/api/pessoas/image/{{pessoaRef.fotoRosto}}">
     <img class="img-rounded activator resizeimg" *ngIf="!(pessoaRef && pessoaRef.fotoRosto)" class="activator" src="assets/images/fotoRosto.jpg">
+    <!-- <svg *ngIf="pessoaRef.status && (pessoaRef.status == 'Ativo' || pessoaRef.status == 'Inativo' || pessoaRef.status == 'Suspenso')"
+      height="12" width="12">
+      <circle *ngIf="pessoaRef.status == 'Ativo'" cx="6" cy="6" r="6" stroke="#ddd" stroke-width="1" fill="#6f6" />
+      <circle *ngIf="pessoaRef.status == 'Inativo'" cx="6" cy="6" r="6" stroke="#ddd" stroke-width="1" fill="#f66" />
+      <circle *ngIf="pessoaRef.status == 'Suspenso'" cx="6" cy="6" r="6" stroke="#666" stroke-width="1" fill="#ff6" />
+    </svg> -->
     <!-- <span class="card-title">{{pessoaRef.nome}}</span> -->
   </div>
   <div class="card-content">
     <p class='text-center truncate'>{{pessoaRef.nome}}</p>
-    <!-- <span class="card-title activator grey-text text-darken-4 truncate"></span> -->
-    <!-- <p><a routerLink="/pessoas/{{pessoaRef.id}}" >mais detalhes</a></p> -->
   </div>
   <!-- <div class="card-reveal">
       <span class="card-title grey-text text-darken-4">{{pessoaRef.nome}}<i class="material-icons right">close</i></span>

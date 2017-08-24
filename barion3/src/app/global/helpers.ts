@@ -1,3 +1,4 @@
+declare var $: any;
 
 export class ObjectHelper {
 
@@ -32,4 +33,27 @@ export class Dictionary<TKey, TValue> {
     constructor(objs: Array<ObjDictionary<TKey, TValue>>) {
         this.objs = objs;
     }
+}
+
+export class ToolTip {
+
+    static showByElement(el: Element, tooltip: string, position: string, time: number = 3000) {
+        $(el).tooltip({
+            tooltip: tooltip,
+            position: position,
+            delay: 300
+        });
+        $(el).trigger("mouseenter");
+        setTimeout(
+            () => {
+                $(el).trigger("mouseleave");
+                setTimeout(
+                    () => $(el).tooltip('remove'),
+                    600
+                );
+            },
+            time
+        );
+    }
+
 }

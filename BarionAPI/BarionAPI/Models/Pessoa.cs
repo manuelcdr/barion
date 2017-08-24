@@ -59,6 +59,7 @@
         #endregion
 
         public string Classificacao { get; set; }
+        public string Status { get; set; }
 
         public string Banco { get; set; }
         public string Agencia { get; set; }

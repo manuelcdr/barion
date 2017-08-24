@@ -29,12 +29,12 @@ export class HttpService<T> implements IHttpService<T> {
     if (obj2.id > 0) {
       return this.http
         .put(`${this.url}/${obj2.id}`, JSON.stringify(obj2), { headers: this.headers })
-        .map(() => new HttpResponseMessage('Coligado atualizado com sucesso', true, 'PUT', obj2.id));
+        .map(() => new HttpResponseMessage('Dados atualizados', true, 'PUT', obj2.id));
     }
 
     return this.http
       .post(this.url, JSON.stringify(obj2), { headers: this.headers })
-      .map(retorno => new HttpResponseMessage('Coligado cadastrado com sucesso', true, 'POST', retorno));
+      .map(retorno => new HttpResponseMessage('Cadastro realizado', true, 'POST', retorno.text()));
   }
 
   todos(): Observable<T[]> {
@@ -46,7 +46,7 @@ export class HttpService<T> implements IHttpService<T> {
   remove(id: string): Observable<HttpResponseMessage> {
     return this.http
       .delete(`${this.url}/${id}`)
-      .map(res => new HttpResponseMessage('objeto deletado', true, 'DELETE'));
+      .map(res => new HttpResponseMessage('Dados deletados', true, 'DELETE'));
   }
 
 }

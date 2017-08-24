@@ -1,4 +1,4 @@
-import { TagsAdicionais, TagsPadroesOlhos, TagsPadroes } from "./tags";
+import { TagsAdicionais, TagsPadroesOlhos, TagsPadroes, TagsPadroesStatus } from "./tags";
 
 export class Pessoa {
 
@@ -43,6 +43,7 @@ export class Pessoa {
 
     // outros
     classificacao: string;
+    status: string = new TagsPadroesStatus().ativo;
     perfilFacebook: string;
     banco: string;
     agencia: string;
@@ -113,15 +114,15 @@ export class Pessoa {
         if (!props)
             props = new Array<string>();
 
-        let filterProps = propsComNome
-            .filter(prop => prop.key.toLowerCase() == nome.toLowerCase())[0]
-            .value;
+        let filterProps = propsComNome.filter(prop => prop.key.toLowerCase() == nome.toLowerCase());
 
-        filterProps
-            .forEach(tag => {
-                if (props.indexOf(tag) < 0)
-                    props.push(tag);
-            });
+        if (filterProps.length > 0) {
+            filterProps[0].value
+                .forEach(tag => {
+                    if (props.indexOf(tag) < 0)
+                        props.push(tag);
+                });
+        }
 
         return this.preparaPropriedades(props);
     }

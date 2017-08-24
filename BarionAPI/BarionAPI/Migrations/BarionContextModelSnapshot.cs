@@ -188,6 +188,8 @@ namespace BarionAPI.Migrations
 
                     b.Property<string>("Sexo");
 
+                    b.Property<string>("Status");
+
                     b.Property<string>("Telefone");
 
                     b.Property<bool>("TemCarro");

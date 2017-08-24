@@ -3,6 +3,8 @@ import { Pessoa, PropriedadeComNome } from "../pessoa";
 import { PessoasService } from "../pessoas.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
+import { default as cep } from 'cep-promise'
+import { ToolTip } from "../../global/helpers";
 
 declare var Materialize: any;
 declare var $: any;
@@ -56,38 +58,46 @@ export class PessoaComponent implements OnInit {
   ngAfterViewInit() {
     $(document).ready(() => {
       this.preparaTabs();
-      this.preparaPickdate();
       this.preparaAutocompletes();
     });
   }
 
-  changeFotoRosto(el: ElementRef) {
-    if (this.pessoa && this.pessoa.id > 0) {
-      if (this.fotoRosto.nativeElement.value) {
-        let fotoRosto = this.fotoRosto.nativeElement;
-        this.service
-          .salvarImagens(this.pessoa.id, fotoRosto)
-          .subscribe(ret => {
-            // console.log(ret);
-            // console.log(ret.retornoObj);
-            this.pessoa.fotoRosto = ret.retornoObj.fileNames.fotoRosto;
-          });
-      }
+  atualizaEndereco(campoCep: HTMLInputElement) {
+    if (campoCep.value.length > 0) {
+      cep(campoCep.value)
+        .then(endereco => {
+          this.pessoa.endereco = endereco.street;
+          this.pessoa.estado = endereco.state;
+          this.pessoa.bairro = endereco.neighborhood;
+          this.pessoa.cidade = endereco.city;
+          this.pessoa.cep = endereco.cep;
+        })
+        .catch(error => {
+          ToolTip.showByElement(campoCep, 'CEP não encontrado', 'right');
+        });
+    }
+  }
+
+  mostrarFoto(uploader: HTMLInputElement, imgShow: HTMLImageElement) {
+    if (uploader.files && uploader.files[0]) {
+      $(imgShow).attr('src', window.URL.createObjectURL(uploader.files[0]));
     }
   }
 
   onSubmit(event: any) {
-    console.log('onSubmit');
-
-    console.log(event.value);
-    console.log(this.pessoa);
-
     this.service
       .atualizaCadastra(this.pessoa)
       .subscribe(
       retorno => {
         console.log('tostei');
+        console.log(retorno);
         Materialize.toast(retorno.msg, 5000);
+
+        console.log(this.fotoRosto);
+        console.log(this.fotoCorpo1);
+        console.log(this.fotoCorpo2);
+
+        debugger;
 
         this.service.salvarImagens(
           retorno.retornoObj,
@@ -116,30 +126,6 @@ export class PessoaComponent implements OnInit {
 
   private preparaTabs() {
     $('ul.tabs').tabs();
-  }
-
-  private preparaPickdate() {
-    var diaSemana = ['Domingo', 'Segunda-Feira', 'Terca-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sabado'];
-    var mesAno = ['Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-    var data = new Date();
-    var hoje = diaSemana[data.getDay()] + ', ' + mesAno[data.getMonth()] + ' de ' + data.getFullYear();
-
-    $('.datepicker').pickadate({
-      //monthsFull: mesAno,
-      //monthsShort: [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
-      // weekdaysFull: diaSemana,
-      // weekdaysShort: [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab' ],
-      // weekdaysLetter: [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
-      // clear: false,
-      format: 'dd/mm/yyyy',
-      today: "Hoje",
-      close: "Fechar",
-      //min: new Date(data.getFullYear() - 1, 0, 1),
-      //max: new Date(data.getFullYear() + 1, 11, 31),
-      closeOnSelect: false,
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 30 // Creates a dropdown of 15 years to control year
-    });
   }
 
   private preparaAutocompletes() {
