@@ -11,6 +11,7 @@ export class Pessoa {
     estadoCivil: string;
     cpf: string;
     rg: string;
+    ctps: string;
 
     //contato
     email: string;

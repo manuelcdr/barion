@@ -8,9 +8,10 @@ using BarionAPI.Models;
 namespace BarionAPI.Migrations
 {
     [DbContext(typeof(BarionContext))]
-    partial class BarionContextModelSnapshot : ModelSnapshot
+    [Migration("20170824221721_addComplemento")]
+    partial class addComplemento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

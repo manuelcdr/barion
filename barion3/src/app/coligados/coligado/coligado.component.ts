@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from "@angular/forms";
 import { ColigadosService } from "../coligados.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Coligado } from "../coligado";
+import cep from "cep-promise";
+import { ToolTip } from "../../global/helpers";
 
 declare const Materialize: any;
 declare const $: any;
@@ -44,6 +47,22 @@ export class ColigadoComponent implements OnInit {
     );
   }
 
+  atualizaEndereco(campoCep: HTMLInputElement) {
+    if (campoCep.value.length > 0) {
+      cep(campoCep.value)
+        .then(endereco => {
+          this.coligado.endereco = endereco.street;
+          this.coligado.estado = endereco.state;
+          this.coligado.bairro = endereco.neighborhood;
+          this.coligado.cidade = endereco.city;
+          this.coligado.cep = endereco.cep;
+        })
+        .catch(error => {
+          ToolTip.showByElement(campoCep, 'CEP não encontrado', 'right');
+        });
+    }
+  }
+
   ngOnInit() {
     //console.log(Materialize);
   }
@@ -74,21 +93,4 @@ export class ColigadoComponent implements OnInit {
     console.log('cadastrei');
   }
 
-}
-
-export class Coligado {
-  id: number;
-  nome: string;
-  cnpj: string;
-  ie: string;
-  cidade: string;
-  estado: string;
-  endereco: string;
-  contato: string;
-  celular: string;
-  telefoneset: string;
-  email: string;
-  banco: string;
-  agencia: string;
-  conta: string;
 }

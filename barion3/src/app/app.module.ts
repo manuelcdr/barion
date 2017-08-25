@@ -11,10 +11,12 @@ import { PessoasModule } from "./pessoas/pessoas.module";
 import { GlobalModule } from "./global/global.module";
 import { ColigadosModule } from "./coligados/coligados.module";
 import { ParceirosModule } from "./parceiros/parceiros.module";
+import { ManuelCordeiroNetoComponent } from './manuel-cordeiro-neto/manuel-cordeiro-neto.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ManuelCordeiroNetoComponent
   ],
   imports: [
     BrowserModule,

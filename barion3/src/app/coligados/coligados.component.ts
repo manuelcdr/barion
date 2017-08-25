@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Coligado } from "./coligado/coligado.component";
 import { ColigadosService } from "./coligados.service";
 import { Router } from "@angular/router";
+import { Coligado } from "./coligado";
 
 @Component({
   selector: 'coligados',

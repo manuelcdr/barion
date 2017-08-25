@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Parceiro } from "../parceiro";
 import { ParceirosService } from "../parceiros.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import cep from "cep-promise";
+import { ToolTip } from "../../global/helpers";
 
 declare var Materialize : any;
 declare var $ : any;
@@ -42,6 +44,22 @@ export class ParceiroComponent implements OnInit {
         }
       }
     );
+  }
+
+  atualizaEndereco(campoCep: HTMLInputElement) {
+    if (campoCep.value.length > 0) {
+      cep(campoCep.value)
+        .then(endereco => {
+          this.parceiro.endereco = endereco.street;
+          this.parceiro.estado = endereco.state;
+          this.parceiro.bairro = endereco.neighborhood;
+          this.parceiro.cidade = endereco.city;
+          this.parceiro.cep = endereco.cep;
+        })
+        .catch(error => {
+          ToolTip.showByElement(campoCep, 'CEP não encontrado', 'right');
+        });
+    }
   }
 
   ngOnInit() {

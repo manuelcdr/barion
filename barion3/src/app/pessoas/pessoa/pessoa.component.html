@@ -95,16 +95,20 @@
             <label for="estadoCivil">Estado civil</label>
           </div>
 
-          <div class="input-field col s3">
-            <input [(ngModel)]="pessoa.cpf" id="cpf" name="cpf" class="validate" type="text">
-            <label for="cpf">CPF</label>
-          </div>
-
-          <div class="input-field col s3">
+          <div class="input-field col s4">
             <input [(ngModel)]="pessoa.rg" id="rg" name="rg" class="validate" type="text">
             <label for="rg">RG</label>
           </div>
 
+          <div class="input-field col s4">
+            <input [(ngModel)]="pessoa.cpf" id="cpf" name="cpf" class="validate" type="text">
+            <label for="cpf">CPF</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input [(ngModel)]="pessoa.ctps" id="ctps" name="ctps" class="validate" type="text">
+            <label for="ctps">CTPS</label>
+          </div>
 
           <div class="input-field col s3">
             <input [(ngModel)]="pessoa.telefone" id="telefone" name="telefone" class="validate" type="text">
@@ -122,30 +126,20 @@
             <label for='perfilFacebook'>Perfil do facebook</label>
           </div>
 
-          <div class='input-field col s6'>
-            <input [(ngModel)]='pessoa.idioma' id='idioma' name='idioma' class='validate autocomplete' type='text'>
-            <label for='idioma'>Idioma</label>
-          </div>
 
-
-          <div class='input-field col s3'>
+          <div class='input-field col s4'>
             <input [(ngModel)]='pessoa.banco' id='banco' name='banco' class='validate autocomplete' type='text'>
             <label for='banco'>Banco</label>
           </div>
 
-          <div class='input-field col s3'>
+          <div class='input-field col s4'>
             <input [(ngModel)]='pessoa.agencia' id='agencia' name='agencia' class='validate' type='text'>
             <label for='agencia'>Agência</label>
           </div>
 
-          <div class='input-field col s3'>
+          <div class='input-field col s4'>
             <input [(ngModel)]='pessoa.conta' id='conta' name='conta' class='validate' type='text'>
             <label for='conta'>Conta</label>
-          </div>
-
-          <div class='input-field col s3'>
-            <input [(ngModel)]='pessoa.classificacao' id='classificacao' name='classificacao' class='validate autocomplete' type='text'>
-            <label for='classificacao'>Classificacao</label>
           </div>
 
         </div>
@@ -332,13 +326,31 @@
             </div>
 
           </div>
+
+          <br>
+
+          <div class="row">
+
+            <div class='input-field col s6'>
+              <input [(ngModel)]='pessoa.idioma' id='idioma' name='idioma' class='validate autocomplete' type='text'>
+              <label for='idioma'>Idioma</label>
+            </div>
+
+            <div class='input-field col s6'>
+              <input [(ngModel)]='pessoa.classificacao' id='classificacao' name='classificacao' class='validate autocomplete' type='text'>
+              <label for='classificacao'>Classificacao</label>
+            </div>
+
+          </div>
+
         </div>
 
-        <app-button nome="send" icon="send" texto="{{pessoa.id > 0 ? 'Atualizar' : 'Cadastrar'}}" tipo="submit"></app-button>
 
       </div>
 
-
+      <div class="row center-align">
+        <app-button nome="send" icon="send" texto="{{pessoa.id > 0 ? 'Atualizar' : 'Cadastrar'}}" tipo="submit"></app-button>
+      </div>
 
     </div>
 

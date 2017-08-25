@@ -20,6 +20,7 @@
         public string EstadoCivil { get; set; }
         public string Cpf { get; set; }
         public string Rg { get; set; }
+        public string Ctps { get; set; }
         public string Sexo { get; set; }
         public string Altura { get; set; }
         public string Manequim { get; set; }

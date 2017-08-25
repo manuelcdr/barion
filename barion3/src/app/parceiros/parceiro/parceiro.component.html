@@ -12,94 +12,101 @@
   <div class="row">
     <form #f="ngForm" class="col s12" (ngSubmit)="onSubmit(f)">
 
-      <div class="row">
-
-        <div class="input-field col s6">
-          <input [(ngModel)]="parceiro.nome" id="nome" name="nome" class="validate" type="text">
-          <label for="nome">Nome</label>
-        </div>
-
-        <div class="input-field col s6">
-          <input [(ngModel)]="parceiro.email" id="email" name="email" class="validate" type="email">
-          <label for="email">E-mail</label>
-        </div>
-
+      <div class="input-field col s6">
+        <input [(ngModel)]="parceiro.nome" id="nome" name="nome" class="validate" type="text">
+        <label for="nome">Nome</label>
       </div>
 
-      <div class="row">
-
-        <div class="input-field col s6">
-          <input [(ngModel)]="parceiro.cnpj" id="cnpj" name="cnpj" class="validate" type="text">
-          <label for="cnpj">Cnpj</label>
-        </div>
-
-        <div class="input-field col s6">
-          <input [(ngModel)]="parceiro.ie" id="ie" name="ie" class="validate" type="text">
-          <label for="ie">Ie</label>
-        </div>
-
+      <div class="input-field col s6">
+        <input [(ngModel)]="parceiro.email" id="email" name="email" class="validate" type="email">
+        <label for="email">E-mail</label>
       </div>
 
-      <div class="row">
-
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.cidade" id="cidade" name="cidade" class="validate" type="text">
-          <label for="cidade">Cidade</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.estado" id="estado" name="estado" class="validate" type="text">
-          <label for="estado">Estado</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.endereco" id="endereco" name="endereco" class="validate" type="text">
-          <label for="endereco">Endereço</label>
-        </div>
-
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.cnpj" id="cnpj" name="cnpj" class="validate" type="text">
+        <label for="cnpj">Cnpj</label>
       </div>
 
-      <div class="row">
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.contato" id="contato" name="contato" class="validate" type="text">
-          <label for="contato">Contato</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.celular" id="celular" name="celular" class="validate" type="text">
-          <label for="celular">Celular</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.telefone" id="telefone" name="telefone" class="validate" type="text">
-          <label for="telefone">Telefone</label>
-        </div>
-
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.ie" id="ie" name="ie" class="validate" type="text">
+        <label for="ie">Ie</label>
       </div>
 
-      <div class="row">
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.banco" id="banco" name="banco" class="validate" type="text">
-          <label for="banco">Banco</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.agencia" id="agencia" name="agencia" class="validate" type="text">
-          <label for="agencia">Agencia</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="parceiro.conta" id="conta" name="conta" class="validate" type="text">
-          <label for="conta">Conta</label>
-        </div>
-
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.tipoAtividade" id="tipoAtividade" name="tipoAtividade" class="validate" type="text">
+        <label for="tipoAtividade">Tipo de atividade</label>
       </div>
+
+      <div class="input-field col s3 offset-s9 pull-s9">
+        <input #campoCEP [(ngModel)]="parceiro.cep" (blur)="atualizaEndereco(campoCEP)" (keyup.enter)="atualizaEndereco(campoCEP)"
+          id="cep" name="cep" class="validate" type="text">
+        <label for="cep">CEP</label>
+      </div>
+
+      <div class="input-field col s6">
+        <input [(ngModel)]="parceiro.endereco" id="endereco" name="endereco" class="validate" type="text">
+        <label for="endereco">Endereço</label>
+      </div>
+
+      <div class="input-field col s2">
+        <input [(ngModel)]="parceiro.numero" id="numero" name="numero" class="validate" type="text">
+        <label for="numero">Numero</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.complemento" id="complemento" name="complemento" class="validate" type="text">
+        <label for="complemento">Complemento</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.bairro" id="bairro" name="bairro" class="validate" type="text">
+        <label for="bairro">Bairro</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.cidade" id="cidade" name="cidade" class="validate" type="text">
+        <label for="cidade">Cidade</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.estado" id="estado" name="estado" class="validate" type="text">
+        <label for="estado">Estado</label>
+      </div>
+
+
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.contato" id="contato" name="contato" class="validate" type="text">
+        <label for="contato">Contato</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.celular" id="celular" name="celular" class="validate" type="text">
+        <label for="celular">Celular</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.telefone" id="telefone" name="telefone" class="validate" type="text">
+        <label for="telefone">Telefone</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.banco" id="banco" name="banco" class="validate" type="text">
+        <label for="banco">Banco</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.agencia" id="agencia" name="agencia" class="validate" type="text">
+        <label for="agencia">Agencia</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="parceiro.conta" id="conta" name="conta" class="validate" type="text">
+        <label for="conta">Conta</label>
+      </div>
+
 
       <app-button nome="send" icon="send" texto="{{parceiro.id > 0 ? 'Atualizar' : 'Cadastrar'}}" tipo="submit"></app-button>
-      
 
     </form>
   </div>

@@ -1,7 +1,7 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import { Coligado } from "./coligado/coligado.component";
 import { HttpService } from "../global/http.service";
+import { Coligado } from "./coligado";
 
 @Injectable()
 export class ColigadosService extends HttpService<Coligado> {

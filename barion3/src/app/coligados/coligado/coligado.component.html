@@ -12,94 +12,97 @@
   <div class="row">
     <form #f="ngForm" class="col s12" (ngSubmit)="onSubmit(f)">
 
-      <div class="row">
 
-        <div class="input-field col s6">
-          <input [(ngModel)]="coligado.nome" id="nome" name="nome" class="validate" type="text">
-          <label for="nome">Nome</label>
-        </div>
-
-        <div class="input-field col s6">
-          <input [(ngModel)]="coligado.email" id="email" name="email" class="validate" type="email">
-          <label for="email">E-mail</label>
-        </div>
-
+      <div class="input-field col s6">
+        <input [(ngModel)]="coligado.nome" id="nome" name="nome" class="validate" type="text">
+        <label for="nome">Nome</label>
       </div>
 
-      <div class="row">
-
-        <div class="input-field col s6">
-          <input [(ngModel)]="coligado.cnpj" id="cnpj" name="cnpj" class="validate" type="text">
-          <label for="cnpj">Cnpj</label>
-        </div>
-
-        <div class="input-field col s6">
-          <input [(ngModel)]="coligado.ie" id="ie" name="ie" class="validate" type="text">
-          <label for="ie">Ie</label>
-        </div>
-
+      <div class="input-field col s6">
+        <input [(ngModel)]="coligado.email" id="email" name="email" class="validate" type="email">
+        <label for="email">E-mail</label>
       </div>
 
-      <div class="row">
-
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.cidade" id="cidade" name="cidade" class="validate" type="text">
-          <label for="cidade">Cidade</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.estado" id="estado" name="estado" class="validate" type="text">
-          <label for="estado">Estado</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.endereco" id="endereco" name="endereco" class="validate" type="text">
-          <label for="endereco">Endereço</label>
-        </div>
-
+      <div class="input-field col s6">
+        <input [(ngModel)]="coligado.cnpj" id="cnpj" name="cnpj" class="validate" type="text">
+        <label for="cnpj">Cnpj</label>
       </div>
 
-      <div class="row">
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.contato" id="contato" name="contato" class="validate" type="text">
-          <label for="contato">Contato</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.celular" id="celular" name="celular" class="validate" type="text">
-          <label for="celular">Celular</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.telefone" id="telefone" name="telefone" class="validate" type="text">
-          <label for="telefone">Telefone</label>
-        </div>
-
+      <div class="input-field col s6">
+        <input [(ngModel)]="coligado.ie" id="ie" name="ie" class="validate" type="text">
+        <label for="ie">Ie</label>
       </div>
 
-      <div class="row">
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.banco" id="banco" name="banco" class="validate" type="text">
-          <label for="banco">Banco</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.agencia" id="agencia" name="agencia" class="validate" type="text">
-          <label for="agencia">Agencia</label>
-        </div>
-
-        <div class="input-field col s4">
-          <input [(ngModel)]="coligado.conta" id="conta" name="conta" class="validate" type="text">
-          <label for="conta">Conta</label>
-        </div>
-
+      <div class="input-field col s3 offset-s9 pull-s9">
+        <input #campoCEP [(ngModel)]="coligado.cep" (blur)="atualizaEndereco(campoCEP)" (keyup.enter)="atualizaEndereco(campoCEP)"
+          id="cep" name="cep" class="validate" type="text">
+        <label for="cep">CEP</label>
       </div>
+
+      <div class="input-field col s6">
+        <input [(ngModel)]="coligado.endereco" id="endereco" name="endereco" class="validate" type="text">
+        <label for="endereco">Endereço</label>
+      </div>
+
+      <div class="input-field col s2">
+        <input [(ngModel)]="coligado.numero" id="numero" name="numero" class="validate" type="text">
+        <label for="numero">Numero</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.complemento" id="complemento" name="complemento" class="validate" type="text">
+        <label for="complemento">Complemento</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.bairro" id="bairro" name="bairro" class="validate" type="text">
+        <label for="bairro">Bairro</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.cidade" id="cidade" name="cidade" class="validate" type="text">
+        <label for="cidade">Cidade</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.estado" id="estado" name="estado" class="validate" type="text">
+        <label for="estado">Estado</label>
+      </div>
+
+
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.contato" id="contato" name="contato" class="validate" type="text">
+        <label for="contato">Contato</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.celular" id="celular" name="celular" class="validate" type="text">
+        <label for="celular">Celular</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.telefone" id="telefone" name="telefone" class="validate" type="text">
+        <label for="telefone">Telefone</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.banco" id="banco" name="banco" class="validate" type="text">
+        <label for="banco">Banco</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.agencia" id="agencia" name="agencia" class="validate" type="text">
+        <label for="agencia">Agencia</label>
+      </div>
+
+      <div class="input-field col s4">
+        <input [(ngModel)]="coligado.conta" id="conta" name="conta" class="validate" type="text">
+        <label for="conta">Conta</label>
+      </div>
+
 
       <app-button nome="send" icon="send" texto="{{coligado.id > 0 ? 'Atualizar' : 'Cadastrar'}}" tipo="submit"></app-button>
-      
 
     </form>
   </div>

@@ -30,7 +30,6 @@ namespace BarionAPI
         {
             services.AddDbContext<BarionContext>();
 
-
             // Add framework services.
             services.AddMvc();
             services.AddCors();

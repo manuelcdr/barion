@@ -8,9 +8,10 @@ using BarionAPI.Models;
 namespace BarionAPI.Migrations
 {
     [DbContext(typeof(BarionContext))]
-    partial class BarionContextModelSnapshot : ModelSnapshot
+    [Migration("20170824215825_addBairro")]
+    partial class addBairro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -36,8 +37,6 @@ namespace BarionAPI.Migrations
                     b.Property<string>("Cnpj")
                         .HasColumnName("CNPJ");
 
-                    b.Property<string>("Complemento");
-
                     b.Property<string>("Conta");
 
                     b.Property<string>("Contato");
@@ -52,8 +51,6 @@ namespace BarionAPI.Migrations
                         .HasColumnName("IE");
 
                     b.Property<string>("Nome");
-
-                    b.Property<string>("Numero");
 
                     b.Property<string>("Telefone");
 
@@ -82,8 +79,6 @@ namespace BarionAPI.Migrations
                     b.Property<string>("Cnpj")
                         .HasColumnName("CNPJ");
 
-                    b.Property<string>("Complemento");
-
                     b.Property<string>("Conta");
 
                     b.Property<string>("Contato");
@@ -98,8 +93,6 @@ namespace BarionAPI.Migrations
                         .HasColumnName("IE");
 
                     b.Property<string>("Nome");
-
-                    b.Property<string>("Numero");
 
                     b.Property<string>("Telefone");
 

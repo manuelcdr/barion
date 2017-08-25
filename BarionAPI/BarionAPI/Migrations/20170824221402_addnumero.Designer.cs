@@ -8,9 +8,10 @@ using BarionAPI.Models;
 namespace BarionAPI.Migrations
 {
     [DbContext(typeof(BarionContext))]
-    partial class BarionContextModelSnapshot : ModelSnapshot
+    [Migration("20170824221402_addnumero")]
+    partial class addnumero
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -35,8 +36,6 @@ namespace BarionAPI.Migrations
 
                     b.Property<string>("Cnpj")
                         .HasColumnName("CNPJ");
-
-                    b.Property<string>("Complemento");
 
                     b.Property<string>("Conta");
 
@@ -81,8 +80,6 @@ namespace BarionAPI.Migrations
 
                     b.Property<string>("Cnpj")
                         .HasColumnName("CNPJ");
-
-                    b.Property<string>("Complemento");
 
                     b.Property<string>("Conta");
 

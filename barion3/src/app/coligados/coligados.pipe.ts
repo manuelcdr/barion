@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Coligado } from "./coligado/coligado.component";
 import { FiltroSimplesPipe } from "../global/filtroSimples.pipe";
+import { Coligado } from "./coligado";
 
 @Pipe({
   name: 'filtroColigados'
