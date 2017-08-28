@@ -23,15 +23,14 @@ export class ColigadoComponent implements OnInit {
   route: ActivatedRoute;
   router: Router;
 
-  constructor(service: ColigadosService, route: ActivatedRoute, router: Router, globals : AppGlobals) {
+  constructor(service: ColigadosService, route: ActivatedRoute, router: Router, globals: AppGlobals) {
     this.service = service;
     this.route = route;
     this.router = router;
 
     if (!globals.isUserLoggedIn.getValue())
-      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url }});
+      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url } });
 
-    // busca foto correspondente ao id
     this.route.params.subscribe(
       params => {
         let id = params['id'];
@@ -40,8 +39,6 @@ export class ColigadoComponent implements OnInit {
             .subscribe(
             coligado => {
               this.coligado = coligado;
-              console.log('recuperou o coligado');
-              console.log(coligado);
             },
             erro => {
               console.log(erro);

@@ -53,6 +53,15 @@ export class PessoaComponent implements OnInit {
         }
       }
     );
+
+    let params = this.route.snapshot.queryParams;
+    let props = Object.keys(params);
+
+    if (props.length > 0) {
+      for (let prop of Object.keys(params)) {
+        this.pessoa[prop.trim()] = params[prop];
+      }
+    }
   }
 
   ngAfterViewChecked() {

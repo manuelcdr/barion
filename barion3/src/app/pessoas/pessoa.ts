@@ -68,8 +68,6 @@ export class Pessoa {
     fotoCorpo1: string;
     fotoCorpo2: string;
 
-    tagsAdicionais: string;
-
 }
 
 export class PropriedadeComNome {
