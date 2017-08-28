@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Pessoa, PropriedadeComNome } from "../pessoa";
+import { Pessoa, PropriedadeComNome, PessoasPropriedades } from "../pessoa";
 import { PessoasService } from "../pessoas.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { default as cep } from 'cep-promise'
-import { ToolTip } from "../../global/helpers";
+import { ToolTip, AutoComplete } from "../../global/helpers";
 import { AppGlobals } from "../../global/global";
+import { TagsAdicionais, TagsPadroes } from "../tags";
 
 declare var Materialize: any;
 declare var $: any;
@@ -34,7 +35,7 @@ export class PessoaComponent implements OnInit {
     this.router = router;
 
     if (!globals.isUserLoggedIn.getValue())
-      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url }});
+      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url } });
 
     // busca foto correspondente ao id
     this.route.params.subscribe(
@@ -94,14 +95,7 @@ export class PessoaComponent implements OnInit {
       .subscribe(
       retorno => {
         console.log('tostei');
-        console.log(retorno);
         Materialize.toast(retorno.msg, 5000);
-
-        console.log(this.fotoRosto);
-        console.log(this.fotoCorpo1);
-        console.log(this.fotoCorpo2);
-
-        debugger;
 
         this.service.salvarImagens(
           retorno.retornoObj,
@@ -109,8 +103,7 @@ export class PessoaComponent implements OnInit {
           this.fotoCorpo1.nativeElement,
           this.fotoCorpo2.nativeElement).subscribe(
           retorno => {
-            console.log('salva imagens:');
-            console.log(retorno);
+            console.log('imagens salvas');
           },
           erro => console.log(erro)
           );
@@ -142,7 +135,7 @@ export class PessoaComponent implements OnInit {
 
         for (var i = 0; i < autoCompletes.length; i++) {
           let ac = autoCompletes[i];
-          var props = Pessoa.preparaPropriedadesComNome(ac.name, propriedades);
+          var props = this.preparaPropriedadesComNome(ac.name, propriedades);
           $(ac).attr('autocomplete', 'off');
           $(ac).autocomplete({
             data: props,
@@ -165,6 +158,54 @@ export class PessoaComponent implements OnInit {
       erro => console.log(erro)
       );
 
+  }
+
+  // pegaPropsPessoas(pessoas: Pessoa[]): PessoasPropriedades[] {
+
+  //   var pessoasPropriedades = new Array<PessoasPropriedades>();
+
+  //   pessoas.forEach(pessoa => {
+  //     pessoasPropriedades.push(this.pegaPropsPessoa(pessoa))
+  //   })
+
+  //   return pessoasPropriedades;
+  // }
+
+  // pegaPropsPessoa(pessoa: Pessoa): PessoasPropriedades {
+  //   var props = new PessoasPropriedades();
+  //   props.id = pessoa.id;
+
+  //   for (let key of Object.keys(pessoa)) {
+  //     let valor = pessoa[key];
+  //     props.propriedades.push(valor);
+
+  //     let tagAdicional = new TagsAdicionais().dicionario.filter(t => t.tag.indexOf(valor) >= 0)[0];
+  //     if (tagAdicional)
+  //       props.propriedades.push(tagAdicional.);
+  //   }
+
+  //   return props;
+  // }
+
+
+
+  preparaPropriedadesComNome(nome: string, propsComNome: PropriedadeComNome[]) {
+    let props: string[] = new TagsPadroes().tagsPadroesPorNome(nome.toLowerCase());
+
+    if (!props)
+      props = new Array<string>();
+
+    let filterProps = propsComNome.filter(prop => prop.key.toLowerCase() == nome.toLowerCase());
+
+    if (filterProps.length > 0) {
+      filterProps[0].value
+        .forEach(tag => {
+          if (props.indexOf(tag) < 0)
+            props.push(tag);
+        });
+    }
+
+    return AutoComplete.preparaData(props);
   }
 
 }

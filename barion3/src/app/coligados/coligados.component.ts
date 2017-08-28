@@ -27,7 +27,6 @@ export class ColigadosComponent implements OnInit {
     service.todos().subscribe(
       lista => {
         this.coligados = lista;
-        console.log(this.coligados);
       },
       erro => {
         console.log(erro);
@@ -40,9 +39,6 @@ export class ColigadosComponent implements OnInit {
   }
 
   editar(coligado: Coligado) {
-    console.log('editar');
-    console.log(coligado);
-
     this.router.navigate(['/coligados/' + coligado.id])
   }
 

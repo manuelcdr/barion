@@ -28,7 +28,6 @@ export class PessoasService extends HttpService<Pessoa> {
     }
 
     let url = `${this.url}/${id.toString()}/images`;
-    console.log(url);
 
     return this.http
       .post(url, formData)
@@ -39,8 +38,7 @@ export class PessoasService extends HttpService<Pessoa> {
     return fileNameComplemento + '-' + file.name;
   }
 
-  buscaPropriedades(): Observable<any> {
-    console.log(this.url + "/propriedades");
+  buscaPropriedades(): Observable<{ todasPropriedades: string[], porNome: PropriedadeComNome[] }> {
     return this.http
       .get(this.url + "/propriedades")
       .map(res => res.json());

@@ -1,4 +1,4 @@
-import { TagsAdicionais, TagsPadroesOlhos, TagsPadroes, TagsPadroesStatus } from "./tags";
+import * as _tags from "./tags";
 
 export class Pessoa {
 
@@ -44,7 +44,7 @@ export class Pessoa {
 
     // outros
     classificacao: string;
-    status: string = new TagsPadroesStatus().ativo;
+    status: string = new _tags.TagsPadroesStatus().ativo;
     perfilFacebook: string;
     banco: string;
     agencia: string;
@@ -69,64 +69,6 @@ export class Pessoa {
     fotoCorpo2: string;
 
     tagsAdicionais: string;
-
-    static pegaPropsPessoas(pessoas: Pessoa[]): PessoasPropriedades[] {
-
-        var pessoasPropriedades = new Array<PessoasPropriedades>();
-
-        pessoas.forEach(pessoa => {
-            pessoasPropriedades.push(this.pegaPropsPessoa(pessoa))
-        })
-
-        return pessoasPropriedades;
-    }
-
-    static pegaPropsPessoa(pessoa: Pessoa): PessoasPropriedades {
-        var props = new PessoasPropriedades();
-        props.id = pessoa.id;
-
-        for (let key of Object.keys(pessoa)) {
-            let valor = pessoa[key];
-            props.propriedades.push(valor);
-
-            let tagAdicional = new TagsAdicionais().dicionario.filter(t => t.value.indexOf(valor) >= 0)[0];
-            if (tagAdicional)
-                props.propriedades.push(tagAdicional.key);
-        }
-
-        return props;
-    }
-
-    // precisa colocar um valor null para cada propriedade para funcinar o auto-complete.
-    // este método recebe uma lista de propriedades e adiciona este valor null para cada uma.
-    static preparaPropriedades(props: string[]) {
-        let propriedadesModificadas = {};
-
-        for (let prop of props) {
-            propriedadesModificadas[prop] = null;
-        }
-
-        return propriedadesModificadas;
-    }
-
-    static preparaPropriedadesComNome(nome: string, propsComNome: PropriedadeComNome[]) {
-        let props: string[] = new TagsPadroes().tagsPadroesPorNome(nome.toLowerCase());
-
-        if (!props)
-            props = new Array<string>();
-
-        let filterProps = propsComNome.filter(prop => prop.key.toLowerCase() == nome.toLowerCase());
-
-        if (filterProps.length > 0) {
-            filterProps[0].value
-                .forEach(tag => {
-                    if (props.indexOf(tag) < 0)
-                        props.push(tag);
-                });
-        }
-
-        return this.preparaPropriedades(props);
-    }
 
 }
 

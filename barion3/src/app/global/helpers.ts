@@ -57,3 +57,18 @@ export class ToolTip {
     }
 
 }
+
+export class AutoComplete {
+    // precisa colocar um valor null para cada propriedade para funcinar o auto-complete.
+    // este método recebe uma lista de propriedades e adiciona este valor null para cada uma.
+    static preparaData(tags: string[]) {
+        let propriedadesModificadas = {};
+
+        for (let tag of tags) {
+
+            propriedadesModificadas[tag] = null;
+        }
+
+        return propriedadesModificadas;
+    }
+}

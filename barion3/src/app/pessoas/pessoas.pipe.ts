@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Pessoa, PessoasPropriedades } from "./pessoa";
 import { PessoaFiltro } from "./pessoas.component";
+import { ITagFiltro } from "./tags";
 
 @Pipe({
     name: 'filtroPessoas'
@@ -8,42 +9,122 @@ import { PessoaFiltro } from "./pessoas.component";
 export class PessoasPipe implements PipeTransform {
     transform(pessoas: Pessoa[], filtro: PessoaFiltro) {
 
-        console.log(filtro.validarTodos);
-        console.log(filtro.valoresExatos);
-
         if (filtro.filtros.length <= 0)
             return pessoas;
 
         let ids: number[] = [];
-        let propsFiltradas = new Array<PessoasPropriedades>();
 
-        filtro.pessoasPropriedades.forEach(pessoa => {
+        pessoas.forEach(pessoa => {
+
             let temTodosFiltros = true;
             let temAlgumFiltro = false;
 
-            filtro.filtros.forEach(f => {
+            let combinaProxFiltro = false;
+            let tagRef: ITagFiltro;
+
+            filtro.filtros.forEach(tagFiltro => {
 
                 let temNaPessoa = false;
-                pessoa.propriedades.forEach(prop => {
-                    if (prop && typeof prop === 'string') {
-                        if (filtro.valoresExatos) {
-                            if (prop === f) {
-                                temNaPessoa = true;
-                            }
-                        } else {
-                            if (prop.indexOf(f) >= 0) {
-                                temNaPessoa = true;
+
+                if (combinaProxFiltro) {
+                    let valor = (<string>tagFiltro.valor);
+
+                    if (valor.indexOf(" ") >= 0) {
+                        valor = valor.split(" ").pop();
+                    }
+
+                    valor = valor.trim().toLowerCase();
+                    valor = valor.replace(",", ".");
+
+                    let valorFloat = Number.parseFloat(valor);
+
+                    if (tagRef.Run(pessoa, valorFloat)) {
+                        temNaPessoa = true;
+                    }
+
+                    combinaProxFiltro = false;
+                    tagRef = null;
+                }
+
+                else if (tagFiltro.combinaProximoFiltro) {
+                    combinaProxFiltro = true;
+                    tagRef = tagFiltro;
+                }
+                
+                else if (tagFiltro.inteligente) {
+                    if (tagFiltro.Run(pessoa, null)) {
+                        temNaPessoa = true;
+                    }
+                }
+
+                else if (tagFiltro.adicional) {
+                    let tagValores = tagFiltro.valor;
+                    let propValPessoa = pessoa[tagFiltro.propNome.trim().toLowerCase()];
+                    if (propValPessoa) {
+                        propValPessoa = propValPessoa.trim().toLowerCase();
+
+                        for (let tagValor of tagValores) {
+                            tagValor = tagValor.trim().toLowerCase();
+                            if (filtro.valoresExatos) {
+                                if (tagValor === propValPessoa) {
+                                    temNaPessoa = true;
+                                }
+                            } else {
+                                if (propValPessoa.indexOf(tagValor) >= 0)
+                                    temNaPessoa = true;
                             }
                         }
                     }
-                });
+                }
 
-                if (temNaPessoa) {
-                    temAlgumFiltro = true;
+                else if (tagFiltro.geral) {
+                    let tagValor = tagFiltro.valor.trim().toLowerCase();
+                    for (let prop of Object.keys(pessoa)) {
+                        let propValPessoa = pessoa[prop];
+
+                        if (propValPessoa && typeof propValPessoa === 'string') {
+                            propValPessoa = propValPessoa.trim().toLowerCase();
+
+                            if (filtro.valoresExatos) {
+                                if (tagValor === propValPessoa) {
+                                    temNaPessoa = true;
+                                }
+                            } else {
+                                if (propValPessoa.indexOf(tagValor) >= 0)
+                                    temNaPessoa = true;
+                            }
+                        }
+                    }
                 }
-                if (!temNaPessoa) {
-                    temTodosFiltros = false;
+
+                else {
+
+                    let tagValor = tagFiltro.valor.trim().toLowerCase();
+                    let propValPessoa = pessoa[tagFiltro.propNome.trim().toLowerCase()];
+
+                    if (propValPessoa) {
+                        propValPessoa = propValPessoa.trim().toLowerCase();
+
+                        if (filtro.valoresExatos) {
+                            if (tagValor === propValPessoa) {
+                                temNaPessoa = true;
+                            }
+                        } else {
+                            if (propValPessoa.indexOf(tagValor) >= 0)
+                                temNaPessoa = true;
+                        }
+                    }
                 }
+
+                if (!combinaProxFiltro) {
+                    if (temNaPessoa) {
+                        temAlgumFiltro = true;
+                    }
+                    if (!temNaPessoa) {
+                        temTodosFiltros = false;
+                    }
+                }
+
             });
 
             if (filtro.validarTodos && temTodosFiltros) {
@@ -52,42 +133,11 @@ export class PessoasPipe implements PipeTransform {
                 ids.push(pessoa.id);
             }
 
-        })
+        });
 
         let pessoasFiltradas = pessoas.filter(pessoa => ids.indexOf(pessoa.id) >= 0);
 
         return pessoasFiltradas;
-
-        // filtro.filtros.forEach(f => {
-        //     filtro.pessoasPropriedades.forEach(p => {
-        //         let temNoP = false;
-
-        //         p.propriedades.forEach(
-        //             p2 => {
-        //                 if (p2 && typeof p2 === 'string') {
-
-        //                     if (filtro.valoresExatos) {
-        //                         if (p2 == f)
-        //                             temNoP = true;
-        //                     } else {
-        //                         if (p2.indexOf(f) >= 0) {
-        //                             temNoP = true;
-        //                         }
-        //                     }
-
-
-
-        //                 }
-        //             }
-        //         );
-
-        //         if (temNoP) {
-        //             if (ids.indexOf(p.id) < 0) {
-        //                 ids.push(p.id);
-        //             }
-        //         }
-        //     })
-        // })
 
     }
 }

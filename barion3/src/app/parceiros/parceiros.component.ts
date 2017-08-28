@@ -26,7 +26,6 @@ export class ParceirosComponent implements OnInit {
     service.todos().subscribe(
       lista => {
         this.parceiros = lista;
-        console.log(this.parceiros);
       },
       erro => {
         console.log(erro);
@@ -39,9 +38,6 @@ export class ParceirosComponent implements OnInit {
   }
 
   editar(parceiro : Parceiro) {
-    console.log('editar');
-    console.log(parceiro);
-    
     this.router.navigate(['/parceiros/' + parceiro.id])
   }
 

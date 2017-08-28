@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
       .subscribe(
       retorno => {
         this.globals.setLoginStatus(true);
-        console.log('logou');
         this.router.navigateByUrl(this.returnUrl);
       },
       erro => Materialize.toast("Login ou Senha incorretos", 5000)
