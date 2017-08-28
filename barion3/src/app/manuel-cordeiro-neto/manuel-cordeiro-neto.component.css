@@ -2,3 +2,20 @@
     width: 200px;
     height: 200px;
 }
+
+.link-rede-social:first-of-type {
+    margin-right: 10px;
+}
+
+.email, .telefone {
+    height: 2rem;
+}
+
+.email i, .telefone i {
+    font-size: 1.64rem;
+    line-height: 2rem;
+    margin-right: .5rem;
+    width: 2rem;
+    position: relative;
+    top: .2rem;
+}

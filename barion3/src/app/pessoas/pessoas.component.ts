@@ -3,6 +3,8 @@ import { PessoasService } from "./pessoas.service";
 import { Pessoa, PessoasPropriedades } from "./pessoa";
 import { ColigadosService } from "../coligados/coligados.service";
 import { TagsAdicionais } from "./tags";
+import { AppGlobals } from "../global/global";
+import { Router, RouterStateSnapshot } from "@angular/router";
 
 declare var Materialize: any;
 declare var $: any;
@@ -19,11 +21,24 @@ export class PessoasComponent implements OnInit {
   filtroTags: string = '';
 
   service: PessoasService;
+  router: Router;
   mensagem: string = '';
 
-  constructor(service: PessoasService) {
+  medidaAltura: MedidaFiltro = new MedidaFiltro("altura");
+  medidaManequim: MedidaFiltro = new MedidaFiltro("manequim");
+  medidaCintura: MedidaFiltro = new MedidaFiltro("cintura");
+  medidaQuadril: MedidaFiltro = new MedidaFiltro("quadril");
+  medidaBusto: MedidaFiltro = new MedidaFiltro("busto");
+  medidaSapato: MedidaFiltro = new MedidaFiltro("sapato");
+
+  constructor(service: PessoasService, router: Router, globals: AppGlobals) {
     console.log('construi');
     this.service = service;
+    this.router = router;
+
+    if (!globals.isUserLoggedIn.getValue())
+      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url } });
+
   }
 
   ngAfterViewInit() {
@@ -47,6 +62,10 @@ export class PessoasComponent implements OnInit {
       },
       erro => console.log(erro)
       );
+
+    $(document).ready(() => {
+      this.preparaAutocompletes();
+    });
   }
 
   private preparaChip(props: string[]) {
@@ -119,9 +138,60 @@ export class PessoasComponent implements OnInit {
     );
   }
 
+  private preparaAutocompletes() {
+
+    this.service.buscaPropriedadesComNome()
+      .subscribe(
+      retorno => {
+        var propriedades = retorno;
+        var autoCompletes: any[] = $('input.autocomplete');
+
+        for (var i = 0; i < autoCompletes.length; i++) {
+          let ac = autoCompletes[i];
+          var props = Pessoa.preparaPropriedadesComNome(ac.name, propriedades);
+          $(ac).attr('autocomplete', 'off');
+          $(ac).autocomplete({
+            data: props,
+            limit: Infinity,
+            minLength: 1,
+            onAutocomplete: val => {
+              this.atualizaMedidaFiltro(ac.name, val);
+            }
+          });
+        }
+
+      },
+      erro => console.log(erro)
+      );
+
+  }
+
+  atualizaMedidaFiltro(propNome: string, valor: number) {
+    if (valor == undefined || valor <= 0) {
+      this.filtro.removeMedida(propNome);
+    } else {
+      let maiorQue = $('#maiorQue-' + propNome).checked();
+      let menorQue = $('#menorQue-' + propNome).checked();
+      //this.filtro.addMedida(new MedidaFiltro(propNome, valor, maiorQue, menorQue))
+    }
+    this.filtro = new PessoaFiltro(this.filtro);
+  }
+
   ngOnInit() {
   }
 
+}
+
+export class MedidaFiltro {
+  tipo: string;
+  propNome: string;
+  valor: Number;
+
+  constructor(propNome: string, valor: number = 0, tipo: string = "") {
+    this.propNome = propNome;
+    this.valor = valor;
+    this.tipo = tipo;
+  }
 }
 
 export class PessoaFiltro {
@@ -129,13 +199,33 @@ export class PessoaFiltro {
   filtros: string[] = [];
   validarTodos: boolean = false;
   valoresExatos: boolean = false;
+  medidas: MedidaFiltro[] = [];
 
-  constructor(pf: PessoaFiltro = null, pp: PessoasPropriedades[] = null, fs: string[] = null, vt: boolean = null, ve: boolean = null) {
+  addMedida(mf: MedidaFiltro) {
+    if (this.medidas.length > 0) {
+      let index = this.medidas.indexOf(this.medidas.filter(m => m.propNome === mf.propNome)[0]);
+      if (index >= 0) {
+        this.medidas.splice(index, 1, mf);
+      } else {
+        this.medidas.push(mf);
+      }
+    }
+  }
+
+  removeMedida(propNome: string) {
+    let index = this.medidas.indexOf(this.medidas.filter(m => m.propNome === propNome)[0]);
+    if (index >= 0) {
+      this.medidas.splice(index, 1);
+    }
+  }
+
+  constructor(pf: PessoaFiltro = null, pp: PessoasPropriedades[] = null, fs: string[] = null, vt: boolean = null, ve: boolean = null, mfs: MedidaFiltro[] = null) {
     if (pf != null) {
       this.filtros = pf.filtros;
       this.pessoasPropriedades = pf.pessoasPropriedades;
       this.validarTodos = pf.validarTodos;
       this.valoresExatos = pf.valoresExatos;
+      this.medidas = pf.medidas;
     }
 
     if (pp != null)
@@ -149,5 +239,8 @@ export class PessoaFiltro {
 
     if (ve != null)
       this.valoresExatos = ve;
+
+    if (mfs != null)
+      this.medidas = mfs;
   }
 }

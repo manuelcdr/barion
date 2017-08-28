@@ -53,7 +53,7 @@ header, main, footer {
 }
           
 
-
 .botao-abrir-menu {
     position: fixed;
+    top: 35px;
 }

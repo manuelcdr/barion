@@ -1563,6 +1563,26 @@
           "lib/netstandard1.3/Microsoft.VisualBasic.dll": {}
         }
       },
+      "Microsoft.VisualStudio.Web.BrowserLink.Loader/14.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Http.Abstractions": "1.0.0",
+          "Microsoft.Extensions.FileProviders.Physical": "1.0.0",
+          "Microsoft.Extensions.PlatformAbstractions": "1.0.0",
+          "Microsoft.Win32.Registry": "4.0.0",
+          "System.Collections": "4.0.11",
+          "System.Net.Sockets": "4.1.0",
+          "System.Runtime.Loader": "4.0.0",
+          "System.Text.Encoding": "4.0.11",
+          "System.Threading": "4.0.11"
+        },
+        "compile": {
+          "lib/netstandard1.5/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll": {}
+        }
+      },
       "Microsoft.Win32.Primitives/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -5204,6 +5224,19 @@
         "ref/xamarinios10/Microsoft.VisualBasic.dll",
         "ref/xamarintvos10/Microsoft.VisualBasic.dll",
         "ref/xamarinwatchos10/Microsoft.VisualBasic.dll"
+      ]
+    },
+    "Microsoft.VisualStudio.Web.BrowserLink.Loader/14.1.0": {
+      "sha512": "iVJCfMpPqZE2QaEAGT5MoEYM65l59rDSNERnZQmJDOiE+itZZ6ZP5wh+Lh9Lv0Nt1SbgvXdN3z39MM435ITldA==",
+      "type": "package",
+      "path": "microsoft.visualstudio.web.browserlink.loader/14.1.0",
+      "files": [
+        "lib/net451/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll",
+        "lib/net451/Microsoft.VisualStudio.Web.BrowserLink.Loader.xml",
+        "lib/netstandard1.5/Microsoft.VisualStudio.Web.BrowserLink.Loader.dll",
+        "lib/netstandard1.5/Microsoft.VisualStudio.Web.BrowserLink.Loader.xml",
+        "microsoft.visualstudio.web.browserlink.loader.14.1.0.nupkg.sha512",
+        "microsoft.visualstudio.web.browserlink.loader.nuspec"
       ]
     },
     "Microsoft.Win32.Primitives/4.3.0": {
@@ -10240,7 +10273,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer.Design >= 1.1.2",
       "Microsoft.EntityFrameworkCore.Tools >= 1.1.1",
       "Microsoft.Extensions.Logging.Debug >= 1.1.2",
-      "Microsoft.NETCore.App >= 1.1.2"
+      "Microsoft.NETCore.App >= 1.1.2",
+      "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.1.0"
     ]
   },
   "packageFolders": {
@@ -10294,6 +10328,10 @@
           "Microsoft.AspNetCore.Mvc": {
             "target": "Package",
             "version": "1.1.3"
+          },
+          "Microsoft.VisualStudio.Web.BrowserLink.Loader": {
+            "target": "Package",
+            "version": "14.1.0"
           },
           "Microsoft.ApplicationInsights.AspNetCore": {
             "target": "Package",

@@ -9,6 +9,7 @@ namespace BarionAPI.Models
         public virtual DbSet<Coligado> Coligados { get; set; }
         public virtual DbSet<Parceiro> Parceiros { get; set; }
         public virtual DbSet<Pessoa> Pessoas { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

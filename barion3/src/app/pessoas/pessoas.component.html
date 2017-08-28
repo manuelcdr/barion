@@ -20,6 +20,8 @@
         <!-- <i class="material-icons left blue-grey-text text-lighten-3">search</i> -->
         <div class="chips chips-autocomplete"></div>
       </div>
+
+
     </div>
     <!-- <input style="display: none" (change)="0" value="{{filtroTags}}" type="text"> -->
 
@@ -40,7 +42,46 @@
       </div>
     </div>
 
-    <!-- <button type="button" class="btn right">Refinar busca</button> -->
+
+    <div class="col s3 offset-s6 right-align">
+      <button (click)="abrirBuscaMedicas" class="btn-busca-medidas waves-effect waves-teal btn-flat blue-grey-text right-align"
+        type="button">refinar busca</button>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+    <div class="input-field col s2">
+      <input id="altura" name="altura" class="validate autocomplete" type="text">
+      <label for="altura">Altura</label>
+    </div>
+
+    <div class="input-field col s2">
+      <input id="manequim" name="manequim" class="validate autocomplete" type="text">
+      <label for="manequim">Manequim</label>
+    </div>
+
+    <div class='input-field col s2'>
+      <input id='cintura' name='cintura' class='validate autocomplete' type='text'>
+      <label for='cintura'>Cintura</label>
+    </div>
+
+    <div class='input-field col s2'>
+      <input id='quadril' name='quadril' class='validate autocomplete' type='text'>
+      <label for='quadril'>Quadril</label>
+    </div>
+
+    <div class='input-field col s2'>
+      <input id='busto' name='busto' class='validate autocomplete' type='text'>
+      <label for='busto'>Busto</label>
+    </div>
+
+    <div class='input-field col s2'>
+      <input id='sapato' name='sapato' class='validate autocomplete' type='text'>
+      <label for='sapato'>Sapato</label>
+    </div>
+
   </div>
 
 </div>
@@ -48,7 +89,7 @@
 <div class="row">
   <div class="col s12 m2" *ngFor="let pessoa of pessoas | filtroPessoas : filtro">
     <app-pessoa-card [pessoaRef]="pessoa">
-      
+
     </app-pessoa-card>
   </div>
 </div>

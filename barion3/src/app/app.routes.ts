@@ -6,6 +6,7 @@ import { ColigadoComponent } from "./coligados/coligado/coligado.component";
 import { ParceiroComponent } from "./parceiros/parceiro/parceiro.component";
 import { PessoaComponent } from "./pessoas/pessoa/pessoa.component";
 import { ManuelCordeiroNetoComponent } from "./manuel-cordeiro-neto/manuel-cordeiro-neto.component";
+import { LoginComponent } from "./login/login.component";
 
 const appRoutes: Routes = [
     { path: 'pessoas', component: PessoasComponent },
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
     { path: 'parceiros/:id', component: ParceiroComponent },
     { path: 'pessoa', component: PessoaComponent },
     { path: 'pessoas/:id', component: PessoaComponent },
-    { path: 'manuel-cordeiro-neto', component: ManuelCordeiroNetoComponent}
+    { path: 'manuel-cordeiro-neto', component: ManuelCordeiroNetoComponent},
+    { path: 'login', component: LoginComponent}
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

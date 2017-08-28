@@ -12,11 +12,15 @@ import { GlobalModule } from "./global/global.module";
 import { ColigadosModule } from "./coligados/coligados.module";
 import { ParceirosModule } from "./parceiros/parceiros.module";
 import { ManuelCordeiroNetoComponent } from './manuel-cordeiro-neto/manuel-cordeiro-neto.component';
+import { LoginComponent } from './login/login.component';
+import { LoginService } from "./login/login.service";
+import { AppGlobals } from "./global/global";
 
 @NgModule({
   declarations: [
     AppComponent,
-    ManuelCordeiroNetoComponent
+    ManuelCordeiroNetoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +33,7 @@ import { ManuelCordeiroNetoComponent } from './manuel-cordeiro-neto/manuel-corde
     ColigadosModule,
     ParceirosModule
   ],
-  providers: [],
+  providers: [LoginService, AppGlobals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

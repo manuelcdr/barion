@@ -1,0 +1,29 @@
+<div class="container">
+
+  <br>
+  <br>
+  <br>
+  <br>
+
+  <form #f="ngForm" class="col s12" (ngSubmit)="onSubmit(f)">
+
+    <div class="row">
+      <div class="input-field col s6 offset-s6 pull-s3">
+        <i class="material-icons prefix">account_circle</i>
+        <input [(ngModel)]="login" id="login" name="login" class="validate" type="text">
+        <label for="login">Login</label>
+      </div>
+
+      <div class="input-field col s6 offset-s6 pull-s3">
+        <i class="material-icons prefix">lock_outline</i>
+        <input [(ngModel)]="senha" id="senha" name="senha" class="validate" type="password">
+        <label for="senha">Senha</label>
+      </div>
+    </div>
+
+    <div class="row center-align">
+      <app-button nome="send" icon="send" texto="Entrar" tipo="submit"></app-button>
+    </div>
+
+  </form>
+</div>

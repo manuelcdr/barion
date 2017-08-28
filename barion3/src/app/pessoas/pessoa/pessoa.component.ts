@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { default as cep } from 'cep-promise'
 import { ToolTip } from "../../global/helpers";
+import { AppGlobals } from "../../global/global";
 
 declare var Materialize: any;
 declare var $: any;
@@ -27,10 +28,13 @@ export class PessoaComponent implements OnInit {
   @ViewChild('fotoCorpo1') fotoCorpo1: ElementRef;
   @ViewChild('fotoCorpo2') fotoCorpo2: ElementRef;
 
-  constructor(service: PessoasService, route: ActivatedRoute, router: Router) {
+  constructor(service: PessoasService, route: ActivatedRoute, router: Router, globals: AppGlobals) {
     this.service = service;
     this.route = route;
     this.router = router;
+
+    if (!globals.isUserLoggedIn.getValue())
+      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url }});
 
     // busca foto correspondente ao id
     this.route.params.subscribe(

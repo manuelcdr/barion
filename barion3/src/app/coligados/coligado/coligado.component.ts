@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Coligado } from "../coligado";
 import cep from "cep-promise";
 import { ToolTip } from "../../global/helpers";
+import { AppGlobals } from "../../global/global";
 
 declare const Materialize: any;
 declare const $: any;
@@ -22,10 +23,13 @@ export class ColigadoComponent implements OnInit {
   route: ActivatedRoute;
   router: Router;
 
-  constructor(service: ColigadosService, route: ActivatedRoute, router: Router) {
+  constructor(service: ColigadosService, route: ActivatedRoute, router: Router, globals : AppGlobals) {
     this.service = service;
     this.route = route;
     this.router = router;
+
+    if (!globals.isUserLoggedIn.getValue())
+      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url }});
 
     // busca foto correspondente ao id
     this.route.params.subscribe(

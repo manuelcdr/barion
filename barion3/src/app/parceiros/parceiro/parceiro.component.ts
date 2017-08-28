@@ -4,6 +4,7 @@ import { ParceirosService } from "../parceiros.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import cep from "cep-promise";
 import { ToolTip } from "../../global/helpers";
+import { AppGlobals } from "../../global/global";
 
 declare var Materialize : any;
 declare var $ : any;
@@ -21,10 +22,13 @@ export class ParceiroComponent implements OnInit {
   route: ActivatedRoute;
   router: Router;
 
-  constructor(service: ParceirosService, route: ActivatedRoute, router: Router) {
+  constructor(service: ParceirosService, route: ActivatedRoute, router: Router, globals : AppGlobals) {
     this.service = service;
     this.route = route;
     this.router = router;
+
+    if (!globals.isUserLoggedIn.getValue())
+      router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url }});
 
     // busca foto correspondente ao id
     this.route.params.subscribe(

@@ -6,14 +6,6 @@
       <a class="breadcrumb">{{pessoa.nome}}</a>
       <span *ngIf="pessoa.status && pessoa.status != 'Ativo' " data-badge-caption="" class="new badge status-pessoa" [class.red]="pessoa.status == 'Inativo'"
         [class.yellow]="pessoa.status == 'Suspenso'" [class.black-text]="pessoa.status == 'Suspenso'">
-          <!-- <svg *ngIf="pessoa.status == 'Ativo' || pessoa.status == 'Inativo' || pessoa.status == 'Suspenso'" 
-          
-          height="12" width="12">
-            <circle *ngIf="pessoa.status == 'Ativo'" cx="6" cy="6" r="6" stroke="#ddd" stroke-width="1" fill="#6f6" />
-            <circle *ngIf="pessoa.status == 'Inativo'" cx="6" cy="6" r="6" stroke="#ddd" stroke-width="1" fill="#f66" />
-            <circle *ngIf="pessoa.status == 'Suspenso'" cx="6" cy="6" r="6" stroke="#666" stroke-width="1" fill="#ff6" />
-          </svg> -->
-          <!-- &nbsp;  -->
           {{pessoa.status.toLowerCase()}}
       </span>
     </div>

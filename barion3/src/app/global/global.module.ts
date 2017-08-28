@@ -26,6 +26,6 @@ import { LoaderComponent } from './loader/loader.component';
     ContainerInputComponent,
     LoaderComponent
   ],
-  providers : []
+  providers: []
 })
-export class GlobalModule { }
+export class GlobalModule {}
