@@ -8,9 +8,10 @@ using BarionAPI.Models;
 namespace BarionAPI.Migrations
 {
     [DbContext(typeof(BarionContext))]
-    partial class BarionContextModelSnapshot : ModelSnapshot
+    [Migration("20170908150053_addTatoo-addPiercing-addObs")]
+    partial class addTatooaddPiercingaddObs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

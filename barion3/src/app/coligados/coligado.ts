@@ -12,7 +12,7 @@ export class Coligado {
     complemento: string;
     contato: string;
     celular: string;
-    telefoneset: string;
+    telefone: string;
     email: string;
     banco: string;
     agencia: string;

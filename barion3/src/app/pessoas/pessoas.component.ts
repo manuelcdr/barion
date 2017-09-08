@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PessoasService } from "./pessoas.service";
 import { Pessoa, PessoasPropriedades, PropriedadeComNome } from "./pessoa";
 import { ColigadosService } from "../coligados/coligados.service";
-import { TagsAdicionais, ControleTags, ConstrutorDeTagInteligente, ITagFiltro, TagFiltro } from "./tags";
+import { ControleTags, ITagFiltro, TagFiltro, ConstrutorDeTag } from "./tags";
 import { AppGlobals } from "../global/global";
 import { Router, RouterStateSnapshot } from "@angular/router";
 import { AutoComplete } from "../global/helpers";
@@ -39,51 +39,36 @@ export class PessoasComponent implements OnInit {
 
     this.service.todos()
       .subscribe(
-      retorno => {
-        this.pessoas = retorno;
+      retornoPessoas => {
+        this.pessoas = retornoPessoas;
+        this.service.buscaPropriedades()
+          .subscribe(
+          retornoProps => {
+            this.preparaTagFiltros(retornoPessoas, retornoProps.porNome);
+            this.preparaChip();
+          },
+          erro => console.log(erro)
+          );
       },
       error => console.log(error)
       );
-
-    this.service.buscaPropriedades()
-      .subscribe(
-      retorno => {
-        this.preparaTagFiltros(retorno.porNome);
-        this.preparaChip();
-      },
-      erro => console.log(erro)
-      );
   }
 
-  private preparaTagFiltros(props: PropriedadeComNome[]) {
+  private preparaTagFiltros(pessoas: Pessoa[], props: PropriedadeComNome[]) {
+
+    let construtor = new ConstrutorDeTag();
+
     for (let prop of props) {
       for (let val of prop.value) {
-        let tagFiltro: TagFiltro;
+        let tagFiltro = construtor.construirTag(val, prop.key);
 
-        // Se não estiver listada como tag que não deve ir para os filtros...
-        if (!(ControleTags.tagsNaoIncluidas.filter(t => t === prop.key.trim().toLowerCase()).length > 0)) {
-
-          // Se tiver que colocar o nome da propriedade antes do valor...
-          if (ControleTags.tagsComPropsMaisValor.filter(t => t === prop.key.trim().toLowerCase()).length > 0) {
-            tagFiltro = new TagFiltro(`${prop.key} ${val}`, val, prop.key);
-          }
-          else {
-            tagFiltro = new TagFiltro(val, val, prop.key);
-          }
-
+        if (tagFiltro != null && this.propsDeFiltro.filter(t => t.tag === tagFiltro.tag).length <= 0) {
           this.propsDeFiltro.push(tagFiltro);
         }
       }
     }
 
-    for (let prop of new TagsAdicionais().dicionario) {
-      this.propsDeFiltro.push(new TagFiltro(prop.tag, prop.valores, prop.propNome, false, true))
-    }
-
-    for (let tagInteligente of ConstrutorDeTagInteligente.construirTodos()) {
-      this.propsDeFiltro.push(tagInteligente);
-    }
-
+    this.propsDeFiltro = this.propsDeFiltro.concat(construtor.construirTodos());
   }
 
   private preparaChip() {

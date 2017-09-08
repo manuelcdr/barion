@@ -7,7 +7,7 @@ import { Injectable } from "@angular/core";
 @Injectable()
 export class AppGlobals {
     // use this property for property binding
-    public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     setLoginStatus(isLoggedIn: boolean) {
         this.isUserLoggedIn.next(isLoggedIn);

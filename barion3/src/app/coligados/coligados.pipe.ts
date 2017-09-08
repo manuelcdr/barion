@@ -3,12 +3,14 @@ import { FiltroSimplesPipe } from "../global/filtroSimples.pipe";
 import { Coligado } from "./coligado";
 
 @Pipe({
-  name: 'filtroColigados'
+    name: 'filtroColigados'
 })
 export class ColigadosPipe extends FiltroSimplesPipe<Coligado> {
-    
+
     retornaTextoDeComparacaoDoObjeto(obj: Coligado): string {
-        return obj.nome;
+        return obj.nome +
+            obj.cidade +
+            obj.estado;
     }
 
 }

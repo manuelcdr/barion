@@ -9,6 +9,7 @@ import { ManuelCordeiroNetoComponent } from "./manuel-cordeiro-neto/manuel-corde
 import { LoginComponent } from "./login/login.component";
 
 const appRoutes: Routes = [
+    { path: '', component: PessoasComponent },
     { path: 'pessoas', component: PessoasComponent },
     { path: 'coligados', component: ColigadosComponent },
     { path: 'parceiros', component: ParceirosComponent },

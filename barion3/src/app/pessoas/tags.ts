@@ -1,36 +1,36 @@
 
-import { ObjectHelper, Dictionary, ObjDictionary } from "../global/helpers";
+import { ObjectHelper, Dictionary, ObjDictionary, pegaIdade } from "../global/helpers";
 import { Pessoa } from "./pessoa";
 
 
 export class TagsPadroesStatus extends ObjectHelper {
-    ativo = "Ativo";
-    inativo = "Inativo";
-    suspenso = "Suspenso";
+    static ativo = "Ativo";
+    static inativo = "Inativo";
+    static suspenso = "Suspenso";
 }
 
 export class TagsPadroesClassificacao extends ObjectHelper {
-    a = "A";
-    b = "B";
-    supervisor = "Supervisor";
-    top = "TOP";
-    pdv = "PDV"
+    static a = "A";
+    static b = "B";
+    static supervisor = "Supervisor";
+    static top = "TOP";
+    static pdv = "PDV"
 }
 
 export class TagsPadroesOlhos extends ObjectHelper {
-    pretos = "pretos";
-    verdes = "verdes";
-    azuis = "azuis";
-    castanhosEscuros = "castanhos escuros";
-    castanhosClaros = "castanhos claros";
+    static pretos = "pretos";
+    static verdes = "verdes";
+    static azuis = "azuis";
+    static castanhosEscuros = "castanhos escuros";
+    static castanhosClaros = "castanhos claros";
 }
 
 export class TagsPadroesCabelo extends ObjectHelper {
-    preto = "preto";
-    loiro = "loiro";
-    castanhoEscuro = "castanho escuro";
-    castanhoClaro = "castanho claro";
-    ruivo = "ruivo";
+    static preto = "preto";
+    static loiro = "loiro";
+    static castanhoEscuro = "castanho escuro";
+    static castanhoClaro = "castanho claro";
+    static ruivo = "ruivo";
 }
 
 export class TagsPadroes {
@@ -53,84 +53,24 @@ export class TagsPadroes {
     }
 }
 
-export class TagsAdicionais {
-
-    constructor() {
-        let tagPadroesOlhos = new TagsPadroesOlhos();
-        let tagsPadroesCabelo = new TagsPadroesCabelo();
-
-        this.dicionario = [
-
-            new TagAdicional(
-                "olhos claros",
-                "olhos",
-                [
-                    tagPadroesOlhos.azuis,
-                    tagPadroesOlhos.verdes,
-                    tagPadroesOlhos.castanhosClaros
-                ]
-            ),
-
-            new TagAdicional(
-                "olhos escuros",
-                "olhos",
-                [
-                    tagPadroesOlhos.castanhosEscuros,
-                    tagPadroesOlhos.pretos
-                ]
-            ),
-
-            new TagAdicional(
-                "cabelos claros",
-                "cabelo",
-                [
-                    tagsPadroesCabelo.loiro,
-                    tagsPadroesCabelo.castanhoClaro,
-                    tagsPadroesCabelo.ruivo
-                ]
-            ),
-
-            new TagAdicional(
-                "cabelos escuros",
-                "cabelo",
-                [
-                    tagsPadroesCabelo.castanhoEscuro,
-                    tagsPadroesCabelo.preto
-                ]
-            )
-        ];
-    }
-
-    dicionario: Array<TagAdicional> = new Array<TagAdicional>();
-
-    // get todas() {
-    //     let todas: string[] = [];
-    //     this.dicionario.forEach(element => {
-    //         if (!todas[element.key])
-    //             todas.push(element.key);
-    //     });
-    //     return todas;
-    // }
-}
-
 export class ControleTags {
-    static tagsComPropsMaisValor: string[] = [
-        "altura",
-        "peso",
-        "manequim",
-        "sapato",
-        "olhos",
-        "cabelo",
-        "cintura",
-        "quadril",
-        "busto",
-        "cep",
-        "cpf",
-        "rg",
-        "ctps"
+    static tagsFormat: ObjDictionary<string, string>[] = [
+        new ObjDictionary("altura", "altura {0}"),
+        new ObjDictionary("peso", "peso {0}"),
+        new ObjDictionary("manequim", "manequim {0}"),
+        new ObjDictionary("sapato", "sapato {0}"),
+        new ObjDictionary("olhos", "olhos {0}"),
+        new ObjDictionary("cabelo", "cabelo {0}"),
+        new ObjDictionary("cintura", "cintura {0}"),
+        new ObjDictionary("quadril", "quadril {0}"),
+        new ObjDictionary("busto", "busto {0}"),
+        new ObjDictionary("cep", "cep {0}"),
+        new ObjDictionary("cpf", "cpf {0}"),
+        new ObjDictionary("rg", "rg {0}"),
+        new ObjDictionary("ctps", "ctps {0}")
     ];
 
-    static tagsNaoIncluidas: string [] = [
+    static tagsNaoIncluidas: string[] = [
         "fotoRosto",
         "fotoCorpo1",
         "fotoCorpo2",
@@ -138,14 +78,9 @@ export class ControleTags {
         "agencia",
         "conta",
         "numero",
-        "complemento"
+        "complemento",
+        "observacao"
     ]
-}
-
-export class TagAdicional {
-
-    constructor(public tag: string, public propNome: string, public valores: string[]) {
-    }
 }
 
 export interface ITagFiltro {
@@ -158,17 +93,45 @@ export interface ITagFiltro {
     adicional: boolean;
     geral: boolean;
 
-    Run(pessoa: Pessoa, valor: any): boolean;
+    Run(pessoa: Pessoa): boolean;
 }
-
-// export interface ITagInteligente {
-//     Run(pessoa: Pessoa, valor: number): boolean;
-// }
 
 export class TagFiltro implements ITagFiltro {
 
-    Run(pessoa: Pessoa, valor: any): boolean {
+    Run(pessoa: Pessoa): boolean {
+        let tagValor: string = this.valor.trim().toLowerCase();
+
+        // se não for geral, ou seja:
+        // se tiver uma propriedade atrelada...
+        if (!this.geral) {
+            let propValPessoa: string = pessoa[this.propNome.trim().toLowerCase()];
+
+            if (propValPessoa) {
+                propValPessoa = propValPessoa.trim().toLowerCase();
+                if (propValPessoa === tagValor) {
+                    return true;
+                }
+            }
+        }
+
+        // se for geral, ou seja
+        // se não tiver uma propriedade atrelada, procura em todas...
+        else {
+
+            for (let prop of Object.keys(pessoa)) {
+                let propValPessoa = pessoa[prop];
+
+                if (propValPessoa && typeof propValPessoa === 'string') {
+                    let propValPessoaString : string = propValPessoa.trim().toLowerCase();
+
+                    if (propValPessoaString.includes(tagValor)) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
+
     }
 
     constructor(
@@ -179,7 +142,7 @@ export class TagFiltro implements ITagFiltro {
         public adicional: boolean = false,
         public geral: boolean = false,
         public combinaProximoFiltro: boolean = false
-        ) {
+    ) {
 
         if (tag === '' && typeof valor === 'string') {
             tag = valor;
@@ -204,52 +167,257 @@ export class TagFiltro implements ITagFiltro {
 
 }
 
-export class ConstrutorDeTagInteligente {
+export class ConstrutorDeTag {
 
-    static construirTodos(): TagFiltro[] {
+    private tagInclusa(propNome: string): boolean {
+        return ControleTags.tagsNaoIncluidas.filter(t => t === propNome.trim().toLowerCase()).length <= 0;
+    }
+
+    private tagFormat(propNome: string, valor: string): string {
+        let tagFormat = ControleTags.tagsFormat.filter(t => t.key === propNome.trim().toLowerCase());
+        if (tagFormat.length > 0) {
+            return tagFormat[0].value.replace("{0}", valor);
+        }
+        return valor;
+    }
+
+    construirTag(valor: string, propNome: string): TagFiltro {
+        if (
+            valor != null &&
+            valor != undefined &&
+            valor.length > 0) {
+            if (this.tagInclusa(propNome)) {
+                let tagNome = this.tagFormat(propNome, valor);
+                return new TagFiltro(tagNome, valor, propNome);
+            }
+        }
+
+        return null;
+    }
+
+    construirTodos(): TagFiltro[] {
         let tagsFiltros = new Array<ITagFiltro>();
 
-        tagsFiltros.push(new MedidaMaiorQue("altura maior que", null, "altura", true, null, null, true));
-        tagsFiltros.push(new MedidaMenorQue("altura menor que", null, "altura", true, null, null, true));
+        tagsFiltros.push(
+            new TagMultiplosValores(
+                "olhos claros",
+                [
+                    TagsPadroesOlhos.azuis,
+                    TagsPadroesOlhos.verdes,
+                    TagsPadroesOlhos.castanhosClaros
+                ],
+                "olhos"
+            ),
+            new TagMultiplosValores(
+                "olhos escuros",
+                [
+                    TagsPadroesOlhos.castanhosEscuros,
+                    TagsPadroesOlhos.pretos
+                ],
+                "olhos"
+            ),
+            new TagMultiplosValores(
+                "cabelos claros",
+                [
+                    TagsPadroesCabelo.loiro,
+                    TagsPadroesCabelo.castanhoClaro,
+                    TagsPadroesCabelo.ruivo
+                ],
+                "cabelo"
+            ),
+            new TagMultiplosValores(
+                "cabelos escuros",
+                [
+                    TagsPadroesCabelo.castanhoEscuro,
+                    TagsPadroesCabelo.preto
+                ],
+                "cabelo"
+            )
+        )
 
-        tagsFiltros.push(new MedidaMaiorQue("manequim maior que", null, "manequim", true, null, null, true));
-        tagsFiltros.push(new MedidaMenorQue("manequim menor que", null, "manequim", true, null, null, true));
 
-        tagsFiltros.push(new MedidaMaiorQue("cintura maior que", null, "cintura", true, null, null, true));
-        tagsFiltros.push(new MedidaMenorQue("cintura menor que", null, "cintura", true, null, null, true));
+        // medidas
+        tagsFiltros.push(
+            new MedidaMaiorQue("altura maior que", "altura"),
+            new MedidaMenorQue("altura menor que", "altura"),
 
-        tagsFiltros.push(new MedidaMaiorQue("quadril maior que", null, "quadril", true, null, null, true));
-        tagsFiltros.push(new MedidaMenorQue("quadril menor que", null, "quadril", true, null, null, true));
+            new MedidaMaiorQue("manequim maior que", "manequim"),
+            new MedidaMenorQue("manequim menor que", "manequim"),
 
-        tagsFiltros.push(new MedidaMaiorQue("busto maior que", null, "busto", true, null, null, true));
-        tagsFiltros.push(new MedidaMenorQue("busto menor que", null, "busto", true, null, null, true));
+            new MedidaMaiorQue("cintura maior que", "cintura"),
+            new MedidaMenorQue("cintura menor que", "cintura"),
 
-        tagsFiltros.push(new MedidaMaiorQue("sapato maior que", null, "sapato", true, null, null, true));
-        tagsFiltros.push(new MedidaMenorQue("sapato menor que", null, "sapato", true, null, null, true));
+            new MedidaMaiorQue("quadril maior que", "quadril"),
+            new MedidaMenorQue("quadril menor que", "quadril"),
 
-        tagsFiltros.push(new TagBooleana("Tem carro", true, "temCarro", true));
-        tagsFiltros.push(new TagBooleana("Não tem carro", false, "temCarro", true));
+            new MedidaMaiorQue("busto maior que", "busto"),
+            new MedidaMenorQue("busto menor que", "busto"),
 
-        tagsFiltros.push(new TagBooleana("Tem habilitação", true, "temHabilitacao", true));
-        tagsFiltros.push(new TagBooleana("Não tem habilitação", false, "temHabilitacao", true));
+            new MedidaMaiorQue("sapato maior que", "sapato"),
+            new MedidaMenorQue("sapato menor que", "sapato")
+        );
 
-        tagsFiltros.push(new TagBooleana("Habilitacao A", true, "habilitacao_A", true));
-        tagsFiltros.push(new TagBooleana("Habilitacao B", true, "habilitacao_B", true));
-        tagsFiltros.push(new TagBooleana("Habilitacao C", true, "habilitacao_C", true));
-        tagsFiltros.push(new TagBooleana("Habilitacao D", true, "habilitacao_D", true));
-        tagsFiltros.push(new TagBooleana("Habilitacao E", true, "habilitacao_E", true));
+        // boleanos
+        tagsFiltros.push(
+            new TagBooleana("Tem carro", true, "temCarro"),
+            new TagBooleana("Não tem carro", false, "temCarro"),
 
-        tagsFiltros.push(new TagBooleana("Disponível de manhã", true, "horariosDisponiveis_Manha", true));
-        tagsFiltros.push(new TagBooleana("Disponível de tarde", true, "horariosDisponiveis_Tarde", true));
-        tagsFiltros.push(new TagBooleana("Disponível de noite", true, "horariosDisponiveis_Noite", true));
+            new TagBooleana("Tem habilitação", true, "temHabilitacao"),
+            new TagBooleana("Não tem habilitação", false, "temHabilitacao"),
+
+            new TagBooleana("Habilitacao A", true, "habilitacao_A"),
+            new TagBooleana("Habilitacao B", true, "habilitacao_B"),
+            new TagBooleana("Habilitacao C", true, "habilitacao_C"),
+            new TagBooleana("Habilitacao D", true, "habilitacao_D"),
+            new TagBooleana("Habilitacao E", true, "habilitacao_E"),
+
+            new TagBooleana("Disponível de manhã", true, "horariosDisponiveis_Manha"),
+            new TagBooleana("Disponível de tarde", true, "horariosDisponiveis_Tarde"),
+            new TagBooleana("Disponível de noite", true, "horariosDisponiveis_Noite"),
+
+            new TagBooleana("Piercing aparente", true, "piercingAparente"),
+            new TagBooleana("Tatuagem aparente", true, "tatuagemAparente"),
+            new TagBooleana("Piercing não aparente", false, "piercingAparente"),
+            new TagBooleana("Tatuagem não aparente", false, "tatuagemAparente")
+
+        )
+
+        // idade
+        tagsFiltros.push(
+            new IdadeIgual(),
+            new IdadeMaiorQue(),
+            new IdadeMenorQue()
+        )
+
+        // tagsFiltros.push(new IdadeMaiorQue());
 
         return tagsFiltros;
     }
 }
 
+export class IdadeIgual extends TagFiltro implements ITagFiltro {
+    constructor() {
+        super("Idade igual a", null, null, true, false, false, true);
+    }
+
+    Run(pessoa: Pessoa): boolean {
+        let valor = this.valor.toString();
+
+        if (valor.indexOf(" ") >= 0) {
+            valor = valor.split(" ").pop();
+        }
+
+        valor = valor.trim().toLowerCase();
+        valor = valor.replace(",", ".");
+        let valorInt = Number.parseInt(valor);
+
+        let idade = pegaIdade(pessoa.dataNascimento);
+        if (idade == undefined) {
+            return false;
+        }
+
+        let idadeInt = Number.parseInt(idade.toString());
+
+        return idadeInt == valorInt;
+    }
+}
+
+export class IdadeMaiorQue extends TagFiltro implements ITagFiltro {
+    constructor() {
+        super("Idade maior que", null, null, true, false, false, true);
+    }
+
+    Run(pessoa: Pessoa): boolean {
+        let valor = this.valor.toString();
+
+        if (valor.indexOf(" ") >= 0) {
+            valor = valor.split(" ").pop();
+        }
+
+        valor = valor.trim().toLowerCase();
+        valor = valor.replace(",", ".");
+        let valorInt = Number.parseInt(valor);
+
+        let idade = pegaIdade(pessoa.dataNascimento);
+        if (idade == undefined) {
+            return false;
+        }
+
+        let idadeInt = Number.parseInt(idade.toString());
+
+        return idadeInt > valorInt;
+    }
+}
+
+export class IdadeMenorQue extends TagFiltro implements ITagFiltro {
+    constructor() {
+        super("Idade menor que", null, null, true, false, false, true);
+    }
+
+    Run(pessoa: Pessoa): boolean {
+        let valor = this.valor.toString();
+
+        if (valor.indexOf(" ") >= 0) {
+            valor = valor.split(" ").pop();
+        }
+
+        valor = valor.trim().toLowerCase();
+        valor = valor.replace(",", ".");
+        let valorInt = Number.parseInt(valor);
+
+        let idade = pegaIdade(pessoa.dataNascimento);
+        if (idade == undefined) {
+            return false;
+        }
+
+        let idadeInt = Number.parseInt(idade.toString());
+
+        return idadeInt < valorInt;
+    }
+}
+
+export class TagMultiplosValores extends TagFiltro implements ITagFiltro {
+
+    constructor(tag: string, valores: any[], propNome: string) {
+        super(tag, valores, propNome, true);
+    }
+
+    Run(pessoa: Pessoa): boolean {
+        let tagValores = this.valor;
+        let propValPessoa = pessoa[this.propNome.trim().toLowerCase()];
+        if (propValPessoa) {
+            propValPessoa = propValPessoa.trim().toLowerCase();
+
+            let temNaPessoa = false;
+
+            for (let tagValor of tagValores) {
+                tagValor = tagValor.trim().toLowerCase();
+                if (tagValor === propValPessoa) {
+                    temNaPessoa = true;
+                }
+            }
+
+            return temNaPessoa;
+        }
+    }
+}
+
 export class MedidaMaiorQue extends TagFiltro implements ITagFiltro {
 
-    Run(pessoa: Pessoa, valor: number): boolean {
+    constructor(tag: string, propNome: string) {
+        super(tag, null, propNome, true, false, false, true);
+    }
+
+    Run(pessoa: Pessoa): boolean {
+        let valor = this.valor.toString();
+
+        if (valor.indexOf(" ") >= 0) {
+            valor = valor.split(" ").pop();
+        }
+
+        valor = valor.trim().toLowerCase();
+        valor = valor.replace(",", ".");
+        let valorFloat = Number.parseFloat(valor);
 
         let propValor: string = pessoa[this.propNome];
         if (!propValor) {
@@ -261,14 +429,28 @@ export class MedidaMaiorQue extends TagFiltro implements ITagFiltro {
 
         let propValorFloat = Number.parseFloat(propValor);
 
-        return propValorFloat > valor;
+        return propValorFloat > valorFloat;
     }
 
 }
 
 export class MedidaMenorQue extends TagFiltro implements ITagFiltro {
 
-    Run(pessoa: Pessoa, valor: number): boolean {
+    constructor(tag: string, propNome: string) {
+        super(tag, null, propNome, true, false, false, true);
+    }
+
+    Run(pessoa: Pessoa): boolean {
+        let valor = this.valor.toString();
+
+        if (valor.indexOf(" ") >= 0) {
+            valor = valor.split(" ").pop();
+        }
+
+        valor = valor.trim().toLowerCase();
+        valor = valor.replace(",", ".");
+        let valorFloat = Number.parseFloat(valor);
+
         let propValor: string = pessoa[this.propNome];
         if (!propValor) {
             return false;
@@ -279,21 +461,27 @@ export class MedidaMenorQue extends TagFiltro implements ITagFiltro {
 
         let propValorFloat = Number.parseFloat(propValor);
 
-        return propValorFloat < valor;
+        return propValorFloat < this.valor;
     }
 
 }
 
 export class TagBooleana extends TagFiltro implements ITagFiltro {
-    Run(pessoa: Pessoa, valor: boolean = this.valor): boolean {
-        valor = this.valor;
+
+    constructor(tag: string, valor: boolean, propNome: string) {
+        super(tag, valor, propNome, true);
+    }
+
+
+    Run(pessoa: Pessoa): boolean {
+        this.valor;
 
         let propValor: boolean = pessoa[this.propNome];
-        
+
         if (propValor == null) {
             return false;
         }
 
-        return valor === propValor;
+        return propValor === this.valor;
     }
 }

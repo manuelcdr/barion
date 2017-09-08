@@ -1,4 +1,5 @@
 import * as _tags from "./tags";
+import { pegaIdade } from "../global/helpers";
 
 export class Pessoa {
 
@@ -41,10 +42,12 @@ export class Pessoa {
     busto: string;
     sapato: string;
     idioma: string;
+    tatuagemAparente: boolean;
+    piercingAparente: boolean;
 
     // outros
     classificacao: string;
-    status: string = new _tags.TagsPadroesStatus().ativo;
+    status: string = _tags.TagsPadroesStatus.inativo;
     perfilFacebook: string;
     banco: string;
     agencia: string;
@@ -64,9 +67,21 @@ export class Pessoa {
     horariosDisponiveis_Tarde: boolean;
     horariosDisponiveis_Noite: boolean;
 
+    observacao: string;
+
     fotoRosto: string;
     fotoCorpo1: string;
     fotoCorpo2: string;
+
+    public get idade(): string {
+        console.log(this.dataNascimento);
+        let idade = pegaIdade(this.dataNascimento);
+
+        if (idade != undefined)
+            return idade.toString();
+
+        return undefined;
+    }
 
 }
 

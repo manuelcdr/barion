@@ -33,6 +33,9 @@
         public string Sapato { get; set; }
         public string Idioma { get; set; }
 
+        public bool TatuagemAparente { get; set; }
+        public bool PiercingAparente { get; set; }
+
         public string PerfilFacebook { get; set; }
 
         #region Habilitacao e Carro
@@ -65,5 +68,9 @@
         public string Banco { get; set; }
         public string Agencia { get; set; }
         public string Conta { get; set; }
+
+        public string Observacao { get; set; }
+
+        
     }
 }

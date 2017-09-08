@@ -6,9 +6,12 @@ import { Parceiro } from "./parceiro";
   name: 'filtroParceiros'
 })
 export class ParceirosPipe extends FiltroSimplesPipe<Parceiro> {
-  
+
   retornaTextoDeComparacaoDoObjeto(obj: Parceiro): string {
-    return obj.nome;
+    return obj.nome +
+      obj.cidade +
+      obj.estado +
+      obj.tipoAtividade;
   }
 
 }

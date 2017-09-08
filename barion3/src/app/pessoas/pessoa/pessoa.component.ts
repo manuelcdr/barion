@@ -4,9 +4,9 @@ import { PessoasService } from "../pessoas.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { default as cep } from 'cep-promise'
-import { ToolTip, AutoComplete } from "../../global/helpers";
+import { ToolTip, AutoComplete, transformaBytesEmKB } from "../../global/helpers";
 import { AppGlobals } from "../../global/global";
-import { TagsAdicionais, TagsPadroes } from "../tags";
+import { TagsPadroes } from "../tags";
 
 declare var Materialize: any;
 declare var $: any;
@@ -92,9 +92,48 @@ export class PessoaComponent implements OnInit {
     }
   }
 
-  mostrarFoto(uploader: HTMLInputElement, imgShow: HTMLImageElement) {
+  atualizarFoto(uploader: HTMLInputElement, imgShow: HTMLImageElement) {
     if (uploader.files && uploader.files[0]) {
       $(imgShow).attr('src', window.URL.createObjectURL(uploader.files[0]));
+    }
+  }
+
+  mudarFotoRosto(uploader: HTMLInputElement, imgShow: HTMLImageElement) {
+    if (uploader.files && uploader.files[0]) {
+      if (transformaBytesEmKB(uploader.files[0].size) > 200) {
+        ToolTip.showByElement(imgShow, 'A imagem deve ser menor que 200KB', 'right');
+        this.pessoa.fotoRosto = null;
+      }
+      else {
+        this.atualizarFoto(uploader, imgShow);
+      }
+
+    }
+  }
+
+  mudarFotoCorpo1(uploader: HTMLInputElement, imgShow: HTMLImageElement) {
+    if (uploader.files && uploader.files[0]) {
+      if (transformaBytesEmKB(uploader.files[0].size) > 200) {
+        ToolTip.showByElement(imgShow, 'A imagem deve ser menor que 200KB', 'right');
+        this.pessoa.fotoCorpo1 = null;
+      }
+      else {
+        this.atualizarFoto(uploader, imgShow);
+      }
+
+    }
+  }
+
+  mudarFotoCorpo2(uploader: HTMLInputElement, imgShow: HTMLImageElement) {
+    if (uploader.files && uploader.files[0]) {
+      if (transformaBytesEmKB(uploader.files[0].size) > 200) {
+        ToolTip.showByElement(imgShow, 'A imagem deve ser menor que 200KB', 'right');
+        this.pessoa.fotoCorpo2 = null;
+      }
+      else {
+        this.atualizarFoto(uploader, imgShow);
+      }
+
     }
   }
 
@@ -111,10 +150,13 @@ export class PessoaComponent implements OnInit {
           this.fotoRosto.nativeElement,
           this.fotoCorpo1.nativeElement,
           this.fotoCorpo2.nativeElement).subscribe(
-          retorno => {
-            console.log('imagens salvas');
-          },
-          erro => console.log(erro)
+          retFotos => console.log('imagens salvas'),
+          erro => console.log(erro),
+          () => {
+            if (retorno.success && retorno.method === 'POST') {
+              this.router.navigate(['/pessoas']);
+            }
+          }
           );
         console.log(retorno.msg);
       },
@@ -168,35 +210,6 @@ export class PessoaComponent implements OnInit {
       );
 
   }
-
-  // pegaPropsPessoas(pessoas: Pessoa[]): PessoasPropriedades[] {
-
-  //   var pessoasPropriedades = new Array<PessoasPropriedades>();
-
-  //   pessoas.forEach(pessoa => {
-  //     pessoasPropriedades.push(this.pegaPropsPessoa(pessoa))
-  //   })
-
-  //   return pessoasPropriedades;
-  // }
-
-  // pegaPropsPessoa(pessoa: Pessoa): PessoasPropriedades {
-  //   var props = new PessoasPropriedades();
-  //   props.id = pessoa.id;
-
-  //   for (let key of Object.keys(pessoa)) {
-  //     let valor = pessoa[key];
-  //     props.propriedades.push(valor);
-
-  //     let tagAdicional = new TagsAdicionais().dicionario.filter(t => t.tag.indexOf(valor) >= 0)[0];
-  //     if (tagAdicional)
-  //       props.propriedades.push(tagAdicional.);
-  //   }
-
-  //   return props;
-  // }
-
-
 
   preparaPropriedadesComNome(nome: string, propsComNome: PropriedadeComNome[]) {
     let props: string[] = new TagsPadroes().tagsPadroesPorNome(nome.toLowerCase());

@@ -22,18 +22,18 @@
             <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>CNPJ</th>
                     <th>Atividade</th>
                     <th>Cidade</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
 
             <tbody *ngFor="let parceiro of parceiros | filtroParceiros : filtro.value">
                 <tr class="hoverable" (click)="editar(parceiro)">
                     <td>{{parceiro.nome}}</td>
-                    <td>{{parceiro.cnpj}}</td>
                     <td>{{parceiro.tipoAtividade}}</td>
                     <td>{{parceiro.cidade}}</td>
+                    <td>{{parceiro.estado}}</td>
                 </tr>
             </tbody>
         </table>

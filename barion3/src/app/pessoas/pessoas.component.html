@@ -11,21 +11,18 @@
 
 <div class="container">
 
-  <div class="row">
+  <div class="row valign-wrapper">
 
 
     <div class="col s9">
       <div class="input-field">
         <i class="material-icons prefix">search</i>
-        <!-- <i class="material-icons left blue-grey-text text-lighten-3">search</i> -->
         <div class="chips chips-autocomplete"></div>
       </div>
-
-
     </div>
-    <!-- <input style="display: none" (change)="0" value="{{filtroTags}}" type="text"> -->
 
     <div class="col s3">
+      
       <div class="switch">
         <label>
           <input #vt (change)="mudaValidarTodos(vt.checked)" name="validar-todos" type="checkbox">
@@ -33,20 +30,16 @@
           combinar tags
         </label>
       </div>
-      <div class="switch">
+      
+      <!-- <div class="switch">
         <label>
           <input #ve (change)="mudaValoresExatos(ve.checked)" name="valores-exatos" type="checkbox">
           <span class="lever"></span>
           valores exatos
         </label>
-      </div>
+      </div> -->
+
     </div>
-
-
-    <!-- <div class="col s3 offset-s6 right-align">
-      <button (click)="abrirBuscaMedicas" class="btn-busca-medidas waves-effect waves-teal btn-flat blue-grey-text right-align"
-        type="button">refinar busca</button>
-    </div> -->
 
   </div>
 
@@ -54,9 +47,7 @@
 
 <div class="row">
   <div class="col s12 m2" *ngFor="let pessoa of pessoas | filtroPessoas : filtro">
-  <!-- <div class="col s12 m2" *ngFor="let pessoa of pessoas"> -->
     <app-pessoa-card [pessoaRef]="pessoa">
-
     </app-pessoa-card>
   </div>
 </div>

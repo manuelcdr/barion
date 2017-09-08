@@ -72,3 +72,50 @@ export class AutoComplete {
         return propriedadesModificadas;
     }
 }
+
+export function pegaIdade(dataString: string): number {
+
+    console.log('dataString: ' + dataString);
+
+    if (dataString == null || dataString == undefined || dataString.length <= 0) {
+        return undefined;
+    }
+
+    let splitData = dataString.split("/");
+    let ano = new Number(splitData[2]).valueOf();
+    let mes = new Number(splitData[1]).valueOf();
+    let dia = new Number(splitData[0]).valueOf();
+
+    var hoje = new Date();
+    var dataNascimento = new Date(ano, mes, dia);
+    var idade = hoje.getFullYear() - dataNascimento.getFullYear();
+    var m = hoje.getMonth() - dataNascimento.getMonth();
+    if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+        idade--;
+    }
+
+    console.log(idade);
+    return idade;
+}
+
+export function pegaTamanhoImagem(file) {
+    retornaTamanhoEmTexto(file.size);
+}
+
+export function retornaTamanhoEmTexto(number : number) {
+    if (number < 1024) {
+        return number + 'bytes';
+    } else if (number > 1024 && number < 1048576) {
+        return (number / 1024).toFixed(1) + 'KB';
+    } else if (number > 1048576) {
+        return (number / 1048576).toFixed(1) + 'MB';
+    }
+}
+
+export function transformaBytesEmKB(size : number) {
+        return (size / 1024);
+}
+
+export function transformaBytesEmMB(size : number) {
+    return (size / 1048576);
+}

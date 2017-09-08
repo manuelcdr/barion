@@ -23,8 +23,8 @@
           <img #imgFotoRosto class="foto materialboxed" [attr.src]="pessoa && pessoa.fotoRosto ? 'http://localhost:4500/api/pessoas/image/' + pessoa.fotoRosto : 'assets/images/no-image.jpg'"
             data-caption="foto de rosto">
           <button (click)="fotoRosto.click()" class="btn-foto waves-effect waves-teal btn-flat blue-grey-text" type="button">alterar foto de rosto</button>
-          <input #fotoRosto [(ngModel)]="pessoa.fotoRosto" (change)="mostrarFoto(fotoRosto, imgFotoRosto)" style="display: none" type="file"
-            name="fotoRosto">
+          <input #fotoRosto [(ngModel)]="pessoa.fotoRosto" (change)="mudarFotoRosto(fotoRosto, imgFotoRosto)" style="display: none"
+            type="file" name="fotoRosto" accept="image/*">
         </div>
       </div>
 
@@ -33,8 +33,8 @@
           <img #imgFotoCorpo1 class="foto materialboxed" [attr.src]="pessoa && pessoa.fotoCorpo1 ? 'http://localhost:4500/api/pessoas/image/' + pessoa.fotoCorpo1 : 'assets/images/no-image.jpg'"
             data-caption="foto de corpo 1">
           <button (click)="fotoCorpo1.click()" class="btn-foto waves-effect waves-teal btn-flat blue-grey-text" type="button">alterar foto de corpo 1</button>
-          <input #fotoCorpo1 [(ngModel)]="pessoa.fotoCorpo1" (change)="mostrarFoto(fotoCorpo1, imgFotoCorpo1)" style="display: none"
-            type="file" name="fotoCorpo1">
+          <input #fotoCorpo1 [(ngModel)]="pessoa.fotoCorpo1" (change)="mudarFotoCorpo1(fotoCorpo1, imgFotoCorpo1)" style="display: none"
+            type="file" name="fotoCorpo1" accept="image/*">
         </div>
       </div>
 
@@ -43,8 +43,8 @@
           <img #imgFotoCorpo2 class="foto materialboxed" [attr.src]="pessoa && pessoa.fotoCorpo2 ? 'http://localhost:4500/api/pessoas/image/' + pessoa.fotoCorpo2 : 'assets/images/no-image.jpg'"
             data-caption="foto de corpo 2">
           <button (click)="fotoCorpo2.click()" class="btn-foto waves-effect waves-teal btn-flat blue-grey-text" type="button">alterar foto de corpo 2</button>
-          <input #fotoCorpo2 [(ngModel)]="pessoa.fotoCorpo2" (change)="mostrarFoto(fotoCorpo2, imgFotoCorpo2)" style="display: none"
-            type="file" name="fotoCorpo2">
+          <input #fotoCorpo2 [(ngModel)]="pessoa.fotoCorpo2" (change)="mudarFotoCorpo2(fotoCorpo2, imgFotoCorpo2)" style="display: none"
+            type="file" name="fotoCorpo2" accept="image/*">
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
 
           <div class="input-field col s4">
             <input [(ngModel)]="pessoa.nacionalidade" id="nacionalidade" name="nacionalidade" class="validate autocomplete" type="text">
-            <label for="nacionalidade">Nascionalidade</label>
+            <label for="nacionalidade">Nacionalidade</label>
           </div>
 
           <div class="input-field col s4">
@@ -179,54 +179,78 @@
         </div>
         <div id="tab-caracteristicas" class="col s12">
           <div class="row">
-            <div class='input-field col s4'>
-              <input [(ngModel)]='pessoa.etnia' id='etnia' name='etnia' class='validate autocomplete' type='text'>
-              <label for='etnia'>Etnia</label>
+
+            <div class="row">
+
+              <div class='input-field col s4'>
+                <input [(ngModel)]='pessoa.etnia' id='etnia' name='etnia' class='validate autocomplete' type='text'>
+                <label for='etnia'>Etnia</label>
+              </div>
+
+              <div class='input-field col s4'>
+                <input [(ngModel)]='pessoa.olhos' id='olhos' name='olhos' class='validate autocomplete' type='text'>
+                <label for='olhos'>Olhos</label>
+              </div>
+
+              <div class='input-field col s4'>
+                <input [(ngModel)]='pessoa.cabelo' id='cabelo' name='cabelo' class='validate autocomplete' type='text'>
+                <label for='cabelo'>Cabelo</label>
+              </div>
+
             </div>
 
-            <div class='input-field col s4'>
-              <input [(ngModel)]='pessoa.olhos' id='olhos' name='olhos' class='validate autocomplete' type='text'>
-              <label for='olhos'>Olhos</label>
+            <div class="row valign-wrapper">
+
+              <div class="input-field col s4">
+                <input [(ngModel)]="pessoa.sexo" id="sexo" name="sexo" class="validate autocomplete" type="text">
+                <label for="sexo">Sexo</label>
+              </div>
+
+              <div class="col s4">
+                <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.tatuagemAparente" id="tatuagemAparente" name="tatuagemAparente"
+                />
+                <label for="tatuagemAparente">Tatuagem aparente</label>
+              </div>
+
+              <div class="col s4">
+                <input type="checkbox" class="filled-in" [(ngModel)]="pessoa.piercingAparente" id="piercingAparente" name="piercingAparente"
+                />
+                <label for="piercingAparente">Piercing aparente</label>
+              </div>
+
             </div>
 
-            <div class='input-field col s4'>
-              <input [(ngModel)]='pessoa.cabelo' id='cabelo' name='cabelo' class='validate autocomplete' type='text'>
-              <label for='cabelo'>Cabelo</label>
-            </div>
+            <div class="row">
+              <div class="input-field col s2">
+                <input [(ngModel)]="pessoa.altura" id="altura" name="altura" class="validate autocomplete" type="text">
+                <label for="altura">Altura</label>
+              </div>
 
-            <div class="input-field col s4">
-              <input [(ngModel)]="pessoa.sexo" id="sexo" name="sexo" class="validate autocomplete" type="text">
-              <label for="sexo">Sexo</label>
-            </div>
+              <div class="input-field col s2">
+                <input [(ngModel)]="pessoa.manequim" id="manequim" name="manequim" class="validate autocomplete" type="text">
+                <label for="manequim">Manequim</label>
+              </div>
 
-            <div class="input-field col s2">
-              <input [(ngModel)]="pessoa.altura" id="altura" name="altura" class="validate autocomplete" type="text">
-              <label for="altura">Altura</label>
-            </div>
+              <div class='input-field col s2'>
+                <input [(ngModel)]='pessoa.cintura' id='cintura' name='cintura' class='validate autocomplete' type='text'>
+                <label for='cintura'>Cintura</label>
+              </div>
 
-            <div class="input-field col s2">
-              <input [(ngModel)]="pessoa.manequim" id="manequim" name="manequim" class="validate autocomplete" type="text">
-              <label for="manequim">Manequim</label>
-            </div>
+              <div class='input-field col s2'>
+                <input [(ngModel)]='pessoa.quadril' id='quadril' name='quadril' class='validate autocomplete' type='text'>
+                <label for='quadril'>Quadril</label>
+              </div>
 
-            <div class='input-field col s2'>
-              <input [(ngModel)]='pessoa.cintura' id='cintura' name='cintura' class='validate autocomplete' type='text'>
-              <label for='cintura'>Cintura</label>
-            </div>
+              <div class='input-field col s2'>
+                <input [(ngModel)]='pessoa.busto' id='busto' name='busto' class='validate autocomplete' type='text'>
+                <label for='busto'>Busto</label>
+              </div>
 
-            <div class='input-field col s2'>
-              <input [(ngModel)]='pessoa.quadril' id='quadril' name='quadril' class='validate autocomplete' type='text'>
-              <label for='quadril'>Quadril</label>
-            </div>
+              <div class='input-field col s2'>
+                <input [(ngModel)]='pessoa.sapato' id='sapato' name='sapato' class='validate autocomplete' type='text'>
+                <label for='sapato'>Sapato</label>
+              </div>
 
-            <div class='input-field col s2'>
-              <input [(ngModel)]='pessoa.busto' id='busto' name='busto' class='validate autocomplete' type='text'>
-              <label for='busto'>Busto</label>
-            </div>
-
-            <div class='input-field col s2'>
-              <input [(ngModel)]='pessoa.sapato' id='sapato' name='sapato' class='validate autocomplete' type='text'>
-              <label for='sapato'>Sapato</label>
             </div>
 
 
@@ -254,8 +278,6 @@
             </div>
           </div>
 
-          <br>
-
           <div class="row">
             <div class="col s4 center-align">
               <label>Horários disposíveis</label>
@@ -277,8 +299,6 @@
               <label for="horariosDisponiveis_Noite">Noite</label>
             </div>
           </div>
-
-          <br>
 
           <div class="row valign-wrapper">
             <div class="col s4">
@@ -319,8 +339,6 @@
 
           </div>
 
-          <br>
-
           <div class="row">
 
             <div class='input-field col s6'>
@@ -331,6 +349,11 @@
             <div class='input-field col s6'>
               <input [(ngModel)]='pessoa.classificacao' id='classificacao' name='classificacao' class='validate autocomplete' type='text'>
               <label for='classificacao'>Classificacao</label>
+            </div>
+
+            <div class='input-field col s12'>
+              <textarea [(ngModel)]='pessoa.observacao' id='observacao' name='observacao' class='validate materialize-textarea'></textarea>
+              <label for='observacao'>Observação</label>
             </div>
 
           </div>

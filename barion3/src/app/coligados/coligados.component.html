@@ -23,16 +23,16 @@
             <thead>
                 <tr>
                     <th>Nome</th>
-                    <th>CNPJ</th>
                     <th>Cidade</th>
+                    <th>Estado</th>
                 </tr>
             </thead>
 
             <tbody *ngFor="let coligado of coligados | filtroColigados : filtro.value">
                 <tr class="hoverable" (click)="editar(coligado)">
                     <td>{{coligado.nome}}</td>
-                    <td>{{coligado.cnpj}}</td>
                     <td>{{coligado.cidade}}</td>
+                    <td>{{coligado.estado}}</td>
                 </tr>
             </tbody>
         </table>

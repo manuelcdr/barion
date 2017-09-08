@@ -10,7 +10,7 @@ export class PessoasPipe implements PipeTransform {
     transform(pessoas: Pessoa[], filtro: PessoaFiltro) {
 
         if (filtro.filtros.length <= 0)
-            return pessoas;
+            return new Array<Pessoa>();
 
         let ids: number[] = [];
 
@@ -27,18 +27,11 @@ export class PessoasPipe implements PipeTransform {
                 let temNaPessoa = false;
 
                 if (combinaProxFiltro) {
-                    let valor = (<string>tagFiltro.valor);
+                    console.log('combinou');
+                    console.log(tagFiltro.valor);
+                    tagRef.valor = tagFiltro.valor;
 
-                    if (valor.indexOf(" ") >= 0) {
-                        valor = valor.split(" ").pop();
-                    }
-
-                    valor = valor.trim().toLowerCase();
-                    valor = valor.replace(",", ".");
-
-                    let valorFloat = Number.parseFloat(valor);
-
-                    if (tagRef.Run(pessoa, valorFloat)) {
+                    if (tagRef.Run(pessoa)) {
                         temNaPessoa = true;
                     }
 
@@ -47,72 +40,14 @@ export class PessoasPipe implements PipeTransform {
                 }
 
                 else if (tagFiltro.combinaProximoFiltro) {
+                    console.log('combina');
                     combinaProxFiltro = true;
                     tagRef = tagFiltro;
                 }
-                
-                else if (tagFiltro.inteligente) {
-                    if (tagFiltro.Run(pessoa, null)) {
-                        temNaPessoa = true;
-                    }
-                }
-
-                else if (tagFiltro.adicional) {
-                    let tagValores = tagFiltro.valor;
-                    let propValPessoa = pessoa[tagFiltro.propNome.trim().toLowerCase()];
-                    if (propValPessoa) {
-                        propValPessoa = propValPessoa.trim().toLowerCase();
-
-                        for (let tagValor of tagValores) {
-                            tagValor = tagValor.trim().toLowerCase();
-                            if (filtro.valoresExatos) {
-                                if (tagValor === propValPessoa) {
-                                    temNaPessoa = true;
-                                }
-                            } else {
-                                if (propValPessoa.indexOf(tagValor) >= 0)
-                                    temNaPessoa = true;
-                            }
-                        }
-                    }
-                }
-
-                else if (tagFiltro.geral) {
-                    let tagValor = tagFiltro.valor.trim().toLowerCase();
-                    for (let prop of Object.keys(pessoa)) {
-                        let propValPessoa = pessoa[prop];
-
-                        if (propValPessoa && typeof propValPessoa === 'string') {
-                            propValPessoa = propValPessoa.trim().toLowerCase();
-
-                            if (filtro.valoresExatos) {
-                                if (tagValor === propValPessoa) {
-                                    temNaPessoa = true;
-                                }
-                            } else {
-                                if (propValPessoa.indexOf(tagValor) >= 0)
-                                    temNaPessoa = true;
-                            }
-                        }
-                    }
-                }
 
                 else {
-
-                    let tagValor = tagFiltro.valor.trim().toLowerCase();
-                    let propValPessoa = pessoa[tagFiltro.propNome.trim().toLowerCase()];
-
-                    if (propValPessoa) {
-                        propValPessoa = propValPessoa.trim().toLowerCase();
-
-                        if (filtro.valoresExatos) {
-                            if (tagValor === propValPessoa) {
-                                temNaPessoa = true;
-                            }
-                        } else {
-                            if (propValPessoa.indexOf(tagValor) >= 0)
-                                temNaPessoa = true;
-                        }
+                    if (tagFiltro.Run(pessoa)) {
+                        temNaPessoa = true;
                     }
                 }
 
