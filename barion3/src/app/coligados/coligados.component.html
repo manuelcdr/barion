@@ -17,32 +17,48 @@
         </div>
     </div>
 
-    <div *ngIf="coligados.length > 0" class="row">
+    <div *ngIf="coligados != null && coligados.length > 0" class="row">
 
-        <table class="coligados bordered highlight">
+        <div *ngIf="(coligados | filtroColigados : filtro.value).length === 0">
+            A busca não retornou resultados
+        </div>
+
+        <table *ngIf="(coligados | filtroColigados : filtro.value).length > 0" class="coligados bordered highlight">
             <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Cidade</th>
                     <th>Estado</th>
+                    <th class="table-th-remover-icon"></th>
                 </tr>
             </thead>
 
             <tbody *ngFor="let coligado of coligados | filtroColigados : filtro.value">
-                <tr class="hoverable" (click)="editar(coligado)">
-                    <td>{{coligado.nome}}</td>
-                    <td>{{coligado.cidade}}</td>
-                    <td>{{coligado.estado}}</td>
+                <tr class="">
+                    <td (click)="editar(coligado)">{{coligado.nome}}</td>
+                    <td (click)="editar(coligado)">{{coligado.cidade}}</td>
+                    <td (click)="editar(coligado)">{{coligado.estado}}</td>
+                    <td><i (click)="remover(coligado)" class="remove-icon small red-text material-icons">clear</i></td>
                 </tr>
             </tbody>
         </table>
 
     </div>
 
-    <div *ngIf="coligados.length == 0" class="row">
-        <p>
-            Não há coligados cadastrados ou a busca não retornou resultado.
-        </p>
+    <div *ngIf="showLoaderPipe" class="loader-pipe valign-wrapper center-align">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

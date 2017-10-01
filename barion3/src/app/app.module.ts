@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
+import { APP_BASE_HREF } from '@angular/common';
 
 import { routing } from './app.routes';
 import { AppComponent } from './app.component';
@@ -33,7 +34,8 @@ import { AppGlobals } from "./global/global";
     ColigadosModule,
     ParceirosModule
   ],
-  providers: [LoginService, AppGlobals],
+  providers: [LoginService, AppGlobals,
+    { provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

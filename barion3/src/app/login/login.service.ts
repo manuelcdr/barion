@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { Observable } from "rxjs";
 import { HttpResponseMessage } from "../global/http.service";
+import { AppGlobals } from "../global/global";
 
 @Injectable()
 export class LoginService {
@@ -10,11 +11,11 @@ export class LoginService {
   headers: Headers;
   url: string;
 
-  constructor(http: Http) {
+  constructor(http: Http, globals: AppGlobals) {
     this.http = http;
     this.headers = new Headers();
     this.headers.append('Content-type', 'application/json');
-    this.url = 'http://localhost:4500/auth/login';
+    this.url = globals.urlLogin;
   }
 
   login(login: string, senha : string) : Observable<HttpResponseMessage> {

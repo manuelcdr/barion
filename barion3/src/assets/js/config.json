@@ -1,0 +1,9 @@
+{
+    "api" : {
+        "contentType" : "application/json",
+        "url" : "http://localhost:333",
+        "urlApi" : "http://localhost:333/api",
+        "urlAuthentication" : "http://localhost:333/auth/login"
+    },
+    "loginAutomatico" : true
+}

@@ -3,7 +3,7 @@ import { Parceiro } from "../parceiro";
 import { ParceirosService } from "../parceiros.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import cep from "cep-promise";
-import { ToolTip } from "../../global/helpers";
+import { ToolTip, Loader } from "../../global/helpers";
 import { AppGlobals } from "../../global/global";
 
 declare var Materialize : any;
@@ -79,6 +79,8 @@ export class ParceiroComponent implements OnInit {
   onSubmit(form) {
     console.log('onSubmit');
 
+    Loader.show();
+
     this.service
       .atualizaCadastra(this.parceiro)
       .subscribe(
@@ -90,7 +92,8 @@ export class ParceiroComponent implements OnInit {
       },
       erro => {
         console.log(erro);
-      }
+      },
+      () => Loader.hide()
       );
 
     console.log('cadastrei');

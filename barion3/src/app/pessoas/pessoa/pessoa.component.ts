@@ -4,7 +4,7 @@ import { PessoasService } from "../pessoas.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { NgForm } from "@angular/forms";
 import { default as cep } from 'cep-promise'
-import { ToolTip, AutoComplete, transformaBytesEmKB } from "../../global/helpers";
+import { ToolTip, AutoComplete, transformaBytesEmKB, Loader } from "../../global/helpers";
 import { AppGlobals } from "../../global/global";
 import { TagsPadroes } from "../tags";
 
@@ -29,10 +29,13 @@ export class PessoaComponent implements OnInit {
   @ViewChild('fotoCorpo1') fotoCorpo1: ElementRef;
   @ViewChild('fotoCorpo2') fotoCorpo2: ElementRef;
 
+  urlImage : string;
+
   constructor(service: PessoasService, route: ActivatedRoute, router: Router, globals: AppGlobals) {
     this.service = service;
     this.route = route;
     this.router = router;
+    this.urlImage = globals.urlApi + "/pessoas/image/";
 
     if (!globals.isUserLoggedIn.getValue())
       router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url } });
@@ -138,6 +141,9 @@ export class PessoaComponent implements OnInit {
   }
 
   onSubmit(event: any) {
+
+    Loader.show();
+
     this.service
       .atualizaCadastra(this.pessoa)
       .subscribe(
@@ -153,6 +159,7 @@ export class PessoaComponent implements OnInit {
           retFotos => console.log('imagens salvas'),
           erro => console.log(erro),
           () => {
+            Loader.hide();
             if (retorno.success && retorno.method === 'POST') {
               this.router.navigate(['/pessoas']);
             }
@@ -161,6 +168,8 @@ export class PessoaComponent implements OnInit {
         console.log(retorno.msg);
       },
       erro => {
+        Loader.hide();
+        Materialize.toast('Ocorreu um erro ao tentar salvar as alterações.', 5000);
         console.log(erro);
       }
       );

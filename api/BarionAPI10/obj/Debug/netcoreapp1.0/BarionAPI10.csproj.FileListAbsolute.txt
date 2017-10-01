@@ -1,0 +1,9 @@
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\bin\Debug\netcoreapp1.0\BarionAPI10.deps.json
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\bin\Debug\netcoreapp1.0\BarionAPI10.runtimeconfig.json
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\bin\Debug\netcoreapp1.0\BarionAPI10.runtimeconfig.dev.json
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\bin\Debug\netcoreapp1.0\BarionAPI10.dll
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\obj\Debug\netcoreapp1.0\BarionAPI10.csprojResolveAssemblyReference.cache
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\obj\Debug\netcoreapp1.0\BarionAPI10.AssemblyInfo.cs
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\bin\Debug\netcoreapp1.0\BarionAPI10.pdb
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\obj\Debug\netcoreapp1.0\BarionAPI10.dll
+c:\users\manue\documents\visual studio 2017\Projects\BarionAPI10\obj\Debug\netcoreapp1.0\BarionAPI10.pdb

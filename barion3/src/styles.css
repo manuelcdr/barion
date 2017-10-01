@@ -7,6 +7,10 @@ flex-direction: column;
 background-color: #f0f0f0
 }
 
+p, p::after {
+    background-color: #f0f0f0
+}
+
 main {
 flex: 1 0 auto;
 }
@@ -60,4 +64,44 @@ nav.segundo-navegador a::before {
     -moz-osx-font-smoothing: grayscale;
   }
 
+
+  .loader {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f0f0f0;
+    opacity: .8;
+  }
+
+  .loader-pipe {
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f0f0f0;
+    opacity: .8;
+  }
+
+  .preloader-wrapper {
+    position: relative;
+    left: calc(50% - 32px);
+  }
+
+  .table-th-remover-icon {
+      width: 30px;
+  }
+
+  .remove-icon {
+    transition: .3s;
+  }
+
+  .remove-icon:hover {
+    -ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Chrome, Safari, Opera */
+    transform: scale(1.2);
+  }
   /* -------------------------------------------------------- */

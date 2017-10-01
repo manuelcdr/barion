@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from "@angular/router";
 import { AppGlobals } from "../global/global";
 import { LoginService } from "./login.service";
+import { Loader } from "../global/helpers";
 
 declare var Materialize: any;
 declare var $: any;
@@ -35,6 +36,9 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(event: any) {
+
+    Loader.show();
+
     this.service
       .login(this.login, this.senha)
       .subscribe(
@@ -42,7 +46,12 @@ export class LoginComponent implements OnInit {
         this.globals.setLoginStatus(true);
         this.router.navigateByUrl(this.returnUrl);
       },
-      erro => Materialize.toast("Login ou Senha incorretos", 5000)
+      erro => {
+        console.log(erro);
+        Loader.hide();
+        Materialize.toast("Login ou Senha incorretos", 5000);
+      },
+      () => Loader.hide()
       );
   }
 

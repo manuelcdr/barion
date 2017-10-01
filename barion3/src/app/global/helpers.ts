@@ -35,6 +35,25 @@ export class Dictionary<TKey, TValue> {
     }
 }
 
+export class Loader {
+
+    static showPipeLoader() {
+        $('#loader-pipe').show();
+    }
+
+    static hidePipeLoader() {
+        $('#loader-pipe').hide();
+    }
+
+    static show() {
+        $('#loader').show();
+    }
+
+    static hide() {
+        $('#loader').hide();
+    }
+}
+
 export class ToolTip {
 
     static showByElement(el: Element, tooltip: string, position: string, time: number = 3000) {

@@ -41,20 +41,21 @@ export class PessoasComponent implements OnInit {
       .subscribe(
       retornoPessoas => {
         this.pessoas = retornoPessoas;
-        this.service.buscaPropriedades()
-          .subscribe(
-          retornoProps => {
-            this.preparaTagFiltros(retornoPessoas, retornoProps.porNome);
-            this.preparaChip();
-          },
-          erro => console.log(erro)
-          );
       },
       error => console.log(error)
       );
+
+    this.service.buscaPropriedades()
+      .subscribe(
+      retornoProps => {
+        this.preparaTagFiltros(retornoProps.porNome);
+        this.preparaChip();
+      },
+      erro => console.log(erro)
+      );
   }
 
-  private preparaTagFiltros(pessoas: Pessoa[], props: PropriedadeComNome[]) {
+  private preparaTagFiltros(props: PropriedadeComNome[]) {
 
     let construtor = new ConstrutorDeTag();
 

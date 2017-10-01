@@ -15,6 +15,7 @@ export class ParceirosComponent implements OnInit {
   router: Router;
 
   parceiros : Parceiro[] = [];
+  showLoaderPipe : boolean = false;
 
   constructor(service : ParceirosService, router: Router, globals : AppGlobals) { 
     this.service = service;
@@ -23,13 +24,16 @@ export class ParceirosComponent implements OnInit {
     if (!globals.isUserLoggedIn.getValue())
       router.navigate(["/login"], { queryParams: { returnUrl: router.routerState.snapshot.url }});
 
+    this.showLoaderPipe = true;
+
     service.todos().subscribe(
       lista => {
         this.parceiros = lista;
       },
       erro => {
         console.log(erro);
-      }
+      },
+      () => this.showLoaderPipe = false
     );
 
   }
@@ -39,6 +43,27 @@ export class ParceirosComponent implements OnInit {
 
   editar(parceiro : Parceiro) {
     this.router.navigate(['/parceiros/' + parceiro.id])
+  }
+
+  remover(parceiro: Parceiro) {
+    this.parceiros = null;
+    this.showLoaderPipe = true;
+
+    this.service.remove(parceiro.id.toString()).subscribe(
+      retorno => {
+        this.service.todos().subscribe(
+          lista => {
+            this.parceiros = lista;
+          },
+          erro => {
+            console.log(erro);
+          },
+          () => this.showLoaderPipe = false
+        );
+      },
+      erro => console.log(erro),
+      () => this.showLoaderPipe = false
+    );
   }
 
 }

@@ -1,0 +1,13 @@
+{
+    "tagsInteligentes" : {
+        "idade" : "Calcula a idade automaticamente pela data de nascimento. Após a tag, informe o valor da idade (ex: 27).",
+        "(medida) maior que" : "utilize qualquer medida, junto das palavras 'maior que' (ex: Altura maior que). Após a tag informe o valor da medida (ex: 1,70)."
+    },
+    "tagsGeral" : {
+        "Tags de todos os campos" : "Digite um valor não existente nas tags, o valor digitado será buscado em todas as informações da pessoa."
+    },
+    "tagsPropriedades" : {
+        "Tags de propriedades" : "Escolha um valor já existente nas tags (ex: São Paulo. A busca será feita diretamente para todas as pessoas que moram na cidade de São Paulo)."
+
+    }
+}

@@ -1,9 +1,0 @@
-<div class="input-field col s{{col}} {{classesContainer}}">
-  <i *ngIf="icon" class="material-icons prefix">{{icon}}</i>
-  <input [placeholder]="placeholder" [id]="nome" [type]="tipo" [class]="classes">
-  <label 
-    [for]="nome"
-    [class]="labelAtivada ? 'active' : ' '"
-    attr.data-error="{{msgErro}}" 
-    attr.data-success="{{msgSucesso}}">{{label}}</label>
-</div>

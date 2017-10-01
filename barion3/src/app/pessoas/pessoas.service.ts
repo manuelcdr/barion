@@ -1,14 +1,15 @@
-import { Http } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpService, HttpResponseMessage } from "../global/http.service";
 import { Pessoa, PropriedadeComNome } from "./pessoa";
+import { AppGlobals } from "../global/global";
 
 @Injectable()
 export class PessoasService extends HttpService<Pessoa> {
 
-  constructor(http: Http) {
-    super(http, '/pessoas');
+  constructor(http: Http, globals: AppGlobals) {
+    super(http, '/pessoas', globals);
   }
 
   salvarImagens(id: number, fotoRosto: any = null, fotoCorpo1: any = null, fotoCorpo2: any = null): Observable<HttpResponseMessage> {
@@ -29,9 +30,11 @@ export class PessoasService extends HttpService<Pessoa> {
 
     let url = `${this.url}/${id.toString()}/images`;
 
-    return this.http
-      .post(url, formData)
+    let returnHttp =  this.http
+      .post(url, formData, { headers : new Headers() })
       .map(retorno => new HttpResponseMessage('Fotos salvas com sucesso', true, 'POST', { retorno }));
+    
+      return returnHttp;
   }
 
   private montaFileName(file: File, fileNameComplemento: string): string {

@@ -2,18 +2,25 @@ import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 
+import * as configJson from 'assets/js/config.json';
+import { AppGlobals } from "./global";
+import { Loader } from "./helpers";
+let config = (<any>configJson);
+
 @Injectable()
 export class HttpService<T> implements IHttpService<T> {
   
   http: Http;
   headers: Headers;
   url: string;
+  globals : AppGlobals;
 
-  constructor(http: Http, url: string = '') {
+  constructor(http: Http, url: string = '', globals: AppGlobals) {
     this.http = http;
     this.headers = new Headers();
     this.headers.append('Content-type', 'application/json');
-    this.url = 'http://localhost:4500/api' + url;
+    this.globals = globals;
+    this.url = globals.urlApi + url;
   }
 
   buscaPorId(id: string): Observable<T> {

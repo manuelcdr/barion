@@ -6,7 +6,8 @@
         </div>
     </div>
 </nav>
-<br><br>
+<br>
+
 <div class="container">
     <div class="row">
         <div class="input-field col s12">
@@ -16,34 +17,50 @@
         </div>
     </div>
 
-    <div *ngIf="parceiros.length > 0" class="row">
+    <div *ngIf="parceiros != null && parceiros.length > 0" class="row">
 
-        <table class="parceiros bordered highlight">
+        <div *ngIf="(parceiros | filtroParceiros : filtro.value).length === 0">
+            A busca não retornou resultados
+        </div>
+
+        <table *ngIf="(parceiros | filtroParceiros : filtro.value).length > 0" class="parceiros bordered highlight">
             <thead>
                 <tr>
                     <th>Nome</th>
                     <th>Atividade</th>
                     <th>Cidade</th>
                     <th>Estado</th>
+                    <th class="table-th-remover-icon"></th>
                 </tr>
             </thead>
 
             <tbody *ngFor="let parceiro of parceiros | filtroParceiros : filtro.value">
-                <tr class="hoverable" (click)="editar(parceiro)">
-                    <td>{{parceiro.nome}}</td>
-                    <td>{{parceiro.tipoAtividade}}</td>
-                    <td>{{parceiro.cidade}}</td>
-                    <td>{{parceiro.estado}}</td>
+                <tr class="" >
+                    <td (click)="editar(parceiro)">{{parceiro.nome}}</td>
+                    <td (click)="editar(parceiro)">{{parceiro.tipoAtividade}}</td>
+                    <td (click)="editar(parceiro)">{{parceiro.cidade}}</td>
+                    <td (click)="editar(parceiro)">{{parceiro.estado}}</td>
+                    <td><i (click)="remover(parceiro)" class="remove-icon small red-text material-icons">clear</i></td>
                 </tr>
             </tbody>
         </table>
 
     </div>
 
-    <div *ngIf="parceiros.length == 0" class="row">
-        <p>
-            Não há parceiros cadastrados ou a busca não retornou resultado.
-        </p>
+    <div *ngIf="showLoaderPipe" class="loader-pipe valign-wrapper center-align">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

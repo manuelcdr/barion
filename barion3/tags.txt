@@ -1,0 +1,67 @@
+----- Tags Inteligentes -----
+
+-- Tags de  multiplos valores.
+-- Quando selecionar uma dessas tags, ela representa os valores abaixo dela.
+
+olhos claros
+    azuis,
+    verdes,
+    castanhosClaros
+
+olhos escuros
+    castanhosEscuros
+    pretos
+
+cabelos claros
+    loiro,
+    castanhoClaro,
+    ruivo
+
+cabelos escuros
+    castanhoEscuro,
+    preto
+
+
+-- Tags de medidas.
+-- Instrução: selecionar Tag e incluir o valor da medida após a Tag.
+-- ex: ( altura maior que )  ( 1,70 )
+
+altura maior que
+altura menor que
+manequim maior que
+manequim menor que
+cintura maior que
+cintura menor que
+quadril maior que 
+quadril menor que 
+busto maior que
+busto menor que
+sapato maior que
+sapato menor que
+
+-- Tags de idade
+
+Idade igual a
+Idade maior que
+Idade menor que
+
+
+-- Tags de verdadeiro ou falso
+-- ex: (Tem carro)  irá selecionar as pessoas que tem a opção Tem carro marcada.
+-- ex: (Piercing não aparente)  irá selecionar as pessoas que não tem Piercing aparente.
+
+Tem carro 
+Não tem carro
+Tem habilitação
+Não tem habilitação
+Habilitacao A
+Habilitacao B
+Habilitacao C
+Habilitacao D
+Disponível de manhã
+Disponível de tarde
+Disponível de noite
+Piercing aparente
+Tatuagem aparente
+Piercing não aparente
+Tatuagem não aparente
